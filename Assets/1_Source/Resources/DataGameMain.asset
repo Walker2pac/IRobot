@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e2ccf5ece6d3d4e9e5270cfa071f26, type: 3}
+  m_Name: DataGameMain
+  m_EditorClassIdentifier: 
+  maxSpeed: 20
+  playerStartSpeed: 10
+  startSpeedChangeDuration: 3
+  playerHealth: 100
+  rotationSharpness: 3
+  slideSensitivity: 1
+  roadWidth: 6
+  roadBounds: 0.5
+  partHealthUp: 10
+  barrierDamage: 15
+  bulletSpeed: 10
+  bulletLifeDuration: 3
+  pathAttachedObjectsMoving: 0
