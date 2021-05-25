@@ -42,8 +42,11 @@ namespace TeamAlpha.Source
         }
         [Header("Robot Levels")]
         public List<RobotLevelConnector> levels = new List<RobotLevelConnector>();
-        private int currentLevel = 0;
+        public int currentLevel = 0; //сделал пабликом
         #endregion
+
+        [Header("Details")]
+        public List<DetailScript> Details = new List<DetailScript>(); 
 
         private int health;
         private List<Image> levelMarks;
@@ -105,6 +108,7 @@ namespace TeamAlpha.Source
 
         private void CheckLevelUpdate() 
         {
+            
             int targetLevel = Mathf.Clamp(( health / (DataGameMain.Default.playerHealth / levels.Count ) - 1 ), 0, levels.Count - 1);
             if (targetLevel != currentLevel) 
             {
@@ -112,6 +116,15 @@ namespace TeamAlpha.Source
                 levels[currentLevel].Exit();
                 currentLevel = targetLevel;
                 levels[currentLevel].Setup(this);
+                for (int i = 0; i < Details.Count; i++)
+                {
+                    
+                    if (i == currentLevel - 1 && Details[i].DetailUsed==false)
+                    {
+                        Details[i].Docking();
+                       
+                    }
+                }
             }
             UpdateHealthBar();
         }
