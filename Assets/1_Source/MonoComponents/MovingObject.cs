@@ -21,6 +21,8 @@ namespace TeamAlpha.Source
         [SerializeField] private NamedAnimancerComponent animancer;
         [SerializeField, ShowIf("animancer"), Required] private AnimationClip animationRun;
         [SerializeField, ShowIf("@animancer != null"), Required] private AnimationClip animationIDLE;
+        [SerializeField, ShowIf("@animancer != null"), Required] private AnimationClip animationRunWithShield;
+        [SerializeField, ShowIf("@animancer != null"), Required] private AnimationClip animationRunOnWhell;
 
         [Header("Values")]
         [SerializeField] private float startSpeed;
@@ -28,6 +30,8 @@ namespace TeamAlpha.Source
         public float Speed { get => splineFollower.followSpeed; }
 
         private Tween speedChangeTween;
+
+        private int _currentRobotLevel;
 
         #region Lifecycle
         private void Start() 
@@ -38,10 +42,23 @@ namespace TeamAlpha.Source
 
         private void FixedUpdate()
         {
+            
             if (animancer != null) 
             {
-                if (Speed > 0f) animancer.Play(animationRun).Speed = (Speed / DataGameMain.Default.maxSpeed) * 2f;
-                else animancer.Play(animationIDLE, 0.2f);
+                if(FindObjectOfType<PlayerController>().currentLevel < 2)
+                {
+                    if (Speed > 0f) animancer.Play(animationRun).Speed = (Speed / DataGameMain.Default.maxSpeed) * 2f;
+                    else animancer.Play(animationIDLE, 0.2f);
+                }
+                
+                if (FindObjectOfType<PlayerController>().currentLevel == 2)
+                {
+                    animancer.Play(animationRunWithShield, 0.2f).Speed = (Speed / DataGameMain.Default.maxSpeed) * 2f;
+                }
+                if (FindObjectOfType<PlayerController>().currentLevel == 3)
+                {
+                    animancer.Play(animationRunOnWhell, 0.2f).Speed = (Speed / DataGameMain.Default.maxSpeed) * 2f;
+                }
             }
                 
         }

@@ -9,6 +9,8 @@ namespace TeamAlpha.Source
     {
         [SerializeField, AssetsOnly] protected Gun gunPrefab;
         [SerializeField] protected float shootingInterval;
+        [SerializeField] protected Transform shootingPosition;
+        
 
         private Gun gun;
 
@@ -38,7 +40,7 @@ namespace TeamAlpha.Source
         {
             GameObject gunObject = Instantiate(gunPrefab.gameObject);
             gunObject.transform.SetParent(_playerController.MovingObjectAccessor.model);
-            gunObject.transform.localPosition = new Vector3(0.5f, 0.5f, 0.5f);
+            gunObject.transform.localPosition = Vector3.one / 2;
             gunObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
             gun = gunObject.GetComponent<Gun>();
             gun.StartShoot(shootingInterval, _playerController.MovingObjectAccessor);
