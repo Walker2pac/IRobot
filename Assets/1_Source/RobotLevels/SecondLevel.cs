@@ -5,33 +5,46 @@ using Sirenix.OdinInspector;
 
 namespace TeamAlpha.Source
 {
-    public class SecondLevel : FirstLevel
+    public class SecondLevel : ThirdLevel
     {
         [SerializeField, AssetsOnly] protected Gun gunPrefab;
         [SerializeField] protected float shootingInterval;
         [SerializeField] protected Transform shootingPosition;
+        protected PlayerController _playerControllerDetails;
         
-
+ 
         private Gun gun;
+
+       
 
         public override void Setup(PlayerController playerController)
         {
+            base.Setup(playerController);
+            base.numberOfDamade = 0;
+            
+            
             _playerController = playerController;
+
+            FindObjectOfType<DetailScript>().Docking();
             SpawnGun();
+            
         }
 
         public override void ProcessDamagableObject(DamagableObject damagable)
         {
-            if (damagable.objectType == DamagableObject.Type.SoftBarrier)
+            /*if (damagable.objectType == DamagableObject.Type.SoftBarrier)
             {
                 damagable.NonDamagedReaction();
                 return;
             }
-            else base.ProcessDamagableObject(damagable);
+            else*/
+            base.ProcessDamagableObject(damagable);
         }
 
         public override void Exit()
         {
+           // _playerControllerDetails = FindObjectOfType<PlayerController>();
+           // _playerControllerDetails.Details[0].Breaking(); //hard
             Destroy(gun.gameObject);
         }
 
@@ -40,7 +53,7 @@ namespace TeamAlpha.Source
         {
             GameObject gunObject = Instantiate(gunPrefab.gameObject);
             gunObject.transform.SetParent(_playerController.MovingObjectAccessor.model);
-            gunObject.transform.localPosition = Vector3.one / 2;
+            gunObject.transform.localPosition = new Vector3(0.9f,2f,-0.45f);
             gunObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
             gun = gunObject.GetComponent<Gun>();
             gun.StartShoot(shootingInterval, _playerController.MovingObjectAccessor);

@@ -10,26 +10,29 @@ namespace TeamAlpha.Source
     {
         [SerializeField] private int shieldHealth;
         [SerializeField] private float shieldRecoveryDuration;
-        [Space]
+        /*[Space]
         [SerializeField] private Color shieldBarColorActive;
         [SerializeField] private Color shieldBarColorNonActive;
 
         private Tween shieldRecovery;
         private Slider shieldBar;
-        private Image shieldBarFillArea;
+        private Image shieldBarFillArea;*/
 
         private int currentShieldHealth;
+
+        
+        
 
         public bool IsActive { get; private set; }
 
         public void Init(Slider shieldBar, Image fill)
         {
             IsActive = true;
-            shieldBar.gameObject.SetActive(true);
+            /*shieldBar.gameObject.SetActive(true);
             shieldBarFillArea = fill;
             this.shieldBar = shieldBar;
             shieldBar.maxValue = shieldHealth;
-            shieldBar.value = shieldHealth;
+            shieldBar.value = shieldHealth;*/
             currentShieldHealth = shieldHealth;
         }
 
@@ -37,14 +40,16 @@ namespace TeamAlpha.Source
         {
             if (IsActive)
             {
-                currentShieldHealth -= DataGameMain.Default.barrierDamage;
-                shieldBar.value = currentShieldHealth;
+                Debug.Log("ShieldActive");
+                currentShieldHealth -= currentShieldHealth + 1;
+               // shieldBar.value = currentShieldHealth;
                 if (currentShieldHealth <= 0)
                 {
                     currentShieldHealth = 0;
                     ActiveShield(false);
+                    
 
-                    if (shieldRecovery != null)
+                    /*if (shieldRecovery != null)
                         shieldRecovery.Kill();
                     shieldRecovery = DOTween.To(
                         () => currentShieldHealth,
@@ -55,23 +60,27 @@ namespace TeamAlpha.Source
                             },
                         shieldHealth, shieldRecoveryDuration)
                         .SetTarget(this)
-                        .OnComplete(() => ActiveShield(true));
+                        .OnComplete(() => ActiveShield(true));*/
                 }
                 return true;
             }
             return false;
         }
 
+        
+
 
         private void ActiveShield(bool arg)
         {
             IsActive = arg;
-            shieldBarFillArea.color = arg ? shieldBarColorActive : shieldBarColorNonActive;
+            
+                        
+            //shieldBarFillArea.color = arg ? shieldBarColorActive : shieldBarColorNonActive;
         }
 
         public void Destroy() 
         {
-            shieldBar.gameObject.SetActive(false);
+            //shieldBar.gameObject.SetActive(false);
             Destroy(gameObject);
         }
     }

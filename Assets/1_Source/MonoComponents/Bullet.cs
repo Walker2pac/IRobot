@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
 
+
 namespace TeamAlpha.Source
 {
     public class Bullet : DamagableBody
     {
         [SerializeField, Required] private Rigidbody rigidBody;
+
+        
 
         private void Start()
         {

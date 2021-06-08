@@ -12,5 +12,6 @@ namespace TeamAlpha.Source
         public abstract void Setup(PlayerController playerController);
         public abstract void ProcessDamagableObject(DamagableObject damagable);
         public abstract void Exit();
+
     }
 }

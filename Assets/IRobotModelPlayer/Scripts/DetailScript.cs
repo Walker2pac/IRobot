@@ -14,15 +14,18 @@ public class DetailScript : MonoBehaviour
     public GameObject BrokeEffectsPrefab;
     [Header("Models")]
     public SkinnedMeshRenderer DetailMeshRenderer;
-    public GameObject DetealAdditionalModel;
+    public MeshRenderer GunModel;
+
+
+    public SkinnedMeshRenderer DetealAdditionalModel;
+    public MeshRenderer GunAdditionalModel;
 
     public bool DetailUsed = false;
 
 
     public void Docking()
     {
-        transform.DOMove(DockingTarget.position, 0.1f,false).OnComplete(() => CompleteDocking());
-        
+        transform.DOMove(DockingTarget.position, 0.25f,false).OnComplete(() => CompleteDocking());        
     }
 
     public void CompleteDocking()
@@ -30,13 +33,22 @@ public class DetailScript : MonoBehaviour
         DetailUsed = true;
         Instantiate(EffectsPrefab, TransformEffects);
         DetailMeshRenderer.enabled = true;
-        DetealAdditionalModel.SetActive(false);
+        GunModel.enabled = true;
+
+        DetealAdditionalModel.enabled = false;
+        GunAdditionalModel.enabled = false;
+        
+        
+
     }
     public void Breaking()
     {
         Instantiate(BrokeEffectsPrefab, TransformEffects);
         transform.DOJump(UndockingTarget.position, 2, 1, 1, false);
         DetailMeshRenderer.enabled = false;
-        DetealAdditionalModel.SetActive(true);
+        GunModel.enabled = false;
+
+        DetealAdditionalModel.enabled = true;
+        GunAdditionalModel.enabled = true;
     }
 }

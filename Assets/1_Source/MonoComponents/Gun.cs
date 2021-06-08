@@ -10,6 +10,7 @@ namespace TeamAlpha.Source
         [SerializeField] private Transform bulletSpawn;
         [SerializeField] private Transform model;
         [SerializeField, AssetsOnly] private Bullet bulletPrefab;
+  
 
         private MovingObject movingObject;
         private float shootingInterval;
@@ -37,3 +38,4 @@ namespace TeamAlpha.Source
         }
     }
 }
+/*(bulletSpawn.position - model.transform.position).normalized * bulletSpeed*/

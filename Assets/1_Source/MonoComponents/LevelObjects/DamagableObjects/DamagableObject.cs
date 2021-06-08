@@ -14,14 +14,29 @@ namespace TeamAlpha.Source
 
         private void OnTriggerEnter(Collider other)
         {
+
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
             {
-                PlayerController.Current.SendDamagableObject(this);
+                if (objectType == Type.HardBarrier)
+                {
+                    PlayerController.Current.SendDamagableObject(this);
+                    Debug.Log("HardBarrier");
+                }
+                if (objectType == Type.SoftBarrier)
+                {
+                    PlayerController.Current.SendDamagableObject(this);
+                    Debug.Log("SoftBarrier");
+                }
+                if (objectType == Type.Ammo)
+                {                    
+                    PlayerController.Current.SendDamagableObject(this);
+                    Debug.Log("Ammo");
+                }
             }
-            else if (other.gameObject.layer == DataGameMain.LayerEnemyRobot)
+           /* else if (other.gameObject.layer == DataGameMain.LayerEnemyRobot)
             {
-                other.gameObject.GetComponentInParent<EnemyRobot>().NonDamagedReaction();
-            }
+                other.gameObject.GetComponentInParent<EnemyRobot>().DamagedReaction();
+            }*/
         }
 
         public void DamagedReaction() => body.DamagedReaction();

@@ -19,54 +19,70 @@ namespace TeamAlpha.Source
 
         [Header("Animation")]
         [SerializeField] private NamedAnimancerComponent animancer;
-        [SerializeField, ShowIf("animancer"), Required] private AnimationClip animationRun;
+        public List<AnimationClip> RunStates = new List<AnimationClip>();
+        public int CurrentRunState;
+        /*[SerializeField, ShowIf("animancer"), Required] private AnimationClip animationRun;
         [SerializeField, ShowIf("@animancer != null"), Required] private AnimationClip animationIDLE;
-        [SerializeField, ShowIf("@animancer != null"), Required] private AnimationClip animationRunWithShield;
-        [SerializeField, ShowIf("@animancer != null"), Required] private AnimationClip animationRunOnWhell;
+        [SerializeField, ShowIf("@animancer != null"), Required] private AnimationClip animationRunWithShield;*/
+        //[SerializeField, ShowIf("@animancer != null"), Required] private AnimationClip animationRunOnWhell;
 
         [Header("Values")]
         [SerializeField] private float startSpeed;
 
-        public float Speed { get => splineFollower.followSpeed; }
-
+        public float Speed { get => splineFollower.followSpeed; }         
+        
+        
         private Tween speedChangeTween;
 
-        private int _currentRobotLevel;
 
         #region Lifecycle
-        private void Start() 
+        private void Start()
         {
             LayerDefault.Default.OnPlayStart +=
                 () => ChangeSpeed(startSpeed, DataGameMain.Default.startSpeedChangeDuration);
+            
         }
 
         private void FixedUpdate()
         {
-            
-            if (animancer != null) 
+            CheckRunState();
+
+            if (animancer != null)
             {
-                if(FindObjectOfType<PlayerController>().currentLevel < 2)
+                for (int i = 0; i < RunStates.Count; i++)
                 {
-                    if (Speed > 0f) animancer.Play(animationRun).Speed = (Speed / DataGameMain.Default.maxSpeed) * 2f;
-                    else animancer.Play(animationIDLE, 0.2f);
-                }
-                
-                if (FindObjectOfType<PlayerController>().currentLevel == 2)
-                {
-                    animancer.Play(animationRunWithShield, 0.2f).Speed = (Speed / DataGameMain.Default.maxSpeed) * 2f;
-                }
-                if (FindObjectOfType<PlayerController>().currentLevel == 3)
-                {
-                    animancer.Play(animationRunOnWhell, 0.2f).Speed = (Speed / DataGameMain.Default.maxSpeed) * 2f;
+                    if (Speed > 0)
+                    {
+                        if (i == CurrentRunState)
+                        {
+                            if (CurrentRunState == 4)
+                            {
+                                Debug.Log("speeed");
+                                
+
+
+                            }
+                            animancer.Play(RunStates[i]).Speed = (Speed / DataGameMain.Default.maxSpeed) * 2f;
+                        }
+                    }
+
+                    
+                    else animancer.Play(RunStates[0], 0.2f);
                 }
             }
-                
+        }
+        public void CheckRunState()
+        {
+
+            CurrentRunState = FindObjectOfType<PlayerController>().currentLevelAnim ;
+
+
         }
         #endregion
 
 
 
-        public void ChangeSpeed(float targetSpeed, float duration) 
+        public void ChangeSpeed(float targetSpeed, float duration)
         {
             if (speedChangeTween != null)
                 speedChangeTween.Kill();
@@ -78,9 +94,9 @@ namespace TeamAlpha.Source
                 .SetTarget(this);
         }
 
-        public void ChangeOffsetX(float deltaSlide) 
+        public void ChangeOffsetX(float deltaSlide)
         {
-            float roadWidth = DataGameMain.Default.roadWidth - DataGameMain.Default.roadBounds*2f;
+            float roadWidth = DataGameMain.Default.roadWidth - DataGameMain.Default.roadBounds * 2f;
             float deltaOffsetX = deltaSlide * roadWidth;
             Vector2 newOffset = splineFollower.motion.offset + new Vector2(deltaOffsetX, splineFollower.motion.offset.y);
             newOffset.x = Mathf.Clamp(newOffset.x, -(roadWidth / 2f), roadWidth / 2f);

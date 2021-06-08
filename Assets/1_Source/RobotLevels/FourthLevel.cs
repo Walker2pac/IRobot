@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace TeamAlpha.Source
 {
-    public class FourthLevel : ThirdLevel
+    public class FourthLevel : SecondLevel
     {
         [SerializeField] private float durabilityDuration;
 
@@ -13,7 +13,10 @@ namespace TeamAlpha.Source
         public override void Setup(PlayerController playerController)
         {
             base.Setup(playerController);
-            LayerDefault.Default.StartCoroutine(ActiveDurabilyty());
+            FindObjectOfType<WheelModel>().ActiveModeleWheel();
+            //LayerDefault.Default.StartCoroutine(ActiveDurabilyty());
+            //_playerControllerDetails = FindObjectOfType<PlayerController>();
+            //_playerControllerDetails.Details[2].Docking();
         }
 
         public override void ProcessDamagableObject(DamagableObject damagable)
@@ -22,11 +25,14 @@ namespace TeamAlpha.Source
                 damagable.NonDamagedReaction();
             else
                 base.ProcessDamagableObject(damagable);
+            FindObjectOfType<WheelModel>().UnactiveWheelModel();
         }
 
         public override void Exit()
         {
             base.Exit();
+           // _playerControllerDetails = FindObjectOfType<PlayerController>();
+            //_playerControllerDetails.Details[2].Breaking();
         }
 
         private IEnumerator ActiveDurabilyty() 

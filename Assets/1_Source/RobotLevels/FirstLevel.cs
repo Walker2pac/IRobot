@@ -13,7 +13,7 @@ namespace TeamAlpha.Source
 
         public override void ProcessDamagableObject(DamagableObject damagable)
         {
-            _playerController.SetProcessedDamage(DataGameMain.Default.barrierDamage);
+            _playerController.SetProcessedDamage(1);
             damagable.DamagedReaction();
         }
 

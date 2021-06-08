@@ -16,6 +16,9 @@ public class Wall : DamagableBody
             pos + 0.2f, 1f).SetTarget(this);
     }
 
+    
+
+
     public override void NonDamagedReaction() 
     {
         transform.DOScale(0f, 0.5f)
