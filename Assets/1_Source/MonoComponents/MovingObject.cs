@@ -57,7 +57,7 @@ namespace TeamAlpha.Source
                         {
                             if (CurrentRunState == 4)
                             {
-                                Debug.Log("speeed");
+                                splineFollower.followSpeed = 8;
                                 
 
 
@@ -84,14 +84,15 @@ namespace TeamAlpha.Source
 
         public void ChangeSpeed(float targetSpeed, float duration)
         {
-            if (speedChangeTween != null)
+            splineFollower.followSpeed = 8;
+            /*if (speedChangeTween != null)
                 speedChangeTween.Kill();
 
             speedChangeTween = DOTween.To(
                 () => splineFollower.followSpeed,
                 (float tweenSpeed) => splineFollower.followSpeed = tweenSpeed,
                 targetSpeed, duration)
-                .SetTarget(this);
+                .SetTarget(this);*/
         }
 
         public void ChangeOffsetX(float deltaSlide)

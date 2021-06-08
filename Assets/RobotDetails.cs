@@ -29,16 +29,18 @@ public class RobotDetails : MonoBehaviour
     [Header("Effects")]
     public bool UseEffect;
     public UnityEvent EffectDocking;
+    public UnityEvent EffectUndocking;
 
     public bool DetailUsed;
 
 
     public bool Left;
+    Rigidbody rigidbody;
 
     private void Start()
     {
-        UndockingDetail();
-
+        StartUndock();
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Update()
@@ -69,8 +71,34 @@ public class RobotDetails : MonoBehaviour
         DetailUsed = false;
         DetailsOnRobot.enabled = false;
         VisualDetail.enabled = true;
-        transform.DOJump(UndockingTarget.position, 2, 1, 1, false).OnComplete(() => SetPosition());
+        //transform.DOJump(UndockingTarget.position, 2, 1, 1, false).OnComplete(() => SetPosition());
+        /*float x = Random.Range(-1, 2);
+        float z = Random.Range(-1, 2);
+        */
+        //boxCollider.enabled = true;
+        //rigidbody.useGravity = true;
+        // rigidbody.AddForce(Vector3.one, ForceMode.Impulse);
+        //rigidbody.velocity = Vector3.one;
+        //rigidbody.angularVelocity = Vector3.one;
+        //Invoke("SetPosition", 1f);
+        
+        float x = Random.Range(-1, 2);
+        float y = Random.Range(1, 3);
+        float z = Random.Range(-1, 2);
+        Vector3 random = new Vector3(x, y, z);
+        EffectUndocking.Invoke();
+        rigidbody.AddForce(random * 40, ForceMode.Impulse);
+        rigidbody.useGravity = true;
+        //GetComponentInChildren<Collider>().enabled = true;
+        Invoke("SetPosition", 2f);
+    }
 
+    void StartUndock()
+    {
+        DetailUsed = false;
+        DetailsOnRobot.enabled = false;
+        VisualDetail.enabled = true;
+        transform.DOJump(UndockingTarget.position, 2, 1, 1, false).OnComplete(() => SetPosition());
     }
 
     public void DockingDetail()
@@ -93,6 +121,8 @@ public class RobotDetails : MonoBehaviour
 
     void SetPosition()
     {
+        rigidbody.useGravity = false;
+        GetComponentInChildren<Collider>().enabled = false;
         transform.position = DetailPosition.position;
     }
 

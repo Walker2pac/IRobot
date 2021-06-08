@@ -117,12 +117,26 @@ namespace TeamAlpha.Source
         }
         public void SetProcessedDamage(int damage)
         {
+            if (currentLevel > 0)
+            {
+                levels[currentLevel].Exit();
+                currentLevel = currentLevel - 1;
+                levels[currentLevel].Setup(this);
+                if(currentLevelAnim - 1 > 0)
+                {
+                    currentLevelAnim = currentLevelAnim - 1;
+                }
+            }
+            else
+            {
+                _detailController.FallenDetail(damage);
+
+                health -= damage; //изменить на 1 удар
+            }
             
-            //if (_detailController.AllDetailsFallen == false)
+            
 
-            _detailController.FallenDetail(damage);
-
-            health -= damage; //изменить на 1 удар
+            
 
 
             if (health <= 0)
@@ -171,7 +185,7 @@ namespace TeamAlpha.Source
                 numberComplete++;
                 if (numberComplete <= 1)
                 {
-                    levels[currentLevel].Exit();
+                    //levels[currentLevel].Exit();
                     currentLevel = 1;
                     levels[currentLevel].Setup(this);
                     currentLevelAnim++;
@@ -185,7 +199,7 @@ namespace TeamAlpha.Source
                 numberComplete2++;
                 if (numberComplete2 <= 1)
                 {
-                    levels[currentLevel].Exit();
+                    //levels[currentLevel].Exit();
                     currentLevel = 2;
                     levels[currentLevel].Setup(this);
                     currentLevelAnim++;
@@ -198,7 +212,7 @@ namespace TeamAlpha.Source
                 numberComplete3++;
                 if (numberComplete3 <= 1)
                 {
-                    levels[currentLevel].Exit();
+                   // levels[currentLevel].Exit();
                     currentLevel = 3;
                     levels[currentLevel].Setup(this);
                     currentLevelAnim++;

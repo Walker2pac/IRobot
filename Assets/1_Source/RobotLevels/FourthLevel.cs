@@ -30,6 +30,7 @@ namespace TeamAlpha.Source
 
         public override void Exit()
         {
+            FindObjectOfType<WheelModel>().UnactiveWheelModel();
             base.Exit();
            // _playerControllerDetails = FindObjectOfType<PlayerController>();
             //_playerControllerDetails.Details[2].Breaking();

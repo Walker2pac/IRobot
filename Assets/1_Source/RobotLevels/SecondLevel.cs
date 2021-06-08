@@ -43,8 +43,9 @@ namespace TeamAlpha.Source
 
         public override void Exit()
         {
-           // _playerControllerDetails = FindObjectOfType<PlayerController>();
-           // _playerControllerDetails.Details[0].Breaking(); //hard
+            // _playerControllerDetails = FindObjectOfType<PlayerController>();
+            // _playerControllerDetails.Details[0].Breaking(); //hard
+            FindObjectOfType<DetailScript>().Breaking();
             Destroy(gun.gameObject);
         }
 

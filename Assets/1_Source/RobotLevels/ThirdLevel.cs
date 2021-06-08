@@ -38,7 +38,7 @@ namespace TeamAlpha.Source
                 {
                     damagable.NonDamagedReaction();
                     //shield.Destroy();
-                    FindObjectOfType<ShieldModel>().ActiveModeleShield();
+                    FindObjectOfType<ShieldModel>().UnactiveShieldModel();
                     Debug.Log("Щит отвалился");
                     numberOfDamade++;
                 }
@@ -52,7 +52,7 @@ namespace TeamAlpha.Source
         {
             // _playerControllerDetails = FindObjectOfType<PlayerController>();
             // _playerControllerDetails.Details[1].Breaking();
-            
+            FindObjectOfType<ShieldModel>().UnactiveShieldModel();
             shield.Destroy();
             base.Exit();
         }

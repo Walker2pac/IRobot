@@ -25,6 +25,8 @@ namespace TeamAlpha.Source
             LayerDefault.Default.Playing = true;
             LayerDefault.Default.OnPlayStart();
             UIManager.Default.CurState = UIManager.State.Play;
+
+                                                    
         }
     }
 }
