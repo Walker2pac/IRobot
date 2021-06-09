@@ -32,19 +32,11 @@ namespace TeamAlpha.Source
 
         public override void ProcessDamagableObject(DamagableObject damagable)
         {
-            /*if (damagable.objectType == DamagableObject.Type.SoftBarrier)
-            {
-                damagable.NonDamagedReaction();
-                return;
-            }
-            else*/
             base.ProcessDamagableObject(damagable);
         }
 
         public override void Exit()
         {
-            // _playerControllerDetails = FindObjectOfType<PlayerController>();
-            // _playerControllerDetails.Details[0].Breaking(); //hard
             FindObjectOfType<DetailScript>().Breaking();
             Destroy(gun.gameObject);
         }

@@ -21,17 +21,15 @@ namespace TeamAlpha.Source
         [SerializeField] private NamedAnimancerComponent animancer;
         public List<AnimationClip> RunStates = new List<AnimationClip>();
         public int CurrentRunState;
-        /*[SerializeField, ShowIf("animancer"), Required] private AnimationClip animationRun;
-        [SerializeField, ShowIf("@animancer != null"), Required] private AnimationClip animationIDLE;
-        [SerializeField, ShowIf("@animancer != null"), Required] private AnimationClip animationRunWithShield;*/
-        //[SerializeField, ShowIf("@animancer != null"), Required] private AnimationClip animationRunOnWhell;
 
         [Header("Values")]
         [SerializeField] private float startSpeed;
+        [SerializeField] private float playerSpeed;
+        
 
-        public float Speed { get => splineFollower.followSpeed; }         
-        
-        
+        public float Speed { get => splineFollower.followSpeed; }
+
+
         private Tween speedChangeTween;
 
 
@@ -40,7 +38,7 @@ namespace TeamAlpha.Source
         {
             LayerDefault.Default.OnPlayStart +=
                 () => ChangeSpeed(startSpeed, DataGameMain.Default.startSpeedChangeDuration);
-            
+
         }
 
         private void FixedUpdate()
@@ -57,16 +55,13 @@ namespace TeamAlpha.Source
                         {
                             if (CurrentRunState == 4)
                             {
-                                splineFollower.followSpeed = 8;
-                                
-
-
+                                playerSpeed = playerSpeed * 2;
                             }
                             animancer.Play(RunStates[i]).Speed = (Speed / DataGameMain.Default.maxSpeed) * 2f;
                         }
                     }
 
-                    
+
                     else animancer.Play(RunStates[0], 0.2f);
                 }
             }
@@ -74,7 +69,7 @@ namespace TeamAlpha.Source
         public void CheckRunState()
         {
 
-            CurrentRunState = FindObjectOfType<PlayerController>().currentLevelAnim ;
+            CurrentRunState = FindObjectOfType<PlayerController>().currentLevelAnim;
 
 
         }
@@ -84,7 +79,6 @@ namespace TeamAlpha.Source
 
         public void ChangeSpeed(float targetSpeed, float duration)
         {
-            splineFollower.followSpeed = 8;
             /*if (speedChangeTween != null)
                 speedChangeTween.Kill();
 
@@ -93,6 +87,7 @@ namespace TeamAlpha.Source
                 (float tweenSpeed) => splineFollower.followSpeed = tweenSpeed,
                 targetSpeed, duration)
                 .SetTarget(this);*/
+            splineFollower.followSpeed = playerSpeed;
         }
 
         public void ChangeOffsetX(float deltaSlide)

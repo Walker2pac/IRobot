@@ -18,14 +18,15 @@ public class RobotDetails : MonoBehaviour
     [Header("Renders")]
     public SkinnedMeshRenderer DetailsOnRobot;
     public SkinnedMeshRenderer VisualDetail;
+
     [Header("Positions")]
-    public Transform UndockingTarget;
     public Transform DockingTarget;
     public Transform DetailPosition;
-
     public Transform PreDockingPosition;
+
     [Header("States")]
     public DetailStates DetailStates;
+
     [Header("Effects")]
     public bool UseEffect;
     public UnityEvent EffectDocking;
@@ -70,26 +71,14 @@ public class RobotDetails : MonoBehaviour
     {
         DetailUsed = false;
         DetailsOnRobot.enabled = false;
-        VisualDetail.enabled = true;
-        //transform.DOJump(UndockingTarget.position, 2, 1, 1, false).OnComplete(() => SetPosition());
-        /*float x = Random.Range(-1, 2);
-        float z = Random.Range(-1, 2);
-        */
-        //boxCollider.enabled = true;
-        //rigidbody.useGravity = true;
-        // rigidbody.AddForce(Vector3.one, ForceMode.Impulse);
-        //rigidbody.velocity = Vector3.one;
-        //rigidbody.angularVelocity = Vector3.one;
-        //Invoke("SetPosition", 1f);
-        
-        float x = Random.Range(-1, 2);
-        float y = Random.Range(1, 3);
-        float z = Random.Range(-1, 2);
-        Vector3 random = new Vector3(x, y, z);
+        VisualDetail.enabled = true;        
+        float side = Random.Range(-1, 2);
+        float up = Random.Range(1, 3);
+        Vector3 random = new Vector3(side, up, side);
         EffectUndocking.Invoke();
+        rigidbody.isKinematic = false;
         rigidbody.AddForce(random * 40, ForceMode.Impulse);
         rigidbody.useGravity = true;
-        //GetComponentInChildren<Collider>().enabled = true;
         Invoke("SetPosition", 2f);
     }
 
@@ -98,7 +87,7 @@ public class RobotDetails : MonoBehaviour
         DetailUsed = false;
         DetailsOnRobot.enabled = false;
         VisualDetail.enabled = true;
-        transform.DOJump(UndockingTarget.position, 2, 1, 1, false).OnComplete(() => SetPosition());
+        transform.position = DetailPosition.position;
     }
 
     public void DockingDetail()
@@ -122,7 +111,7 @@ public class RobotDetails : MonoBehaviour
     void SetPosition()
     {
         rigidbody.useGravity = false;
-        GetComponentInChildren<Collider>().enabled = false;
+        rigidbody.isKinematic = true;
         transform.position = DetailPosition.position;
     }
 

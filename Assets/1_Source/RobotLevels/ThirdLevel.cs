@@ -23,35 +23,24 @@ namespace TeamAlpha.Source
             Debug.Log("Щит появился");
             numberOfDamade = 0;
             FindObjectOfType<ShieldModel>().ActiveModeleShield();
-            // _playerControllerDetails = FindObjectOfType<PlayerController>();
-            //_playerControllerDetails.Details[1].Docking();
         }
 
         public override void ProcessDamagableObject(DamagableObject damagable)
         {
-
-            //  if (shield.ProcessDamageByShield())
-            //  {
             if (numberOfDamade < 1)
             {
                 if (shield.ProcessDamageByShield())
                 {
                     damagable.NonDamagedReaction();
-                    //shield.Destroy();
                     FindObjectOfType<ShieldModel>().UnactiveShieldModel();
                     Debug.Log("Щит отвалился");
                     numberOfDamade++;
                 }
             }
-                
-           // }
-            //else base.ProcessDamagableObject(damagable);
         }
 
         public override void Exit()
         {
-            // _playerControllerDetails = FindObjectOfType<PlayerController>();
-            // _playerControllerDetails.Details[1].Breaking();
             FindObjectOfType<ShieldModel>().UnactiveShieldModel();
             shield.Destroy();
             base.Exit();
