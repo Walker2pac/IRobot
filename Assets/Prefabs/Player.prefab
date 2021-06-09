@@ -26,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 544767220306813474}
-  m_LocalRotation: {x: -0.3216513, y: -0.092748106, z: -0.031677037, w: 0.94177216}
+  m_LocalRotation: {x: -0.32165155, y: -0.092749275, z: -0.031677462, w: 0.941772}
   m_LocalPosition: {x: 12.878719, y: 0, z: 39.18408}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -50,15 +50,14 @@ MonoBehaviour:
   vcamLookAt: {fileID: 4512658126962681528}
   vcamFollow: {fileID: 5336069028403721749}
   movingObject: {fileID: 2425927160223445428}
-  levelMarkPrefab: {fileID: 3046796093922491809, guid: 79c2c5fdb47959249a1dff93fcdb8d51,
-    type: 3}
-  levelMarkActiveColor: {r: 0.9019608, g: 0.93333334, b: 0.6117647, a: 1}
-  levelMarkNonActiveColor: {r: 0.6901961, g: 0.74509805, b: 0.77254903, a: 1}
   levels:
   - robotLevelObject: {fileID: 11400000, guid: 43645dce896020e44aa1aa10596323fd, type: 2}
   - robotLevelObject: {fileID: 11400000, guid: 364255c5decae3d4c9001bbd4d64491e, type: 2}
   - robotLevelObject: {fileID: 11400000, guid: 5777c59ce3015b6468a05038a6179daa, type: 2}
   - robotLevelObject: {fileID: 11400000, guid: 2e071cedc4920534891dfcbd16c89921, type: 2}
+  currentLevel: 0
+  _detailController: {fileID: 0}
+  currentLevelAnim: 1
 --- !u!114 &2425927160223445428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,10 +73,10 @@ MonoBehaviour:
   splineFollower: {fileID: 2021320345235311857}
   model: {fileID: 2588849566544741516}
   animancer: {fileID: 403259153460800469}
-  animationRun: {fileID: 7400000, guid: 5c68d8a7acf5d704e936de9eb3091485, type: 2}
-  animationIDLE: {fileID: -203655887218126122, guid: 1f4c5459b960db74dbfbb5bda078f345,
-    type: 3}
+  RunStates: []
+  CurrentRunState: 0
   startSpeed: 5
+  playerSpeed: 0
 --- !u!114 &2021320345235311857
 MonoBehaviour:
   m_ObjectHideFlags: 0
