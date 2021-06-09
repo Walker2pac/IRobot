@@ -44,36 +44,48 @@ public class DetailController : MonoBehaviour
 
     public void FallenDetail(int damage)
     {
-
-        for (int i = 0; i < damage; i++)
+        int numberOfUndockingDetail = damage;
+        if (RobotDetails.Count < damage)
         {
-            for (int j = RobotDetails.Count - 1; j < RobotDetails.Count; j--)
+            numberOfUndockingDetail = RobotDetails.Count;
+        }
+        for (int i = 0; i < numberOfUndockingDetail; i++)
+        {
+            if (!AllDetailsFallen)
             {
-                RobotDetails[j].UndockingDetail();
-                FallenRobotDetails.Add(RobotDetails[j]);
-                FallenRobotDetails.Insert(0, RobotDetails[j]);
+                for (int j = RobotDetails.Count - 1; j < RobotDetails.Count; j--)
+                {
+                    RobotDetails[j].UndockingDetail();
+                    FallenRobotDetails.Add(RobotDetails[j]);
+                    FallenRobotDetails.Insert(0, RobotDetails[j]);
 
-                if (RobotDetails[j].tag == "HandDetail")
-                {
-                    HandDetails.RemoveAt(HandDetails.Count - 1);
-                    RobotDetails.RemoveAt(j);
-                    break;
-                }
-                if (RobotDetails[j].tag == "TorsoDetail")
-                {
-                    TorsoDetails.RemoveAt(TorsoDetails.Count - 1);
-                    RobotDetails.RemoveAt(j);
-                    break;
-                }
-                if (RobotDetails[j].tag == "FootDetail")
-                {
-                    FootDetails.RemoveAt(FootDetails.Count - 1);
-                    RobotDetails.RemoveAt(j);
-                    break;
+                    if (RobotDetails[j].tag == "HandDetail")
+                    {
+                        HandDetails.RemoveAt(HandDetails.Count - 1);
+                        RobotDetails.RemoveAt(j);
+                        break;
+                    }
+                    if (RobotDetails[j].tag == "TorsoDetail")
+                    {
+                        TorsoDetails.RemoveAt(TorsoDetails.Count - 1);
+                        RobotDetails.RemoveAt(j);
+                        break;
+                    }
+                    if (RobotDetails[j].tag == "FootDetail")
+                    {
+                        FootDetails.RemoveAt(FootDetails.Count - 1);
+                        RobotDetails.RemoveAt(j);
+                        break;
+                    }
+
                 }
             }
+            else
+            {
+                break;
+            }
         }
-        CheckDetailsStatus();
+
 
     }
 
@@ -82,6 +94,7 @@ public class DetailController : MonoBehaviour
 
         if (!HandDetailsDone)
         {
+
             for (int i = 0; i < FallenRobotDetails.Count; i++)
             {
                 if (FallenRobotDetails[i].tag == "HandDetail")
@@ -97,6 +110,7 @@ public class DetailController : MonoBehaviour
         }
         if (HandDetailsDone)
         {
+
             for (int i = 0; i < FallenRobotDetails.Count; i++)
             {
                 if (FallenRobotDetails[i].tag == "TorsoDetail")
@@ -110,7 +124,7 @@ public class DetailController : MonoBehaviour
             }
             CheckDetailsOnRobot();
         }
-        if (TorsoDetailsDone) ////////
+        if (TorsoDetailsDone)
         {
             for (int i = 0; i < FallenRobotDetails.Count; i++)
             {
@@ -126,39 +140,22 @@ public class DetailController : MonoBehaviour
             CheckDetailsOnRobot();
         }
 
-
-
-        else
-        {
-            Debug.Log("По кайфу");
-        }
-
     }
-    void CheckDetailsStatus()
-    {
-        if (RobotDetails.Count == 0)
-        {
-            AllDetailsFallen = true;
-
-        }
-        else
-        {
-            AllDetailsFallen = false;
-        }
-    }
-
     public void CheckDetailsOnRobot()
     {
-        if (HandDetails.Count == HandDetailNumber)
+        for (int i = 0; i < HandDetails.Count; i++)
         {
-            for (int i = 0; i < HandDetails.Count; i++)
+            if (HandDetails[HandDetails.Count - 1].DetailUsed == true)
             {
-                if (HandDetails[HandDetails.Count - 1].DetailUsed == true)
-                {
-                    HandDetailsDone = true;
-                }
+                HandDetailsDone = true;
+            }
+            else
+            {
+                HandDetailsDone = false;
             }
         }
+
+
 
         if (TorsoDetails.Count == TorsoDetailNumber)
         {

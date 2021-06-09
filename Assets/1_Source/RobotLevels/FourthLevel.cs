@@ -14,9 +14,6 @@ namespace TeamAlpha.Source
         {
             base.Setup(playerController);
             FindObjectOfType<WheelModel>().ActiveModeleWheel();
-            //LayerDefault.Default.StartCoroutine(ActiveDurabilyty());
-            //_playerControllerDetails = FindObjectOfType<PlayerController>();
-            //_playerControllerDetails.Details[2].Docking();
         }
 
         public override void ProcessDamagableObject(DamagableObject damagable)
@@ -32,8 +29,6 @@ namespace TeamAlpha.Source
         {
             FindObjectOfType<WheelModel>().UnactiveWheelModel();
             base.Exit();
-           // _playerControllerDetails = FindObjectOfType<PlayerController>();
-            //_playerControllerDetails.Details[2].Breaking();
         }
 
         private IEnumerator ActiveDurabilyty() 
