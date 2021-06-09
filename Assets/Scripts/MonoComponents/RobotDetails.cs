@@ -46,7 +46,7 @@ public class RobotDetails : MonoBehaviour
 
     private void Update()
     {
-        if (DetailStates == DetailStates.StartDocking)
+/*        if (DetailStates == DetailStates.StartDocking)
         {
             transform.position = Vector3.MoveTowards(transform.position, PreDockingPosition.position, Time.deltaTime * 25f);
             if (transform.position == PreDockingPosition.position)
@@ -64,7 +64,7 @@ public class RobotDetails : MonoBehaviour
                 DetailOnRobot();
             }
         }
-
+*/
     }
 
     public void UndockingDetail()
@@ -93,6 +93,17 @@ public class RobotDetails : MonoBehaviour
     public void DockingDetail()
     {
         DetailStates = DetailStates.StartDocking;
+
+        DOTween.Sequence()
+            .Append(
+                transform.DOLocalMove(PreDockingPosition.localPosition, 1f)
+                    .SetEase(Ease.OutBack))
+            .Append(
+                transform.DOLocalMove(Vector3.zero, 1f)
+                    .SetEase(Ease.InExpo)
+                    .OnComplete(() => DetailOnRobot()))
+            .SetDelay(0f);
+
     }
 
     void DetailOnRobot()
