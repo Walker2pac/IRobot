@@ -102,7 +102,7 @@ public class RobotDetails : MonoBehaviour
                 transform.DOLocalMove(Vector3.zero, 1f)
                     .SetEase(Ease.InExpo)
                     .OnComplete(() => DetailOnRobot()))
-            .SetDelay(0f);
+            .SetEase(Ease.OutQuad);
 
     }
 
