@@ -92,20 +92,35 @@ public class RobotDetails : MonoBehaviour
 
     public void DockingDetail()
     {
+        StartCoroutine(DockingCorutine());
+    }
+
+    private IEnumerator DockingCorutine() 
+    {
         DetailStates = DetailStates.StartDocking;
         transform.localPosition = PreDockingPosition.localPosition;
-        transform.localScale = Vector3.one * 0.01f;
 
-        DOTween.Sequence()
-            .Append(
-                transform.DOScale(Vector3.one, 0.5f)
-                    .SetEase(Ease.OutBack))
-            .Append(
-                transform.DOLocalMove(Vector3.zero, 0.5f)
-                    .SetEase(Ease.InExpo)
-                    .OnComplete(() => DetailOnRobot()))
-            .SetEase(Ease.OutQuad);
+        GameObject forceObject = Instantiate(new GameObject("Force field"));
+        forceObject.transform.SetParent(VisualDetail.transform);
+        forceObject.transform.localPosition = VisualDetail.GetComponent<BoxCollider>().center;
+        forceObject.transform.SetParent(transform);
+        forceObject.gameObject.layer = LayerMask.NameToLayer("Player");
 
+        ParticleSystemForceField force = forceObject.AddComponent<ParticleSystemForceField>();
+        force.gravity = 5;
+        force.endRange = 4;
+        force.drag = 1;
+        force.multiplyDragByParticleSize = false;
+
+        VisualDetail.enabled = false;
+
+        yield return new WaitForSeconds(2f);
+
+        VisualDetail.enabled = true;
+        Destroy(forceObject);
+        transform.DOLocalMove(Vector3.zero, 0.5f)
+            .SetEase(Ease.InExpo)
+            .OnComplete(() => DetailOnRobot());
     }
 
     void DetailOnRobot()

@@ -20,7 +20,7 @@ namespace TeamAlpha.Source
             if (other.gameObject.layer == DataGameMain.LayerPlayer) 
             {
                 PlayerController.Current.SetHealthUp(1);
-                Instantiate(Effect, other.transform);
+                ParticleSystem destroyParts = Instantiate(Effect, other.transform).GetComponent<ParticleSystem>();
                 Destroy(gameObject);
             }
         }

@@ -47,6 +47,7 @@ namespace TeamAlpha.Source
         public int barrierDamage;
         public float bulletSpeed;
         public float bulletLifeDuration;
+        public ParticleSystem.MinMaxCurve particlesDrag;
 
         public bool pathAttachedObjectsMoving;
         #endregion
