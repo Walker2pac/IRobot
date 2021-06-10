@@ -34,7 +34,7 @@ public class RobotDetails : MonoBehaviour
 
     public bool DetailUsed;
 
-
+    private GameObject forceField;
     public bool Left;
     Rigidbody rigidbody;
 
@@ -90,37 +90,38 @@ public class RobotDetails : MonoBehaviour
         transform.position = DetailPosition.position;
     }
 
-    public void DockingDetail()
+
+    public void ShowDetail() 
     {
-        StartCoroutine(DockingCorutine());
-    }
-
-    private IEnumerator DockingCorutine() 
-    {
-        DetailStates = DetailStates.StartDocking;
-        transform.localPosition = PreDockingPosition.localPosition;
-
-        GameObject forceObject = Instantiate(new GameObject("Force field"));
-        forceObject.transform.SetParent(VisualDetail.transform);
-        forceObject.transform.localPosition = VisualDetail.GetComponent<BoxCollider>().center;
-        forceObject.transform.SetParent(transform);
-        forceObject.gameObject.layer = LayerMask.NameToLayer("Player");
-
-        ParticleSystemForceField force = forceObject.AddComponent<ParticleSystemForceField>();
-        force.gravity = 5;
-        force.endRange = 4;
-        force.drag = 1;
-        force.multiplyDragByParticleSize = false;
-
-        VisualDetail.enabled = false;
-
-        yield return new WaitForSeconds(2f);
-
+        if (forceField) Destroy(forceField);
         VisualDetail.enabled = true;
-        Destroy(forceObject);
         transform.DOLocalMove(Vector3.zero, 0.5f)
             .SetEase(Ease.InExpo)
             .OnComplete(() => DetailOnRobot());
+    }
+
+    private GameObject CreateForceField() 
+    {
+        GameObject prefab = GetComponentInParent<DetailController>()?.ForceFieldPrefab;
+        if (prefab)
+        {
+            GameObject forceObject = Instantiate(prefab);
+            forceObject.transform.SetParent(VisualDetail.transform);
+            forceObject.transform.localPosition = VisualDetail.GetComponent<BoxCollider>().center;
+            forceObject.transform.SetParent(transform);
+
+            return forceObject;
+        }
+        return null;
+    }
+
+    public void DockingDetail() 
+    {
+        DetailStates = DetailStates.StartDocking;
+        transform.localPosition = PreDockingPosition.localPosition;
+        VisualDetail.enabled = false;
+
+        forceField = CreateForceField();
     }
 
     void DetailOnRobot()

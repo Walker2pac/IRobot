@@ -20,6 +20,9 @@ public class DetailController : MonoBehaviour
     public int TorsoDetailNumber;
     public int FootDetailNumber;
 
+    [SerializeField] private GameObject forceFieldPrefab;
+
+    public GameObject ForceFieldPrefab => forceFieldPrefab;
 
     private void Start()
     {
