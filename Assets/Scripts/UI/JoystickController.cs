@@ -23,8 +23,29 @@ namespace TeamAlpha.Source
         [Required]
         public GameObject view;
 
-        public float DeltaSlide { get; private set; }
 
+        public float DeltaSlide 
+        {
+            get 
+            {
+                float avarage = 0f;
+                if (deltas.Count > 0)
+                {
+                    foreach (float f in deltas)
+                        avarage += f;
+                    avarage /= deltas.Count;
+                }
+                return avarage;
+            }
+            private set 
+            {
+                deltas.Add(value);
+                if (deltas.Count > 5)
+                    deltas.RemoveAt(0);
+            } 
+        }
+
+        private List<float> deltas = new List<float>();
         private float lastPosition;
 
 

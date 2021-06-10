@@ -36,7 +36,7 @@ namespace TeamAlpha.Source
         public int playerHealth;
 
         [Header("Controll settings")]
-        [Range(1f, 10f)]
+        [Range(1f, 50f)]
         public float rotationSharpness;
         public float slideSensitivity;
         public float roadWidth;

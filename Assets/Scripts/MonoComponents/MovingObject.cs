@@ -90,7 +90,7 @@ namespace TeamAlpha.Source
             splineFollower.followSpeed = playerSpeed;
         }
 
-        public void ChangeOffsetX(float deltaSlide)
+        public Vector2 ChangeOffsetX(float deltaSlide)
         {
             float roadWidth = DataGameMain.Default.roadWidth - DataGameMain.Default.roadBounds * 2f;
             float deltaOffsetX = deltaSlide * roadWidth;
@@ -109,6 +109,7 @@ namespace TeamAlpha.Source
             }
 
             splineFollower.motion.offset = newOffset;
+            return newOffset;
         }
     }
 }

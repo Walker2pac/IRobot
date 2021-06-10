@@ -22,6 +22,7 @@ namespace TeamAlpha.Source
         #endregion
 
         [Header("Links")]
+        public SplineFollower cameraSpline;
         public Transform vcamLookAt;
         public Transform vcamFollow;
         [SerializeField] private MovingObject movingObject;
@@ -66,7 +67,7 @@ namespace TeamAlpha.Source
         private void FixedUpdate()
         {
             movingObject.ChangeOffsetX(JoystickController.Default.DeltaSlide);
-
+            cameraSpline.followSpeed = movingObject.Speed;
         }
         #endregion
 

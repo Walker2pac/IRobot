@@ -93,13 +93,15 @@ public class RobotDetails : MonoBehaviour
     public void DockingDetail()
     {
         DetailStates = DetailStates.StartDocking;
+        transform.localPosition = PreDockingPosition.localPosition;
+        transform.localScale = Vector3.one * 0.01f;
 
         DOTween.Sequence()
             .Append(
-                transform.DOLocalMove(PreDockingPosition.localPosition, 1f)
+                transform.DOScale(Vector3.one, 0.5f)
                     .SetEase(Ease.OutBack))
             .Append(
-                transform.DOLocalMove(Vector3.zero, 1f)
+                transform.DOLocalMove(Vector3.zero, 0.5f)
                     .SetEase(Ease.InExpo)
                     .OnComplete(() => DetailOnRobot()))
             .SetEase(Ease.OutQuad);
