@@ -34,7 +34,7 @@ public class RobotDetails : MonoBehaviour
 
     public bool DetailUsed;
 
-    private GameObject forceField;
+
     public bool Left;
     Rigidbody rigidbody;
 
@@ -90,38 +90,20 @@ public class RobotDetails : MonoBehaviour
         transform.position = DetailPosition.position;
     }
 
-
-    public void ShowDetail() 
-    {
-        if (forceField) Destroy(forceField);
-        VisualDetail.enabled = true;
-        transform.DOLocalMove(Vector3.zero, 0.5f)
-            .SetEase(Ease.InExpo)
-            .OnComplete(() => DetailOnRobot());
-    }
-
-    private GameObject CreateForceField() 
-    {
-        GameObject prefab = GetComponentInParent<DetailController>()?.ForceFieldPrefab;
-        if (prefab)
-        {
-            GameObject forceObject = Instantiate(prefab);
-            forceObject.transform.SetParent(VisualDetail.transform);
-            forceObject.transform.localPosition = VisualDetail.GetComponent<BoxCollider>().center;
-            forceObject.transform.SetParent(transform);
-
-            return forceObject;
-        }
-        return null;
-    }
-
-    public void DockingDetail() 
+    public void DockingDetail()
     {
         DetailStates = DetailStates.StartDocking;
-        transform.localPosition = PreDockingPosition.localPosition;
-        VisualDetail.enabled = false;
 
-        forceField = CreateForceField();
+        DOTween.Sequence()
+            .Append(
+                transform.DOLocalMove(PreDockingPosition.localPosition, 1f)
+                    .SetEase(Ease.OutBack))
+            .Append(
+                transform.DOLocalMove(Vector3.zero, 1f)
+                    .SetEase(Ease.InExpo)
+                    .OnComplete(() => DetailOnRobot()))
+            .SetEase(Ease.OutQuad);
+
     }
 
     void DetailOnRobot()
