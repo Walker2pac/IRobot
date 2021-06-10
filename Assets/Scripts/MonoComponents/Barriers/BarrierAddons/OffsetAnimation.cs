@@ -25,7 +25,7 @@ public class OffsetAnimation : MonoBehaviour
 
     private void Start()
     {
-        barrierHolder.localPosition = Vector2.right * pointA.localPosition.x;
+        barrierHolder.localPosition = Vector2.right * barrierHolder.localPosition.x;
         MoveToA();
     }
 
@@ -33,6 +33,7 @@ public class OffsetAnimation : MonoBehaviour
     {
         if (pointA) pointA.localPosition = pointA.localPosition.x * Vector3.right;
         if (pointB) pointB.localPosition = pointB.localPosition.x * Vector3.right;
+        if (barrierHolder) barrierHolder.localPosition = barrierHolder.localPosition.x * Vector3.right;
     }
 
     private void MoveToA() 
