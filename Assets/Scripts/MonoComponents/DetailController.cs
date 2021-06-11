@@ -21,8 +21,10 @@ public class DetailController : MonoBehaviour
     public int FootDetailNumber;
 
     [SerializeField] private GameObject forceFieldPrefab;
+    [SerializeField] private GameObject dockingLinePrefab;
 
     public GameObject ForceFieldPrefab => forceFieldPrefab;
+    public GameObject DockingLinePrefab => dockingLinePrefab;
 
     private void Start()
     {

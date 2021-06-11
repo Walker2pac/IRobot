@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
+using TeamAlpha.Source;
 
 public enum DetailStates
 {
@@ -37,6 +38,7 @@ public class RobotDetails : MonoBehaviour
 
     private Rigidbody rigidbody;
     private GameObject forceField;
+    private LineRenderer dockingLine;
 
     private void Start()
     {
@@ -47,25 +49,27 @@ public class RobotDetails : MonoBehaviour
 
     private void Update()
     {
-/*        if (DetailStates == DetailStates.StartDocking)
+        if (dockingLine) 
         {
-            transform.position = Vector3.MoveTowards(transform.position, PreDockingPosition.position, Time.deltaTime * 25f);
-            if (transform.position == PreDockingPosition.position)
-            {
-                DetailStates = DetailStates.RedyToDocking;
-            }
+            List<Vector3> positions = new List<Vector3>();
+            Vector3 startPoint = dockingLine.transform.position;
+            Vector3 endPoint = transform.parent.position + dockingLine.transform.localPosition;
 
-        }
-
-        if (DetailStates == DetailStates.RedyToDocking)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, DockingTarget.position, Time.deltaTime * 3f);
-            if (transform.position == DockingTarget.position)
+            positions.Add(endPoint);
+            for (int i = 0; i < DataGameMain.Default.dockingLineBetweenPoints; i++) 
             {
-                DetailOnRobot();
+                float strenght = DataGameMain.Default.dockingLineNoiseStrenght;
+                float frequency = DataGameMain.Default.dockingLineNoiseFrequency;
+                float t = 1f / (DataGameMain.Default.dockingLineBetweenPoints + 2f) * (i + 1f);
+                Vector3 betweenPoint = Vector3.Lerp(endPoint, startPoint, t);
+                betweenPoint.x += Mathf.PerlinNoise(betweenPoint.x, Time.time * frequency) * strenght;
+                betweenPoint.y += Mathf.PerlinNoise(Time.time * frequency, betweenPoint.y) * strenght;
+                positions.Add(betweenPoint);
             }
+            positions.Add(startPoint);
+            dockingLine.positionCount = positions.Count;
+            dockingLine.SetPositions(positions.ToArray());
         }
-*/
     }
 
     public void UndockingDetail()
@@ -93,11 +97,28 @@ public class RobotDetails : MonoBehaviour
 
     public void ShowDetail()
     {
+        dockingLine = CreateDockingLine()?.GetComponent<LineRenderer>();
+
         if (forceField) Destroy(forceField);
         VisualDetail.enabled = true;
         transform.DOLocalMove(Vector3.zero, 0.5f)
             .SetEase(Ease.InExpo)
             .OnComplete(() => DetailOnRobot());
+    }
+
+    private GameObject CreateDockingLine() 
+    {
+        GameObject prefab = GetComponentInParent<DetailController>()?.DockingLinePrefab;
+        if (prefab)
+        {
+            GameObject lineObject = Instantiate(prefab);
+            lineObject.transform.SetParent(VisualDetail.transform);
+            lineObject.transform.localPosition = VisualDetail.GetComponent<BoxCollider>().center;
+            lineObject.transform.SetParent(transform);
+
+            return lineObject;
+        }
+        return null;
     }
 
     private GameObject CreateForceField()
@@ -133,6 +154,7 @@ public class RobotDetails : MonoBehaviour
         {
             EffectDocking.Invoke();
         }
+        if (dockingLine) Destroy(dockingLine.gameObject);
         DetailsOnRobot.enabled = true;
         VisualDetail.enabled = false;
 

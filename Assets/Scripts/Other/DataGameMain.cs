@@ -47,9 +47,12 @@ namespace TeamAlpha.Source
         public int barrierDamage;
         public float bulletSpeed;
         public float bulletLifeDuration;
-        public ParticleSystem.MinMaxCurve particlesDrag;
 
-        public bool pathAttachedObjectsMoving;
+        [Header("Detail docking line settings")]
+        public int dockingLineBetweenPoints = 0;
+        public float dockingLineNoiseStrenght = 0f;
+        public float dockingLineNoiseFrequency = 0f;
+
         #endregion
 
 
