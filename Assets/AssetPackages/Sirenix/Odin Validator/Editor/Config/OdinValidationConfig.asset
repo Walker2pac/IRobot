@@ -1,6 +1,26 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-4834053399390361149
+--- !u!114 &-6019304548094646842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abebc8478d78fe54bb45646c484b090b, type: 3}
+  m_Name: Scan Open Scenes
+  m_EditorClassIdentifier: 
+  Profile:
+    name: Scan Open Scenes
+    description: Scans all open scenes, without going through scene asset dependencies.
+    IncludeScenesFromBuildOptions: 0
+    IncludeOpenScenes: 1
+    IncludeAssetDependencies: 0
+    ScenePaths: []
+    ExcludeScenePaths: []
+--- !u!114 &-5075934661209406100
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -23,7 +43,7 @@ MonoBehaviour:
     AssetReferences: []
     ExcludeAssetPaths: []
     ExcludeAssetReferences: []
---- !u!114 &-336290157764806349
+--- !u!114 &-1810730133867384668
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -33,16 +53,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abebc8478d78fe54bb45646c484b090b, type: 3}
-  m_Name: Scan All Scenes
+  m_Name: Scan Scenes From Build Options
   m_EditorClassIdentifier: 
   Profile:
-    name: Scan All Scenes
-    description: Scans all scenes in the project
+    name: Scan Scenes From Build Options
+    description: Scans all scenes from build options, including scene asset dependencies.
     IncludeScenesFromBuildOptions: 1
-    IncludeOpenScenes: 1
-    IncludeAssetDependencies: 0
-    ScenePaths:
-    - Assets/2_Content
+    IncludeOpenScenes: 0
+    IncludeAssetDependencies: 1
+    ScenePaths: []
     ExcludeScenePaths: []
 --- !u!114 &11400000
 MonoBehaviour:
@@ -60,11 +79,11 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 6435528032339373181}
-    - {fileID: -4834053399390361149}
-    - {fileID: -336290157764806349}
-    - {fileID: 5742864410886056945}
-    - {fileID: 7466067793991348111}
+    - {fileID: 4239458116896808010}
+    - {fileID: -5075934661209406100}
+    - {fileID: 7162038855798858997}
+    - {fileID: -6019304548094646842}
+    - {fileID: -1810730133867384668}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -142,7 +161,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 10
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 13
       Data: 
@@ -166,7 +185,7 @@ MonoBehaviour:
       Data: 7|Sirenix.OdinValidator.Editor.AutomatedValidationHook, Sirenix.OdinValidator
     - Name: Enabled
       Entry: 5
-      Data: true
+      Data: false
     - Name: FinishValidationOnFailures
       Entry: 5
       Data: false
@@ -198,7 +217,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 10
-      Data: 2
+      Data: 4
     - Name: 
       Entry: 13
       Data: 
@@ -222,7 +241,7 @@ MonoBehaviour:
       Data: 12|Sirenix.OdinValidator.Editor.AutomatedValidationHook, Sirenix.OdinValidator
     - Name: Enabled
       Entry: 5
-      Data: true
+      Data: false
     - Name: FinishValidationOnFailures
       Entry: 5
       Data: false
@@ -254,7 +273,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 10
-      Data: 2
+      Data: 0
     - Name: 
       Entry: 13
       Data: 
@@ -279,27 +298,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
---- !u!114 &5742864410886056945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abebc8478d78fe54bb45646c484b090b, type: 3}
-  m_Name: Scan Open Scenes
-  m_EditorClassIdentifier: 
-  Profile:
-    name: Scan Open Scenes
-    description: Scans all open scenes, without going through scene asset dependencies.
-    IncludeScenesFromBuildOptions: 0
-    IncludeOpenScenes: 1
-    IncludeAssetDependencies: 0
-    ScenePaths: []
-    ExcludeScenePaths: []
---- !u!114 &6435528032339373181
+--- !u!114 &4239458116896808010
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -315,9 +314,9 @@ MonoBehaviour:
     name: Scan Entire Project
     description: Scans all prefabs, scriptable objects and scenes in the project
     Profiles:
-    - {fileID: -4834053399390361149}
-    - {fileID: -336290157764806349}
---- !u!114 &7466067793991348111
+    - {fileID: -5075934661209406100}
+    - {fileID: 7162038855798858997}
+--- !u!114 &7162038855798858997
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -327,13 +326,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: abebc8478d78fe54bb45646c484b090b, type: 3}
-  m_Name: Scan Scenes From Build Options
+  m_Name: Scan All Scenes
   m_EditorClassIdentifier: 
   Profile:
-    name: Scan Scenes From Build Options
-    description: Scans all scenes from build options, including scene asset dependencies.
-    IncludeScenesFromBuildOptions: 1
+    name: Scan All Scenes
+    description: Scans all scenes in the project
+    IncludeScenesFromBuildOptions: 0
     IncludeOpenScenes: 0
-    IncludeAssetDependencies: 1
-    ScenePaths: []
+    IncludeAssetDependencies: 0
+    ScenePaths:
+    - Assets
     ExcludeScenePaths: []
