@@ -42,6 +42,7 @@ public class RobotDetails : MonoBehaviour
     {
         StartUndock();
         rigidbody = GetComponent<Rigidbody>();
+        VisualDetail.enabled = false;
     }
 
     private void Update()
@@ -121,6 +122,7 @@ public class RobotDetails : MonoBehaviour
         VisualDetail.enabled = false;
 
         forceField = CreateForceField();
+        if (!forceField) ShowDetail();
     }
 
     void DetailOnRobot()
