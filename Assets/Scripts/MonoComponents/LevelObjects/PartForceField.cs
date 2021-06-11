@@ -20,7 +20,7 @@ public class PartForceField : MonoBehaviour
         Destroy(onShowParticles.gameObject, onShowParticles.main.duration);
         onShowParticles.transform.SetParent(transform.parent);
 
-        detail.ShowDetail();
+        //detail.ShowDetail();
         Destroy(other);
     }
 }
