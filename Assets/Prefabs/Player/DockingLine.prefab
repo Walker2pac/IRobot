@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8457028928673707245}
-  - component: {fileID: 3450812588306563375}
+  - component: {fileID: 7033629064470127385}
   m_Layer: 0
   m_Name: DockingLine
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!120 &3450812588306563375
+--- !u!120 &7033629064470127385
 LineRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -49,7 +49,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 14be5e3a1d16be14281688ea50c69c07, type: 2}
+  - {fileID: 2100000, guid: 491917f5ea76c044ca2227a91f8a44c1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -73,6 +73,10 @@ LineRenderer:
   m_Positions:
   - {x: 0, y: 0, z: 10}
   - {x: 0, y: 1, z: 5}
+  - {x: 2.7976677, y: 1.6366551, z: 9.751774}
+  - {x: 5.0886583, y: 2.822486, z: 8.27457}
+  - {x: 4.750247, y: 2.5827608, z: 6.8106933}
+  - {x: 4.305031, y: 2.9396718, z: 7.1335225}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -81,21 +85,39 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.5149231
         inSlope: 0
         outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.49514276
+        value: 0.17910194
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 0.5522461
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.70822835, b: 0, a: 1}
-      key1: {r: 1, g: 0, b: 0.8227253, a: 1}
-      key2: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 0, g: 0.82678556, b: 1, a: 0}
+      key1: {r: 0, g: 0.6349025, b: 1, a: 0.39215687}
+      key2: {r: 0, g: 0, b: 0, a: 0.39215687}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
       key5: {r: 0, g: 0, b: 0, a: 0}
@@ -110,20 +132,20 @@ LineRenderer:
       ctime6: 0
       ctime7: 0
       atime0: 0
-      atime1: 65535
-      atime2: 0
-      atime3: 0
+      atime1: 13107
+      atime2: 53970
+      atime3: 65535
       atime4: 0
       atime5: 0
       atime6: 0
       atime7: 0
       m_Mode: 0
       m_NumColorKeys: 2
-      m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+      m_NumAlphaKeys: 4
+    numCornerVertices: 90
+    numCapVertices: 90
     alignment: 0
-    textureMode: 0
+    textureMode: 1
     shadowBias: 0.5
     generateLightingData: 0
   m_UseWorldSpace: 1

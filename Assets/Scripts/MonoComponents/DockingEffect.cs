@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TeamAlpha.Source;
 
 public class DockingEffect : MonoBehaviour
 {
-    public GameObject Effect;
-    public GameObject BrokeEffect;
-
     public void ShowEfffect()
     {
-        Instantiate(Effect, transform);
+        GameObject effect = Instantiate(DataGameMain.Default.attachEffect);
+        effect.transform.SetParent(transform);
+        effect.transform.localPosition = Vector3.zero;
     }
     public void ShowBrokeEfffect()
     {
-        Instantiate(BrokeEffect, transform);
+        GameObject effect = Instantiate(DataGameMain.Default.brokeEffect);
+        effect.transform.SetParent(transform);
+        effect.transform.localPosition = Vector3.zero;
     }
 }

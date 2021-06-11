@@ -53,6 +53,11 @@ namespace TeamAlpha.Source
         public float dockingLineNoiseStrenght = 0f;
         public float dockingLineNoiseFrequency = 0f;
 
+        [Header("DockingEffects")]
+        public GameObject attachEffect;
+        public GameObject brokeEffect;
+        public GameObject upgradeEffect;
+
         #endregion
 
 

@@ -39,37 +39,14 @@ public class RobotDetails : MonoBehaviour
     private Rigidbody rigidbody;
     private GameObject forceField;
     private LineRenderer dockingLine;
+    private DetailController detailController;
 
     private void Start()
     {
+        detailController = GetComponentInParent<DetailController>();
         StartUndock();
         rigidbody = GetComponent<Rigidbody>();
         VisualDetail.enabled = false;
-    }
-
-    private void Update()
-    {
-        if (dockingLine) 
-        {
-            List<Vector3> positions = new List<Vector3>();
-            Vector3 startPoint = dockingLine.transform.position;
-            Vector3 endPoint = transform.parent.position + dockingLine.transform.localPosition;
-
-            positions.Add(endPoint);
-            for (int i = 0; i < DataGameMain.Default.dockingLineBetweenPoints; i++) 
-            {
-                float strenght = DataGameMain.Default.dockingLineNoiseStrenght;
-                float frequency = DataGameMain.Default.dockingLineNoiseFrequency;
-                float t = 1f / (DataGameMain.Default.dockingLineBetweenPoints + 2f) * (i + 1f);
-                Vector3 betweenPoint = Vector3.Lerp(endPoint, startPoint, t);
-                betweenPoint.x += Mathf.PerlinNoise(betweenPoint.x, Time.time * frequency) * strenght;
-                betweenPoint.y += Mathf.PerlinNoise(Time.time * frequency, betweenPoint.y) * strenght;
-                positions.Add(betweenPoint);
-            }
-            positions.Add(startPoint);
-            dockingLine.positionCount = positions.Count;
-            dockingLine.SetPositions(positions.ToArray());
-        }
     }
 
     public void UndockingDetail()
@@ -87,7 +64,7 @@ public class RobotDetails : MonoBehaviour
         Invoke("SetPosition", 2f);
     }
 
-    void StartUndock()
+    private void StartUndock()
     {
         DetailUsed = false;
         DetailsOnRobot.enabled = false;
@@ -98,17 +75,81 @@ public class RobotDetails : MonoBehaviour
     public void ShowDetail()
     {
         dockingLine = CreateDockingLine()?.GetComponent<LineRenderer>();
-
         if (forceField) Destroy(forceField);
         VisualDetail.enabled = true;
-        transform.DOLocalMove(Vector3.zero, 0.5f)
+
+        Vector3 startPosition = transform.localPosition;
+        DOTween.To(
+            () => 0f,
+            (v) => 
+                {
+                    transform.localPosition = Vector3.Lerp(startPosition, Vector3.zero, v);
+                    CalculateDockingLine(v);
+                },
+            1f, 1f)
             .SetEase(Ease.InExpo)
-            .OnComplete(() => DetailOnRobot());
+            .OnComplete(() => DetailOnRobot());   
     }
 
-    private GameObject CreateDockingLine() 
+    private void CalculateDockingLine(float tweenValue) 
     {
-        GameObject prefab = GetComponentInParent<DetailController>()?.DockingLinePrefab;
+        if (dockingLine)
+        {
+            List<Vector3> positions = new List<Vector3>();
+            Vector3 startPoint = dockingLine.transform.position;
+            Vector3 endPoint = transform.parent.position + dockingLine.transform.localPosition;
+
+            positions.Add(endPoint);
+            for (int i = 0; i < DataGameMain.Default.dockingLineBetweenPoints; i++)
+            {
+                float strenght = DataGameMain.Default.dockingLineNoiseStrenght;
+                float frequency = DataGameMain.Default.dockingLineNoiseFrequency;
+                float t = 1f / (DataGameMain.Default.dockingLineBetweenPoints + 2f) * (i + 1f);
+                Vector3 betweenPoint = Vector3.Lerp(endPoint, startPoint, t);
+                betweenPoint.x += (0.5f - Mathf.PerlinNoise(betweenPoint.x, Time.time * frequency)) * strenght * (1 - tweenValue);
+                betweenPoint.y += (0.5f - Mathf.PerlinNoise(Time.time * frequency, betweenPoint.y)) * strenght * (1 - tweenValue);
+                positions.Add(betweenPoint);
+            }
+            positions.Add(startPoint);
+            dockingLine.positionCount = positions.Count;
+            dockingLine.SetPositions(positions.ToArray());
+        }
+    }
+
+    public void DockingDetail()
+    {
+        DetailStates = DetailStates.StartDocking;
+        transform.localPosition = PreDockingPosition.localPosition;
+        VisualDetail.enabled = false;
+
+        forceField = CreateForceField();
+        if (!forceField) ShowDetail();
+    }
+
+    private void DetailOnRobot()
+    {
+        DetailUsed = true;
+        DetailStates = DetailStates.DockingComplete;
+        if (UseEffect)
+        {
+            EffectDocking.Invoke();
+        }
+        if (dockingLine) Destroy(dockingLine.gameObject);
+        DetailsOnRobot.enabled = true;
+        VisualDetail.enabled = false;
+
+    }
+
+    private void SetPosition()
+    {
+        rigidbody.useGravity = false;
+        rigidbody.isKinematic = true;
+        transform.position = DetailPosition.position;
+    }
+
+    private GameObject CreateDockingLine()
+    {
+        GameObject prefab = detailController?.DockingLinePrefab;
         if (prefab)
         {
             GameObject lineObject = Instantiate(prefab);
@@ -123,7 +164,7 @@ public class RobotDetails : MonoBehaviour
 
     private GameObject CreateForceField()
     {
-        GameObject prefab = GetComponentInParent<DetailController>()?.ForceFieldPrefab;
+        GameObject prefab = detailController?.ForceFieldPrefab;
         if (prefab)
         {
             GameObject forceObject = Instantiate(prefab);
@@ -135,36 +176,4 @@ public class RobotDetails : MonoBehaviour
         }
         return null;
     }
-
-    public void DockingDetail()
-    {
-        DetailStates = DetailStates.StartDocking;
-        transform.localPosition = PreDockingPosition.localPosition;
-        VisualDetail.enabled = false;
-
-        forceField = CreateForceField();
-        if (!forceField) ShowDetail();
-    }
-
-    void DetailOnRobot()
-    {
-        DetailUsed = true;
-        DetailStates = DetailStates.DockingComplete;
-        if (UseEffect)
-        {
-            EffectDocking.Invoke();
-        }
-        if (dockingLine) Destroy(dockingLine.gameObject);
-        DetailsOnRobot.enabled = true;
-        VisualDetail.enabled = false;
-
-    }
-
-    void SetPosition()
-    {
-        rigidbody.useGravity = false;
-        rigidbody.isKinematic = true;
-        transform.position = DetailPosition.position;
-    }
-
 }
