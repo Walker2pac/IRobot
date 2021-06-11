@@ -22,6 +22,8 @@ public class DetailController : MonoBehaviour
 
     [SerializeField] private GameObject forceFieldPrefab;
 
+    public GameObject ForceFieldPrefab => forceFieldPrefab;
+
     private void Start()
     {
         for (int i = 0; i < FallenRobotDetails.Count; i++)
