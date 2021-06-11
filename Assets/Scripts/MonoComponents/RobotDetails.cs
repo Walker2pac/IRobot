@@ -31,12 +31,12 @@ public class RobotDetails : MonoBehaviour
     public bool UseEffect;
     public UnityEvent EffectDocking;
     public UnityEvent EffectUndocking;
-
+    
     public bool DetailUsed;
-
-
     public bool Left;
-    Rigidbody rigidbody;
+
+    private Rigidbody rigidbody;
+    private GameObject forceObject;
 
     private void Start()
     {
@@ -103,6 +103,12 @@ public class RobotDetails : MonoBehaviour
                     .SetEase(Ease.InExpo)
                     .OnComplete(() => DetailOnRobot()))
             .SetEase(Ease.OutQuad);
+
+
+    }
+
+    public void ShowDetail() 
+    {
 
     }
 
