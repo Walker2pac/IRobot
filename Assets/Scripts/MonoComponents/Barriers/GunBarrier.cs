@@ -7,14 +7,17 @@ namespace TeamAlpha.Source
 {
     public class GunBarrier : MonoBehaviour
     {
+        [Header ("Objects")]
         [SerializeField] private GameObject gunTop;
         [SerializeField] private Bullet bullet;
         [SerializeField] private GameObject gunMuzzle;
-        [SerializeField] private Transform player { get => PlayerController.Current.transform; }
         [SerializeField] private List<GameObject> bulletSpawns = new List<GameObject>();
+
+        [Header("Settings")]
         [SerializeField] private float shotPeriod;
         [Range(0.002f, 0.008f)]
         [SerializeField] private float recoilForce;
+        private Transform _player { get => PlayerController.Current.transform; }
         private Vector3 _recoilPosition;
         private Vector3 _startMuzzlePosition;
         private void Start()
@@ -25,7 +28,7 @@ namespace TeamAlpha.Source
         }
         private void FixedUpdate()
         {
-            Vector3 relativePos = player.position - gunTop.transform.position;
+            Vector3 relativePos = _player.position - gunTop.transform.position;
             Vector3 toPlayer = new Vector3(relativePos.x, 0, relativePos.z);
             Quaternion rotation = Quaternion.LookRotation(toPlayer, Vector3.up);
             gunTop.transform.localRotation = rotation;
@@ -41,7 +44,7 @@ namespace TeamAlpha.Source
                 GameObject newBullet = Instantiate(bullet.gameObject, bulletSpawns[i].transform);
                 newBullet.transform.SetParent(LevelController.Current.transform);
                 float bulletSpeed = DataGameMain.Default.bulletSpeed;
-                newBullet.GetComponent<Bullet>().SetSpeed((player.position - bulletSpawns[i].transform.position).normalized * bulletSpeed);
+                newBullet.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * 20, ForceMode.VelocityChange);
             }
             StartCoroutine(Shot());
         }
