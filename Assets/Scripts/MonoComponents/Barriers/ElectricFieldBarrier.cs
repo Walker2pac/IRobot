@@ -3,26 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class ElectricFieldBarrier : BarriersInteractingButton
-{    
-    public List<GameObject> Points = new List<GameObject>();
 
-    public override void Action(float speed)
+namespace TeamAlpha.Source
+{
+    public class ElectricFieldBarrier : Barriers, IButton
     {
-        for (int i = 0; i < Points.Count; i++)
-        {
-            Points[i].transform.DOMoveY(transform.position.y - 0.002f, speed, false).OnComplete(() => Off());
-        }
-    }
+        [SerializeField] private List<GameObject> points = new List<GameObject>();
 
-    void Off()
-    {
-        for (int i = 0; i < Points.Count; i++)
+        public void PushButton(float speed)
         {
-            if (Points[i].GetComponentInChildren<ParticleSystem>())
+            for (int i = 0; i < points.Count; i++)
             {
-                Points[i].GetComponentInChildren<ParticleSystem>().Stop();
-                Points[i].GetComponent<Collider>().enabled = false;
+                points[i].transform.DOMoveY(transform.position.y - 0.002f, speed, false).OnComplete(() => Off());
+            }
+        }
+
+        void Off()
+        {
+            for (int i = 0; i < points.Count; i++)
+            {
+                if (points[i].GetComponentInChildren<ParticleSystem>())
+                {
+                    points[i].GetComponentInChildren<ParticleSystem>().Stop();
+                    points[i].GetComponent<Collider>().enabled = false;
+                }
             }
         }
     }

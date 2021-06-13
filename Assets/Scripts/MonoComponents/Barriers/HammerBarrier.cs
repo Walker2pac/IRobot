@@ -6,7 +6,7 @@ using DG.Tweening;
 
 namespace TeamAlpha.Source
 {
-    public class HammerBarrier : MonoBehaviour
+    public class HammerBarrier : Barriers
     {
         [SerializeField] private Transform movingAxis;
         [Space, SerializeField] private float moveDownSpeed;
@@ -16,21 +16,18 @@ namespace TeamAlpha.Source
         [Space, SerializeField] private int collisionDamage;
         [SerializeField] private int hitDamage;
 
-        private int damage;
+        private int damage ;
 
         private void Start()
         {
             StartCoroutine(DelayedPunch(timeOffset));
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected override void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == DataGameMain.LayerPlayer)
-            {
-                PlayerController.Current.SendDamage(damage);
-                Destroy(gameObject);
-            }
+            base.OnTriggerEnter(other);
         }
+
 
         private IEnumerator DelayedPunch(float time)
         {

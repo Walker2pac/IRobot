@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
+
 namespace TeamAlpha.Source
 {
     public enum RotationDirection
@@ -8,11 +10,10 @@ namespace TeamAlpha.Source
         Forward,
         Back
     }
-    public class HorizontalCylinderBarrier : MonoBehaviour
+    public class HorizontalCylinderBarrier : Barriers
     {
-        public RotationDirection CurrentRotationDirection;
-        public float RotationSpeed;
-        public int DamageValue;
+        [SerializeField] private RotationDirection CurrentRotationDirection;
+        [SerializeField] private float RotationSpeed;
 
         private void Update()
         {
@@ -25,14 +26,9 @@ namespace TeamAlpha.Source
                 transform.Rotate(-Vector3.up * Time.deltaTime * RotationSpeed);
             }
         }
-
-        private void OnTriggerEnter(Collider other)
+        protected override void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == DataGameMain.LayerPlayer)
-            {
-                PlayerController.Current.SendDamage(DamageValue);
-                Destroy(gameObject);
-            }
+            base.OnTriggerEnter(other);
         }
     }
 }

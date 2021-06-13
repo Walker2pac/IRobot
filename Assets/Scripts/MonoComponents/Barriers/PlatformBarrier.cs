@@ -4,57 +4,59 @@ using UnityEngine;
 using DG.Tweening;
 using Dreamteck.Splines;
 
-public enum RotationSide
+
+namespace TeamAlpha.Source
 {
-    Left,
-    Right,
-    None
-}
-
-
-
-public class PlatformBarrier : BarriersInteractingButton
-{
-    public float RotationSpeed;
-    public RotationSide CurrentRotationSide;
-    [Range(1, 2)]
-    public int NumberBarriers;
-    public GameObject BarrierPrefab;
-    [Header("Barriers Position On Platform")]
-    public List<Transform> BarriersPosition = new List<Transform>();
-    
-
-    private void Start()
+    public enum RotationSidePlatform
     {
-        if (NumberBarriers == 1)
+        Left,
+        Right,
+        None
+    }
+
+
+
+    public class PlatformBarrier : Barriers, IButton
+    {
+        [SerializeField] private float rotationSpeed;
+        [SerializeField] private RotationSidePlatform currentRotationSide;
+        [Range(1, 2)]
+        [SerializeField] private int numberBarriers;
+        [SerializeField] private GameObject barrierPrefab;
+        [Header("Barriers Position On Platform")]
+        [SerializeField] private List<Transform> barriersPosition = new List<Transform>();
+
+
+        private void Start()
         {
-            Instantiate(BarrierPrefab, BarriersPosition[0]);
-        }
-        else
-        {
-            for (int i = 1; i < BarriersPosition.Count; i++)
+            if (numberBarriers == 1)
             {
-                Instantiate(BarrierPrefab, BarriersPosition[i]);
+                Instantiate(barrierPrefab, barriersPosition[0]);
+            }
+            else
+            {
+                for (int i = 1; i < barriersPosition.Count; i++)
+                {
+                    Instantiate(barrierPrefab, barriersPosition[i]);
+                }
             }
         }
-    }
 
-    private void FixedUpdate()
-    {
-        if (CurrentRotationSide == RotationSide.Right)
+        private void FixedUpdate()
         {
-            transform.Rotate(0, RotationSpeed * Time.deltaTime, 0);
+            if (currentRotationSide == RotationSidePlatform.Right)
+            {
+                transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
+            }
+            if (currentRotationSide == RotationSidePlatform.Left)
+            {
+                transform.Rotate(0, -rotationSpeed * Time.deltaTime, 0);
+            }
+
         }
-        if (CurrentRotationSide == RotationSide.Left)
+        public void PushButton(float speed)
         {
-            transform.Rotate(0, -RotationSpeed * Time.deltaTime, 0);
+            transform.DOLocalRotate(new Vector3(0, 90, 0), speed).OnComplete(() => currentRotationSide = RotationSidePlatform.None);
         }
-
-    }
-
-
-    public override void Action(float speed)
-    {
-        transform.DOLocalRotate(new Vector3(0, 90, 0), speed).OnComplete(() => CurrentRotationSide = RotationSide.None);
     }
 }

@@ -4,18 +4,13 @@ using UnityEngine;
 
 namespace TeamAlpha.Source
 {
-    public class WallBarrier : MonoBehaviour
+    public class WallBarrier : Barriers
     {
-        public int DamageValue;
-        public int StrengtheValue;
+        [SerializeField] private int strengtheValue;
 
-        private void OnTriggerEnter(Collider other)
+        protected override void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == DataGameMain.LayerPlayer)
-            {
-                PlayerController.Current.SendDamage(DamageValue); 
-                Destroy(gameObject);
-            }
+            base.OnTriggerEnter(other);
         }
 
 

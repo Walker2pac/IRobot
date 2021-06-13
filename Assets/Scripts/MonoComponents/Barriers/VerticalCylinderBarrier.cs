@@ -10,31 +10,27 @@ namespace TeamAlpha.Source
         Right
     }
 
-    public class VerticalCylinderBarrier : MonoBehaviour
+    public class VerticalCylinderBarrier : Barriers
     {
-        public RotationSide CurrentRotationSide;
-        public float RotationSpeed;
-        public int DamageValue;
+        [SerializeField] private GameObject bodyBarrier;
+        [SerializeField] private RotationSide currentRotationSide;
+        [SerializeField] private float rotationSpeed;
 
         private void Update()
         {
-            if(CurrentRotationSide == RotationSide.Right)
+            if(currentRotationSide == RotationSide.Right)
             {
-                transform.Rotate(Vector3.up * Time.deltaTime * RotationSpeed);
+                bodyBarrier.transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
             }
-            if (CurrentRotationSide == RotationSide.Left)
+            if (currentRotationSide == RotationSide.Left)
             {
-                transform.Rotate(-Vector3.up * Time.deltaTime * RotationSpeed);
+                bodyBarrier.transform.Rotate(-Vector3.forward * Time.deltaTime * rotationSpeed);
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+        protected override void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == DataGameMain.LayerPlayer)
-            {
-                PlayerController.Current.SendDamage(DamageValue);
-                Destroy(gameObject);
-            }
+            base.OnTriggerEnter(other);
         }
     }
 }

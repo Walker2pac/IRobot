@@ -5,17 +5,11 @@ using UnityEngine;
 namespace TeamAlpha.Source
 {
     
-    public class ElectricPoint : MonoBehaviour
+    public class ElectricPoint : Barriers
     {
-        public int DamageValue;
-
-        private void OnTriggerEnter(Collider other)
+        protected override void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == DataGameMain.LayerPlayer)
-            {
-                PlayerController.Current.SendDamage(DamageValue);
-                Destroy(gameObject);
-            }
+            base.OnTriggerEnter(other);
         }
     }
 }
