@@ -33,6 +33,7 @@ namespace TeamAlpha.Source
         [SerializeField] private NamedAnimancerComponent _animacer;
         [SerializeField] private AnimationClip _animIdle;
         [SerializeField] private AnimationClip _animRun;
+        [SerializeField] private AnimationClip _animRunWithShield;
         [SerializeField] private AnimationClip _animTrip;
 
         [Space]
@@ -50,6 +51,8 @@ namespace TeamAlpha.Source
             _detailController = GetComponent<DetailController>();
             cameraSpline.startPosition = _movingObject.StartPosition;
 
+
+            Shield.Default.OnShieldSpawned += () => _animacer.Play(_animRunWithShield);
             LayerDefault.Default.OnPlayStart += () =>
             {
                 _movingObject.ChangeSpeed(speed, 0f);
@@ -68,6 +71,7 @@ namespace TeamAlpha.Source
         #region Methods
         public void SendDamage(int damage)
         {
+
             if (!_detailController.LoseDetail(damage))
                 GameOver();
             else 

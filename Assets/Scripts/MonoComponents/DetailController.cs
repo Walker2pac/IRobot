@@ -51,12 +51,17 @@ public class DetailController : MonoBehaviour
 
     public bool LoseDetail(int damage)
     {
-        for (int i = 0; i < damage; i++) 
+        if (Shield.Default.Spawned)
+            Shield.Default.Break();
+        else 
         {
-            RobotDetails detail = GetPrevious();
-            if (!detail) return false;
+            for (int i = 0; i < damage; i++)
+            {
+                RobotDetails detail = GetPrevious();
+                if (!detail) return false;
 
-            detail.BreakDetail(breakedDetailPrefab);
+                detail.BreakDetail(breakedDetailPrefab);
+            }
         }
         return true;
     }
@@ -73,10 +78,9 @@ public class DetailController : MonoBehaviour
 
     private RobotDetails GetNext() 
     {
-        if (_curentDetail >= _detailCount - 1)
+        if (_curentDetail > _detailCount - 1)
             return null;
 
-        _curentDetail++;
         RobotDetails detail = GetCurrentDetail();
         if (_details[detail.Type].IndexOf(detail) == 0) 
         {
@@ -84,6 +88,7 @@ public class DetailController : MonoBehaviour
             foreach (UpgradeObjectBridge b in level.upgradeObjects)
                 b.Spawn();
         }
+        _curentDetail++;
         return detail;
     }
 
@@ -102,10 +107,10 @@ public class DetailController : MonoBehaviour
         int trueIndex = _curentDetail;
         foreach (Level l in levels) 
         {
-            if (trueIndex < _details[l.type].Count - 1)
+            if (trueIndex <= _details[l.type].Count - 1)
                 return _details[l.type][trueIndex];
             else
-                trueIndex -= _details[l.type].Count - 1;
+                trueIndex -= _details[l.type].Count;
         }
         return null;
     }
