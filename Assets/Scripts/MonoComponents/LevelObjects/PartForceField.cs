@@ -7,7 +7,6 @@ public class PartForceField : MonoBehaviour
     [SerializeField] ParticleSystem onShowParticles;
 
     private RobotDetails detail;
-    private int collisions = 0;
 
     void Start()
     {
@@ -20,7 +19,8 @@ public class PartForceField : MonoBehaviour
         Destroy(onShowParticles.gameObject, onShowParticles.main.duration);
         onShowParticles.transform.SetParent(transform.parent);
 
-        //detail.ShowDetail();
+        detail.StartAttach();
         Destroy(other);
+        Destroy(gameObject);
     }
 }

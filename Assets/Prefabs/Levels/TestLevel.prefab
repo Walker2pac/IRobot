@@ -2020,20 +2020,20 @@ MonoBehaviour:
   _space: 0
   _sampleMode: 0
   subscribers:
-  - {fileID: 9104073915656311046}
-  - {fileID: 8930789555189916741}
-  - {fileID: 8930789554798929661}
-  - {fileID: 7143361640816936588}
-  - {fileID: 6117838488190503440}
-  - {fileID: 5413059645258969146}
-  - {fileID: 4277552507618513508}
-  - {fileID: 3626242148949836167}
   - {fileID: 2241486087108052605}
   - {fileID: 2241486086087957068}
-  - {fileID: 2241486085579647580}
-  - {fileID: 1027670105567084329}
+  - {fileID: 9104073915656311046}
+  - {fileID: 5413059645258969146}
   - {fileID: 747190083151448493}
+  - {fileID: 7143361640816936588}
+  - {fileID: 1027670105567084329}
+  - {fileID: 8930789554798929661}
+  - {fileID: 3626242148949836167}
+  - {fileID: 4277552507618513508}
+  - {fileID: 8930789555189916741}
+  - {fileID: 2241486085579647580}
   - {fileID: 607934521}
+  - {fileID: 6117838488190503440}
   nodes: []
 --- !u!114 &6117838488190503440
 MonoBehaviour:
@@ -3590,6 +3590,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8733077151703285408}
     m_Modifications:
+    - target: {fileID: 2342714083578925229, guid: 8236275d7821d534d85dc917da8c27fe,
+        type: 3}
+      propertyPath: playerSpeed
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2843454712065706258, guid: 8236275d7821d534d85dc917da8c27fe,
         type: 3}
       propertyPath: _spline

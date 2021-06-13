@@ -9,6 +9,11 @@ public enum DetailType
     Torso,
     Foot,
 }
+public enum DetailSide 
+{
+    Left,
+    Right
+}
 
 public class DetailController : MonoBehaviour
 {
@@ -21,6 +26,10 @@ public class DetailController : MonoBehaviour
 
     [SerializeField] private GameObject forceFieldPrefab;
     [SerializeField] private GameObject dockingLinePrefab;
+    [Space]
+    [SerializeField] private Transform leftPreAttachPoint;
+    [SerializeField] private Transform rightPreAttachPoint;
+    [Space]
     [SerializeField] private List<Level> levels = new List<Level>();
 
     private int _curentDetail = 0;
@@ -53,7 +62,12 @@ public class DetailController : MonoBehaviour
 
     public void AddDetail()
     {
-        GetNext()?.AttachDetail();
+        RobotDetails detail = GetNext();
+        if (detail) 
+        {
+            Transform point = detail.Side == DetailSide.Left ? leftPreAttachPoint : rightPreAttachPoint;
+            detail.AttachDetail(forceFieldPrefab, dockingLinePrefab, point);
+        }
     }
 
     private RobotDetails GetNext() 
@@ -77,8 +91,9 @@ public class DetailController : MonoBehaviour
         if (_curentDetail <= 0)
             return null;
 
+        RobotDetails detail = GetCurrentDetail();
         _curentDetail--;
-        return GetCurrentDetail();
+        return detail;
     }
 
     private RobotDetails GetCurrentDetail() 

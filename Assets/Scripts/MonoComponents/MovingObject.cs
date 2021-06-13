@@ -23,7 +23,7 @@ namespace TeamAlpha.Source
         
         private Tween speedChangeTween;
 
-        public SplineFollower SplineFollower => splineFollower;
+        public double StartPosition => splineFollower.startPosition;
         public float Speed => splineFollower.followSpeed;
 
         #region Lifecycle

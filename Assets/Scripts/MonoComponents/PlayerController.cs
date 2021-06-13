@@ -39,7 +39,7 @@ namespace TeamAlpha.Source
         {
             _movingObject = GetComponent<MovingObject>();
             _detailController = GetComponent<DetailController>();
-            cameraSpline.startPosition = _movingObject.SplineFollower.startPosition;
+            cameraSpline.startPosition = _movingObject.StartPosition;
         }
 
         private void FixedUpdate()
@@ -63,7 +63,7 @@ namespace TeamAlpha.Source
 
         private void GameOver() 
         {
-
+            Debug.Break();
         }
         #endregion
     }
