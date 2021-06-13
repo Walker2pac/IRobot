@@ -19,7 +19,7 @@ namespace TeamAlpha.Source
         {
             if (other.gameObject.layer == DataGameMain.LayerPlayer) 
             {
-                PlayerController.Current.SetHealthUp(1);
+                PlayerController.Current.SendPart();
                 ParticleSystem destroyParts = Instantiate(Effect, other.transform).GetComponent<ParticleSystem>();
                 Destroy(gameObject);
             }

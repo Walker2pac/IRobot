@@ -1,188 +1,97 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum DetailType
+{
+    Hand,
+    Torso,
+    Foot,
+}
 
 public class DetailController : MonoBehaviour
 {
-    public List<RobotDetails> RobotDetails = new List<RobotDetails>();
-    public List<RobotDetails> HandDetails = new List<RobotDetails>();
-    public List<RobotDetails> TorsoDetails = new List<RobotDetails>();
-    public List<RobotDetails> FootDetails = new List<RobotDetails>();
-    public List<RobotDetails> FallenRobotDetails = new List<RobotDetails>();
-
-    public bool AllDetailsFallen;
-    public bool HandDetailsDone;
-    public bool TorsoDetailsDone;
-    public bool FootDetailsDone;
-
-    public int HandDetailNumber;
-    public int TorsoDetailNumber;
-    public int FootDetailNumber;
+    [Serializable]
+    public class Level 
+    {
+        public DetailType type;
+        public List<UpgradeObjectBridge> upgradeObjects = new List<UpgradeObjectBridge>();
+    }
 
     [SerializeField] private GameObject forceFieldPrefab;
     [SerializeField] private GameObject dockingLinePrefab;
+    [SerializeField] private List<Level> levels = new List<Level>();
 
-    public GameObject ForceFieldPrefab => forceFieldPrefab;
-    public GameObject DockingLinePrefab => dockingLinePrefab;
+    private int _curentDetail = 0;
+    private int _detailCount;
+    private Dictionary<DetailType, List<RobotDetails>> _details;
 
     private void Start()
     {
-        for (int i = 0; i < FallenRobotDetails.Count; i++)
-        {
-            if (FallenRobotDetails[i].tag == "HandDetail")
-            {
-                HandDetailNumber++;
-            }
-            if (FallenRobotDetails[i].tag == "TorsoDetail")
-            {
-                TorsoDetailNumber++;
-            }
-            if (FallenRobotDetails[i].tag == "FootDetail")
-            {
-                FootDetailNumber++;
-            }
-        }
+        List<RobotDetails> details = new List<RobotDetails>(GetComponentsInChildren<RobotDetails>());
+
+        _details = new Dictionary<DetailType, List<RobotDetails>>();
+        _details.Add(DetailType.Hand, details.FindAll((d) => d.Type == DetailType.Hand));
+        _details.Add(DetailType.Torso, details.FindAll((d) => d.Type == DetailType.Torso));
+        _details.Add(DetailType.Foot, details.FindAll((d) => d.Type == DetailType.Foot));
+
+        _detailCount = details.Count;
     }
 
-
-
-    public void FallenDetail(int damage)
+    public bool LoseDetail(int damage)
     {
-        int numberOfUndockingDetail = damage;
-        if (RobotDetails.Count < damage)
+        for (int i = 0; i < damage; i++) 
         {
-            numberOfUndockingDetail = RobotDetails.Count;
+            RobotDetails detail = GetPrevious();
+            if (!detail) return false;
+
+            detail.BreakDetail();
         }
-        for (int i = 0; i < numberOfUndockingDetail; i++)
-        {
-            if (!AllDetailsFallen)
-            {
-                for (int j = RobotDetails.Count - 1; j < RobotDetails.Count; j--)
-                {
-                    RobotDetails[j].UndockingDetail();
-                    FallenRobotDetails.Add(RobotDetails[j]);
-                    FallenRobotDetails.Insert(0, RobotDetails[j]);
-
-                    if (RobotDetails[j].tag == "HandDetail")
-                    {
-                        HandDetails.RemoveAt(HandDetails.Count - 1);
-                        RobotDetails.RemoveAt(j);
-                        break;
-                    }
-                    if (RobotDetails[j].tag == "TorsoDetail")
-                    {
-                        TorsoDetails.RemoveAt(TorsoDetails.Count - 1);
-                        RobotDetails.RemoveAt(j);
-                        break;
-                    }
-                    if (RobotDetails[j].tag == "FootDetail")
-                    {
-                        FootDetails.RemoveAt(FootDetails.Count - 1);
-                        RobotDetails.RemoveAt(j);
-                        break;
-                    }
-
-                }
-            }
-            else
-            {
-                break;
-            }
-        }
-
-
+        return true;
     }
 
     public void AddDetail()
     {
-
-        if (!HandDetailsDone)
-        {
-
-            for (int i = 0; i < FallenRobotDetails.Count; i++)
-            {
-                if (FallenRobotDetails[i].tag == "HandDetail")
-                {
-                    FallenRobotDetails[i].DockingDetail();
-                    HandDetails.Add(FallenRobotDetails[i]);
-                    RobotDetails.Add(FallenRobotDetails[i]);
-                    FallenRobotDetails.RemoveAt(i);
-                    break;
-                }
-            }
-            CheckDetailsOnRobot();
-        }
-        if (HandDetailsDone)
-        {
-
-            for (int i = 0; i < FallenRobotDetails.Count; i++)
-            {
-                if (FallenRobotDetails[i].tag == "TorsoDetail")
-                {
-                    FallenRobotDetails[i].DockingDetail();
-                    TorsoDetails.Add(FallenRobotDetails[i]);
-                    RobotDetails.Add(FallenRobotDetails[i]);
-                    FallenRobotDetails.RemoveAt(i);
-                    break;
-                }
-            }
-            CheckDetailsOnRobot();
-        }
-        if (TorsoDetailsDone)
-        {
-            for (int i = 0; i < FallenRobotDetails.Count; i++)
-            {
-                if (FallenRobotDetails[i].tag == "FootDetail")
-                {
-                    FallenRobotDetails[i].DockingDetail();
-                    FootDetails.Add(FallenRobotDetails[i]);
-                    RobotDetails.Add(FallenRobotDetails[i]);
-                    FallenRobotDetails.RemoveAt(i);
-                    break;
-                }
-            }
-            CheckDetailsOnRobot();
-        }
-
+        GetNext()?.AttachDetail();
     }
-    public void CheckDetailsOnRobot()
+
+    private RobotDetails GetNext() 
     {
-        for (int i = 0; i < HandDetails.Count; i++)
+        if (_curentDetail >= _detailCount - 1)
+            return null;
+
+        _curentDetail++;
+        RobotDetails detail = GetCurrentDetail();
+        if (_details[detail.Type].IndexOf(detail) == 0) 
         {
-            if (HandDetails[HandDetails.Count - 1].DetailUsed == true)
-            {
-                HandDetailsDone = true;
-            }
+            Level level = levels.Find((l) => l.type == detail.Type);
+            foreach (UpgradeObjectBridge b in level.upgradeObjects)
+                b.Spawn();
+        }
+        return detail;
+    }
+
+    private RobotDetails GetPrevious() 
+    {
+        if (_curentDetail <= 0)
+            return null;
+
+        _curentDetail--;
+        return GetCurrentDetail();
+    }
+
+    private RobotDetails GetCurrentDetail() 
+    {
+        int trueIndex = _curentDetail;
+        foreach (Level l in levels) 
+        {
+            if (trueIndex < _details[l.type].Count - 1)
+                return _details[l.type][trueIndex];
             else
-            {
-                HandDetailsDone = false;
-            }
+                trueIndex -= _details[l.type].Count - 1;
         }
-
-
-
-        if (TorsoDetails.Count == TorsoDetailNumber)
-        {
-            for (int i = 0; i < TorsoDetails.Count; i++)
-            {
-                if (TorsoDetails[TorsoDetails.Count - 1].DetailUsed == true)
-                {
-                    TorsoDetailsDone = true;
-                }
-            }
-        }
-
-        if (FootDetails.Count == FootDetailNumber)
-        {
-            for (int i = 0; i < FootDetails.Count; i++)
-            {
-                if (FootDetails[FootDetails.Count - 1].DetailUsed == true)
-                {
-                    FootDetailsDone = true;
-                }
-            }
-        }
+        return null;
     }
 }
 

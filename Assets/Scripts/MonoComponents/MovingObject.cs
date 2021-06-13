@@ -17,21 +17,14 @@ namespace TeamAlpha.Source
         [SerializeField] private SplineFollower splineFollower;
         [SerializeField] public Transform model;
 
-        [Header("Animation")]
-        [SerializeField] private NamedAnimancerComponent animancer;
-        public List<AnimationClip> RunStates = new List<AnimationClip>();
-        public int CurrentRunState;
-
         [Header("Values")]
         [SerializeField] private float startSpeed;
         [SerializeField] private float playerSpeed;
         
-
-        public float Speed { get => splineFollower.followSpeed; }
-
-
         private Tween speedChangeTween;
 
+        public SplineFollower SplineFollower => splineFollower;
+        public float Speed => splineFollower.followSpeed;
 
         #region Lifecycle
         private void Start()
@@ -40,42 +33,7 @@ namespace TeamAlpha.Source
                 () => ChangeSpeed(startSpeed, DataGameMain.Default.startSpeedChangeDuration);
 
         }
-
-        private void FixedUpdate()
-        {
-            CheckRunState();
-
-            if (animancer != null)
-            {
-                for (int i = 0; i < RunStates.Count; i++)
-                {
-                    if (Speed > 0)
-                    {
-                        if (i == CurrentRunState)
-                        {
-                            if (CurrentRunState == 4)
-                            {
-                                playerSpeed = playerSpeed * 2;
-                            }
-                            animancer.Play(RunStates[i]).Speed = (Speed / DataGameMain.Default.maxSpeed) * 2f;
-                        }
-                    }
-
-
-                    else animancer.Play(RunStates[0], 0.2f);
-                }
-            }
-        }
-        public void CheckRunState()
-        {
-
-            CurrentRunState = FindObjectOfType<PlayerController>().currentLevelAnim;
-
-
-        }
         #endregion
-
-
 
         public void ChangeSpeed(float targetSpeed, float duration)
         {

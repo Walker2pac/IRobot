@@ -5,74 +5,34 @@ using DG.Tweening;
 using UnityEngine.Events;
 using TeamAlpha.Source;
 
-public enum DetailStates
-{
-    None,
-    StartDocking,
-    RedyToDocking,
-    DockingComplete,
-    Undocking
-}
-
 public class RobotDetails : MonoBehaviour
 {
-    [Header("Renders")]
-    public SkinnedMeshRenderer DetailsOnRobot;
-    public SkinnedMeshRenderer VisualDetail;
+    [SerializeField] private DetailType _type;
 
-    [Header("Positions")]
-    public Transform DockingTarget;
-    public Transform DetailPosition;
-    public Transform PreDockingPosition;
+    private Vector3 _defaultParentPosition;
+    private Transform _defaultParent;
+    private Renderer _renderer;
 
-    [Header("States")]
-    public DetailStates DetailStates;
-
-    [Header("Effects")]
-    public bool UseEffect;
-    public UnityEvent EffectDocking;
-    public UnityEvent EffectUndocking;
-    
-    public bool DetailUsed;
-    public bool Left;
-
-    private Rigidbody rigidbody;
-    private GameObject forceField;
-    private LineRenderer dockingLine;
-    private DetailController detailController;
+    public DetailType Type => _type;
 
     private void Start()
     {
-        detailController = GetComponentInParent<DetailController>();
-        StartUndock();
-        rigidbody = GetComponent<Rigidbody>();
-        VisualDetail.enabled = false;
+        _defaultParentPosition = transform.localPosition;
+        _defaultParent = transform.parent;
+        _renderer = GetComponent<Renderer>();
     }
 
-    public void UndockingDetail()
+    public void AttachDetail() 
     {
-        DetailUsed = false;
-        DetailsOnRobot.enabled = false;
-        VisualDetail.enabled = true;        
-        float side = Random.Range(-1, 2);
-        float up = Random.Range(1, 3);
-        Vector3 random = new Vector3(side, up, side);
-        EffectUndocking.Invoke();
-        rigidbody.isKinematic = false;
-        rigidbody.AddForce(random * 40, ForceMode.Impulse);
-        rigidbody.useGravity = true;
-        Invoke("SetPosition", 2f);
+
     }
 
-    private void StartUndock()
+    public void BreakDetail() 
     {
-        DetailUsed = false;
-        DetailsOnRobot.enabled = false;
-        VisualDetail.enabled = true;
-        transform.position = DetailPosition.position;
+
     }
 
-    public void ShowDetail()
+/*    public void ShowDetail()
     {
         dockingLine = CreateDockingLine()?.GetComponent<LineRenderer>();
         if (forceField) Destroy(forceField);
@@ -116,37 +76,6 @@ public class RobotDetails : MonoBehaviour
         }
     }
 
-    public void DockingDetail()
-    {
-        DetailStates = DetailStates.StartDocking;
-        transform.localPosition = PreDockingPosition.localPosition;
-        VisualDetail.enabled = false;
-
-        forceField = CreateForceField();
-        if (!forceField) ShowDetail();
-    }
-
-    private void DetailOnRobot()
-    {
-        DetailUsed = true;
-        DetailStates = DetailStates.DockingComplete;
-        if (UseEffect)
-        {
-            EffectDocking.Invoke();
-        }
-        if (dockingLine) Destroy(dockingLine.gameObject);
-        DetailsOnRobot.enabled = true;
-        VisualDetail.enabled = false;
-
-    }
-
-    private void SetPosition()
-    {
-        rigidbody.useGravity = false;
-        rigidbody.isKinematic = true;
-        transform.position = DetailPosition.position;
-    }
-
     private GameObject CreateDockingLine()
     {
         GameObject prefab = detailController?.DockingLinePrefab;
@@ -175,5 +104,5 @@ public class RobotDetails : MonoBehaviour
             return forceObject;
         }
         return null;
-    }
+    }*/
 }

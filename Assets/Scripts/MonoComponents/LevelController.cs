@@ -28,7 +28,7 @@ namespace TeamAlpha.Source
         public void CompleteLevel(bool isPlayerWin)
         {
             UIManager.Default.CurState = isPlayerWin ? UIManager.State.Win : UIManager.State.Failed;
-            PlayerController.Current.MovingObjectAccessor.ChangeSpeed(0f, DataGameMain.Default.startSpeedChangeDuration);
+            PlayerController.Current.MovingObject.ChangeSpeed(0f, DataGameMain.Default.startSpeedChangeDuration);
             LayerDefault.Default.Playing = false;
         }
 

@@ -27,7 +27,7 @@ namespace TeamAlpha.Source
         {
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
             {
-                PlayerController.Current.SetProcessedDamage(damage);
+                PlayerController.Current.SendDamage(damage);
                 Destroy(gameObject);
             }
         }
