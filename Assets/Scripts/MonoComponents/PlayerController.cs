@@ -29,6 +29,15 @@ namespace TeamAlpha.Source
         public Transform vcamLookAt;
         public Transform vcamFollow;
 
+        [Header("Animation")]
+        [SerializeField] private NamedAnimancerComponent _animacer;
+        [SerializeField] private AnimationClip _animIdle;
+        [SerializeField] private AnimationClip _animRun;
+        [SerializeField] private AnimationClip _animTrip;
+
+        [Space]
+        [SerializeField] private float speed;
+
         private MovingObject _movingObject;
         private DetailController _detailController;
 
@@ -40,6 +49,13 @@ namespace TeamAlpha.Source
             _movingObject = GetComponent<MovingObject>();
             _detailController = GetComponent<DetailController>();
             cameraSpline.startPosition = _movingObject.StartPosition;
+
+            LayerDefault.Default.OnPlayStart += () =>
+            {
+                _movingObject.ChangeSpeed(speed, 0f);
+                _animacer.Play(_animRun, 0.15f);
+            };
+            _animacer.Play(_animIdle, 0.15f);
         }
 
         private void FixedUpdate()
@@ -54,6 +70,18 @@ namespace TeamAlpha.Source
         {
             if (!_detailController.LoseDetail(damage))
                 GameOver();
+            else 
+            {
+                _movingObject.ChangeSpeed(0f, 0f, () => _movingObject.ChangeSpeed(speed, 1f));
+                StartCoroutine(TrippingAnim());
+            }
+        }
+
+        private IEnumerator TrippingAnim() 
+        {
+            _animacer.Play(_animTrip, 0.2f);
+            yield return new WaitForSeconds(0.3f);
+            _animacer.Play(_animRun, 1f);
         }
 
         public void SendPart()

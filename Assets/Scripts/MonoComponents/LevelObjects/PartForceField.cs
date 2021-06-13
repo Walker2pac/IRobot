@@ -11,13 +11,14 @@ public class PartForceField : MonoBehaviour
     void Start()
     {
         detail = GetComponentInParent<RobotDetails>();
+        onShowParticles.transform.SetParent(transform.parent);
+        onShowParticles.transform.localScale = Vector3.one;
     }
 
     private void OnParticleCollision(GameObject other)
     {
         onShowParticles.Play();
         Destroy(onShowParticles.gameObject, onShowParticles.main.duration);
-        onShowParticles.transform.SetParent(transform.parent);
 
         detail.StartAttach();
         Destroy(other);

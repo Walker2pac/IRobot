@@ -80,7 +80,7 @@ public class RobotDetails : MonoBehaviour
             () => 0f,
             (v) => 
             {
-                transform.position = Vector3.Lerp(_preAttachPoint.position, _defaultParent.TransformPoint(_defaultParentPosition), v);
+                transform.position = Vector3.Lerp(transform.position, _defaultParent.TransformPoint(_defaultParentPosition), v);
                 transform.rotation = Quaternion.Lerp(transform.rotation, _defaultParent.rotation*_defaultParentRotation, v);
                 CalculateLine(v);
             },

@@ -1,12 +1,9 @@
 ﻿using DG.Tweening;
-using Sirenix.OdinInspector;
 using Dreamteck.Splines;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using PathCreation;
-using PathCreation.Examples;
 using UnityEngine;
-using Animancer;
 
 
 namespace TeamAlpha.Source
@@ -16,36 +13,23 @@ namespace TeamAlpha.Source
         [Header("Links")]
         [SerializeField] private SplineFollower splineFollower;
         [SerializeField] public Transform model;
-
-        [Header("Values")]
-        [SerializeField] private float startSpeed;
-        [SerializeField] private float playerSpeed;
         
         private Tween speedChangeTween;
 
         public double StartPosition => splineFollower.startPosition;
         public float Speed => splineFollower.followSpeed;
 
-        #region Lifecycle
-        private void Start()
+        public void ChangeSpeed(float targetSpeed, float duration, Action onComplete = null)
         {
-            LayerDefault.Default.OnPlayStart +=
-                () => ChangeSpeed(startSpeed, DataGameMain.Default.startSpeedChangeDuration);
-
-        }
-        #endregion
-
-        public void ChangeSpeed(float targetSpeed, float duration)
-        {
-            /*if (speedChangeTween != null)
+            if (speedChangeTween != null)
                 speedChangeTween.Kill();
 
             speedChangeTween = DOTween.To(
                 () => splineFollower.followSpeed,
                 (float tweenSpeed) => splineFollower.followSpeed = tweenSpeed,
                 targetSpeed, duration)
-                .SetTarget(this);*/
-            splineFollower.followSpeed = playerSpeed;
+                .SetTarget(this)
+                .OnComplete(() => onComplete?.Invoke());
         }
 
         public Vector2 ChangeOffsetX(float deltaSlide)
