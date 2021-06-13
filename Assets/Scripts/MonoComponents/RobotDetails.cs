@@ -15,6 +15,7 @@ public class RobotDetails : MonoBehaviour
     private Transform _defaultParent;
     private Transform _preAttachPoint;
     private Renderer _renderer;
+    private MeshFilter _mesh;
     private LineRenderer _dockingLine;
 
     public DetailType Type => _type;
@@ -26,6 +27,7 @@ public class RobotDetails : MonoBehaviour
         _defaultParentRotation = transform.localRotation;
         _defaultParent = transform.parent;
         _renderer = GetComponent<Renderer>();
+        _mesh = GetComponent<MeshFilter>();
 
         _renderer.enabled = false;
     }
@@ -48,6 +50,25 @@ public class RobotDetails : MonoBehaviour
         _dockingLine.positionCount = 0;
     }
 
+    public void BreakDetail(GameObject breakedDetailPrefab)
+    {
+        _renderer.enabled = false;
+        GameObject breakedDetail = Instantiate(breakedDetailPrefab);
+        breakedDetail.GetComponent<MeshFilter>().sharedMesh = _mesh.sharedMesh;
+        breakedDetail.transform.position = transform.position;
+        breakedDetail.transform.rotation = transform.rotation;
+        breakedDetail.AddComponent<MeshCollider>().convex = true;
+
+        Vector3 forceDirection = (breakedDetail.transform.position - PlayerController.Current.transform.position).normalized;
+
+        Rigidbody rb = breakedDetail.GetComponent<Rigidbody>();
+        rb.AddForce(3 * forceDirection, ForceMode.Impulse);
+        rb.AddTorque(Vector3.up * 3f, ForceMode.Impulse);
+
+        EndAttach();
+        Destroy(breakedDetail, 5f);
+    }
+
     public void StartAttach() 
     {
         _renderer.enabled = true;
@@ -60,6 +81,7 @@ public class RobotDetails : MonoBehaviour
             (v) => 
             {
                 transform.position = Vector3.Lerp(_preAttachPoint.position, _defaultParent.TransformPoint(_defaultParentPosition), v);
+                transform.rotation = Quaternion.Lerp(transform.rotation, _defaultParent.rotation*_defaultParentRotation, v);
                 CalculateLine(v);
             },
             1f, 1f)
@@ -68,13 +90,20 @@ public class RobotDetails : MonoBehaviour
         DOTween.Sequence()
             .Append(scaleTween)
             .Append(moveTween)
-            .OnComplete(() => 
-            {
-                transform.SetParent(_defaultParent);
-                transform.localRotation = _defaultParentRotation;
-                Destroy(_dockingLine.gameObject);
-                _dockingLine = null;
-            });
+            .OnComplete(EndAttach);
+    }
+
+    private void EndAttach() 
+    {
+        transform.SetParent(_defaultParent);
+        transform.localPosition = _defaultParentPosition;
+        transform.localRotation = _defaultParentRotation;
+
+        if (_dockingLine) 
+        {
+            Destroy(_dockingLine.gameObject);
+            _dockingLine = null;
+        }
     }
 
     private void CalculateLine(float tweenValue)
@@ -103,58 +132,4 @@ public class RobotDetails : MonoBehaviour
             _dockingLine.SetPositions(positions.ToArray());
         }
     }
-
-    public void BreakDetail() 
-    {
-        _renderer.enabled = false;
-    }
-
-/*    public void ShowDetail()
-    {
-        dockingLine = CreateDockingLine()?.GetComponent<LineRenderer>();
-        if (forceField) Destroy(forceField);
-        VisualDetail.enabled = true;
-
-        Vector3 startPosition = transform.localPosition;
-        DOTween.To(
-            () => 0f,
-            (v) => 
-                {
-                    transform.localPosition = Vector3.Lerp(startPosition, Vector3.zero, v);
-                    CalculateDockingLine(v);
-                },
-            1f, 1f)
-            .SetEase(Ease.InExpo)
-            .OnComplete(() => DetailOnRobot());   
-    }
-
-    private GameObject CreateDockingLine()
-    {
-        GameObject prefab = detailController?.DockingLinePrefab;
-        if (prefab)
-        {
-            GameObject lineObject = Instantiate(prefab);
-            lineObject.transform.SetParent(VisualDetail.transform);
-            lineObject.transform.localPosition = VisualDetail.GetComponent<BoxCollider>().center;
-            lineObject.transform.SetParent(transform);
-
-            return lineObject;
-        }
-        return null;
-    }
-
-    private GameObject CreateForceField()
-    {
-        GameObject prefab = detailController?.ForceFieldPrefab;
-        if (prefab)
-        {
-            GameObject forceObject = Instantiate(prefab);
-            forceObject.transform.SetParent(VisualDetail.transform);
-            forceObject.transform.localPosition = VisualDetail.GetComponent<BoxCollider>().center;
-            forceObject.transform.SetParent(transform);
-
-            return forceObject;
-        }
-        return null;
-    }*/
 }

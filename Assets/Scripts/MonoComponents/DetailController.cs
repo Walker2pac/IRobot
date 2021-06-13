@@ -26,6 +26,7 @@ public class DetailController : MonoBehaviour
 
     [SerializeField] private GameObject forceFieldPrefab;
     [SerializeField] private GameObject dockingLinePrefab;
+    [SerializeField] private GameObject breakedDetailPrefab;
     [Space]
     [SerializeField] private Transform leftPreAttachPoint;
     [SerializeField] private Transform rightPreAttachPoint;
@@ -55,7 +56,7 @@ public class DetailController : MonoBehaviour
             RobotDetails detail = GetPrevious();
             if (!detail) return false;
 
-            detail.BreakDetail();
+            detail.BreakDetail(breakedDetailPrefab);
         }
         return true;
     }
