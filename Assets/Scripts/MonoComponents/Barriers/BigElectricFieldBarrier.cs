@@ -6,16 +6,26 @@ using DG.Tweening;
 
 namespace TeamAlpha.Source
 {
-    public class ElectricFieldBarrier : Barriers, IButton
+    public class BigElectricFieldBarrier : Barriers, IButton
     {
-        [SerializeField] private List<GameObject> points = new List<GameObject>();
+        [SerializeField] private List<ElectricPoint> points = new List<ElectricPoint>();
 
-        public void PushButton(float speed)
+        private void Start()
         {
             for (int i = 0; i < points.Count; i++)
             {
-                points[i].transform.DOMoveY(transform.position.y - 0.002f, speed, false).OnComplete(() => Off());
+                points[i].SetDamageValue(damageValue);
             }
+
+        }
+        public void PushButton(float speed)
+        {
+            Off();
+            /*for (int i = 0; i < points.Count; i++)
+            {
+                points[i].transform.DOLocalMoveY(transform.localPosition.y, speed, false).OnComplete(() => Off());
+            }*/
+
         }
 
         void Off()

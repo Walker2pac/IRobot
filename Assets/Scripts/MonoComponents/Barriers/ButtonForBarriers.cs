@@ -9,12 +9,13 @@ namespace TeamAlpha.Source
     {
         [SerializeField] private float responseSpeed;
         [SerializeField] private Barriers barrierPrefab;
+        [SerializeField] private GameObject button;
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
             {
-                transform.DOLocalMove(new Vector3(0, 0.1f, 0), 0.5f, false).OnComplete(()=> PushButton(responseSpeed));
+                button.transform.DOLocalMove(new Vector3(0, 0.1f, 0), 0.5f, false).OnComplete(()=> PushButton(responseSpeed));
             }
         }
         public void PushButton(float speed)

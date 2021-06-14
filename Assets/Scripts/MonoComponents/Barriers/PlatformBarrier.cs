@@ -15,14 +15,13 @@ namespace TeamAlpha.Source
     }
 
 
-
     public class PlatformBarrier : Barriers, IButton
     {
         [SerializeField] private float rotationSpeed;
         [SerializeField] private RotationSidePlatform currentRotationSide;
         [Range(1, 2)]
         [SerializeField] private int numberBarriers;
-        [SerializeField] private GameObject barrierPrefab;
+        [SerializeField] private BarrierOnPlatform barrierPrefab;
         [Header("Barriers Position On Platform")]
         [SerializeField] private List<Transform> barriersPosition = new List<Transform>();
 
@@ -31,13 +30,16 @@ namespace TeamAlpha.Source
         {
             if (numberBarriers == 1)
             {
+                barrierPrefab.SetDamgeValue(damageValue);
                 Instantiate(barrierPrefab, barriersPosition[0]);
+                
             }
             else
             {
                 for (int i = 1; i < barriersPosition.Count; i++)
                 {
-                    Instantiate(barrierPrefab, barriersPosition[i]);
+                    barrierPrefab.SetDamgeValue(damageValue);
+                    Instantiate(barrierPrefab, barriersPosition[i]);                    
                 }
             }
         }
@@ -57,6 +59,11 @@ namespace TeamAlpha.Source
         public void PushButton(float speed)
         {
             transform.DOLocalRotate(new Vector3(0, 90, 0), speed).OnComplete(() => currentRotationSide = RotationSidePlatform.None);
+        }
+
+        void MakeDamade(int damageValue)
+        {
+            
         }
     }
 }

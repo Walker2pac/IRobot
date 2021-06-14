@@ -13,16 +13,25 @@ namespace TeamAlpha.Source
 
     public class Barriers : MonoBehaviour
     {
-        [SerializeField] private int damageValue;
+        [Header ("Damage")]
         [SerializeField] private TypeBarrier currentTypeBarriers;
-
+        [SerializeField] protected int damageValue;
 
         protected virtual void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
             {
                 PlayerController.Current.SendDamage(damageValue);
+                if(currentTypeBarriers == TypeBarrier.Destroyed)
+                {
+                    Broken();
+                }
             }
+        }
+
+        protected virtual void Broken()
+        {
+            //Destroy(gameObject);
         }
     }
 
@@ -30,4 +39,5 @@ namespace TeamAlpha.Source
     {        
         void PushButton(float speed);
     }
+
 }
