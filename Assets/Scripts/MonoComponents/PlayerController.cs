@@ -51,7 +51,8 @@ namespace TeamAlpha.Source
             _detailController = GetComponent<DetailController>();
             cameraSpline.startPosition = _movingObject.StartPosition;
 
-
+            Saw.Default.OnSpawned += () => _movingObject.ChangeSpeed(Saw.Default.MoveSpeed, 0f);
+            Saw.Default.OnDeleted += () => _movingObject.ChangeSpeed(speed, 0f);
             Shield.Default.OnShieldSpawned += () => _animacer.Play(_animRunWithShield);
             LayerDefault.Default.OnPlayStart += () =>
             {
@@ -76,8 +77,11 @@ namespace TeamAlpha.Source
                 GameOver();
             else 
             {
-                _movingObject.ChangeSpeed(0f, 0f, () => _movingObject.ChangeSpeed(speed, 1f));
-                StartCoroutine(TrippingAnim());
+                if (!Saw.Default.Spawned) 
+                {
+                    _movingObject.ChangeSpeed(0f, 0f, () => _movingObject.ChangeSpeed(speed, 1f));
+                    StartCoroutine(TrippingAnim());
+                }
             }
         }
 

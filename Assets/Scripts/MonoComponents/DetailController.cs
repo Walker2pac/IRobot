@@ -54,8 +54,12 @@ public class DetailController : MonoBehaviour
 
     public bool LoseDetail(int damage)
     {
+        if (Saw.Default.Spawned)
+            return true;
+
         if (Shield.Default.Spawned)
             Shield.Default.Break();
+
         else 
         {
             for (int i = 0; i < damage; i++)

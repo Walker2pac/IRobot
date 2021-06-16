@@ -19,14 +19,25 @@ namespace TeamAlpha.Source
         public Action onShoot = () => { };
         [HideInInspector] public bool isShooting;
 
+        private Coroutine _shootCoroutine;
+
         private void Start()
         {
             if (shootOnStart) StartShoot();
         }
 
+        private void OnEnable()
+        {
+            if (isShooting) 
+            {
+                StopAllCoroutines();
+                StartShoot();
+            }
+        }
+
         public void StartShoot() 
         {
-            StartCoroutine(Shoot());
+            _shootCoroutine = StartCoroutine(Shoot());
         }
 
         private IEnumerator Shoot() 

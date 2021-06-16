@@ -11,12 +11,14 @@ public class RobotDetails : MonoBehaviour
     [SerializeField] private DetailSide _side;
 
     private Vector3 _defaultParentPosition;
+    private Vector3 _defaultParentScale;
     private Quaternion _defaultParentRotation;
     private Transform _defaultParent;
     private Transform _preAttachPoint;
     private Renderer _renderer;
     private MeshFilter _mesh;
     private LineRenderer _dockingLine;
+    private Sequence _attachSequence;
 
     public DetailType Type => _type;
     public DetailSide Side => _side;
@@ -24,6 +26,7 @@ public class RobotDetails : MonoBehaviour
     private void Start()
     {
         _defaultParentPosition = transform.localPosition;
+        _defaultParentScale = transform.localScale;
         _defaultParentRotation = transform.localRotation;
         _defaultParent = transform.parent;
         _renderer = GetComponent<Renderer>();
@@ -52,6 +55,7 @@ public class RobotDetails : MonoBehaviour
 
     public void BreakDetail(GameObject breakedDetailPrefab, float force = 3f)
     {
+        if (_attachSequence != null) EndAttach();
         _renderer.enabled = false;
         GameObject breakedDetail = Instantiate(breakedDetailPrefab);
         breakedDetail.GetComponent<MeshFilter>().sharedMesh = _mesh.sharedMesh;
@@ -96,7 +100,7 @@ public class RobotDetails : MonoBehaviour
             1f, 1f)
             .SetEase(Ease.InExpo);
 
-        DOTween.Sequence()
+        _attachSequence = DOTween.Sequence()
             .Append(scaleTween)
             .Append(moveTween)
             .OnComplete(EndAttach);
@@ -104,8 +108,11 @@ public class RobotDetails : MonoBehaviour
 
     private void EndAttach() 
     {
+        _attachSequence.Kill();
+        _attachSequence = null;
         transform.SetParent(_defaultParent);
         transform.localPosition = _defaultParentPosition;
+        transform.localScale = _defaultParentScale;
         transform.localRotation = _defaultParentRotation;
 
         if (_dockingLine) 
