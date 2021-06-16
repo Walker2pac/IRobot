@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
@@ -7,35 +8,46 @@ namespace TeamAlpha.Source
 {
     public class Gun : MonoBehaviour
     {
+        [SerializeField] private bool shootOnStart;
+        [SerializeField] private float shootingInterval;
         [SerializeField] private Transform bulletSpawn;
         [SerializeField] private Transform model;
+        [SerializeField] private MovingObject movingObject;
+        [SerializeField] private ParticleSystem shootParticles;
         [SerializeField, AssetsOnly] private Bullet bulletPrefab;
-  
 
-        private MovingObject movingObject;
-        private float shootingInterval;
+        public Action onShoot = () => { };
+        [HideInInspector] public bool isShooting;
 
-        public void StartShoot(float interval, MovingObject mo = null) 
+        private void Start()
         {
-            movingObject = mo;
-            shootingInterval = interval;
-            Invoke("Shoot", shootingInterval);
+            if (shootOnStart) StartShoot();
         }
 
-        private void Shoot() 
+        public void StartShoot() 
         {
-            if (LayerDefault.Default.Playing)
+            StartCoroutine(Shoot());
+        }
+
+        private IEnumerator Shoot() 
+        {
+            while (true)
             {
-                GameObject bullet = Instantiate(bulletPrefab.gameObject);
-                bullet.transform.SetParent(LevelController.Current.transform);
-                bullet.transform.position = bulletSpawn.position;
-                bullet.transform.rotation = transform.rotation;
-                float bulletSpeed = DataGameMain.Default.bulletSpeed;
-                if (movingObject != null) bulletSpeed += movingObject.Speed;
-                bullet.GetComponent<Bullet>().SetSpeed((bulletSpawn.position - model.transform.position).normalized * bulletSpeed);
-                Invoke("Shoot", shootingInterval);
+                yield return new WaitForEndOfFrame();
+                if (LayerDefault.Default.Playing)
+                {
+                    GameObject bullet = Instantiate(bulletPrefab.gameObject);
+                    bullet.transform.SetParent(LevelController.Current.transform);
+                    bullet.transform.position = bulletSpawn.position;
+                    bullet.transform.rotation = model.rotation;
+                    float bulletSpeed = DataGameMain.Default.bulletSpeed;
+                    if (movingObject != null) bulletSpeed += movingObject.Speed;
+                    bullet.GetComponent<Bullet>().SetSpeed(bulletSpawn.forward * bulletSpeed);
+                    shootParticles?.Play();
+                    onShoot?.Invoke();
+                }
+                yield return new WaitForSeconds(shootingInterval);
             }
         }
     }
 }
-/*(bulletSpawn.position - model.transform.position).normalized * bulletSpeed*/

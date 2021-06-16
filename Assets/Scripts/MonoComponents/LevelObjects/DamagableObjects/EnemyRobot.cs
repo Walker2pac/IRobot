@@ -9,7 +9,7 @@ namespace TeamAlpha.Source
         [SerializeField] private Gun gun;
         [SerializeField] private MovingObject movingObject;
 
-        void Start()
+       /* void Start()
         {
             if (gun != null) 
             {
@@ -21,7 +21,7 @@ namespace TeamAlpha.Source
         void Update()
         {
 
-        }
+        }*/
 
         public override void DamagedReaction(){}
         public override void NonDamagedReaction()
