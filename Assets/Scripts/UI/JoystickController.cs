@@ -53,13 +53,15 @@ namespace TeamAlpha.Source
         {
             view.gameObject.SetActive(false);
         }
-        public void FixedUpdate()
+        public void Update()
         {
-            if (!LayerDefault.Default.Playing) 
+            if (!LayerDefault.Default.Playing || Input.GetMouseButtonUp(0)) 
             {
-                DeltaSlide = 0f;
+                deltas = new List<float>();
                 return;
             }
+
+
             if (Input.GetMouseButtonDown(0))
                 lastPosition = Input.mousePosition.x;
             else if (Input.GetMouseButton(0))
@@ -67,8 +69,8 @@ namespace TeamAlpha.Source
                 DeltaSlide = (Input.mousePosition.x - lastPosition) / Screen.width * DataGameMain.Default.slideSensitivity;
                 lastPosition = Input.mousePosition.x;
             }
-            else
-                DeltaSlide = 0f;
+            else 
+                deltas = new List<float>();
         }
     }
 }
