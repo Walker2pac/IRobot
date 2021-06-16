@@ -13,14 +13,17 @@ namespace TeamAlpha.Source
 
         private void Update()
         {
-            if (currentRotationSide == RotationSide.Right)
+            if(bodyBarrier != null)
             {
-                bodyBarrier.transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
-            }
-            if (currentRotationSide == RotationSide.Left)
-            {
-                bodyBarrier.transform.Rotate(-Vector3.forward * Time.deltaTime * rotationSpeed);
-            }
+                if (currentRotationSide == RotationSide.Right)
+                {
+                    bodyBarrier.transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
+                }
+                if (currentRotationSide == RotationSide.Left)
+                {
+                    bodyBarrier.transform.Rotate(-Vector3.forward * Time.deltaTime * rotationSpeed);
+                }
+            }            
         }
 
         protected override void OnTriggerEnter(Collider other)

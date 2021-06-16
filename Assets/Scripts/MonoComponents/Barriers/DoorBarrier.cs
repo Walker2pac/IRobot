@@ -12,7 +12,7 @@ namespace TeamAlpha.Source
         
         public void PushButton(float speed)
         {
-            cylinderTop.transform.DOLocalRotate(new Vector3(-180, 0, 0), speed);
+            cylinderTop.transform.DOLocalRotate(new Vector3(0, 0, 0), speed);
         }
     }
 }

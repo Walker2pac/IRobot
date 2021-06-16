@@ -12,18 +12,19 @@ namespace TeamAlpha.Source
     }
     public class HorizontalCylinderBarrier : Barriers
     {
-        [SerializeField] private RotationDirection CurrentRotationDirection;
-        [SerializeField] private float RotationSpeed;
+        [SerializeField] private RotationDirection currentRotationDirection;
+        [SerializeField] private GameObject rotatableObject;
+        [SerializeField] private float rotationSpeed;
 
         private void Update()
         {
-            if (CurrentRotationDirection == RotationDirection.Forward)
+            if (currentRotationDirection == RotationDirection.Forward)
             {
-                transform.Rotate(Vector3.up * Time.deltaTime * RotationSpeed);
+                rotatableObject.transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
             }
-            if (CurrentRotationDirection == RotationDirection.Back)
+            if (currentRotationDirection == RotationDirection.Back)
             {
-                transform.Rotate(-Vector3.up * Time.deltaTime * RotationSpeed);
+                rotatableObject.transform.Rotate(-Vector3.up * Time.deltaTime * rotationSpeed);
             }
         }
         protected override void OnTriggerEnter(Collider other)

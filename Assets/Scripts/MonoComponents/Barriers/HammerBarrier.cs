@@ -13,10 +13,11 @@ namespace TeamAlpha.Source
         [SerializeField] private float moveUpSpeed;
         [SerializeField] private float delay;
         [SerializeField] private float timeOffset;
-        [Space, SerializeField] private int collisionDamage;
+
+        /*[Space, SerializeField] private int collisionDamage;
         [SerializeField] private int hitDamage;
 
-        private int damage ;
+        private int damage ;*/
 
         private void Start()
         {
@@ -37,7 +38,7 @@ namespace TeamAlpha.Source
 
         private void MoveDown()
         {
-            damage = hitDamage;
+            //damage = hitDamage;
             movingAxis.DOLocalRotate(Vector3.up * -90, moveDownSpeed)
                 .SetEase(Ease.InQuint)
                 .OnComplete(MoveUp);
@@ -45,7 +46,7 @@ namespace TeamAlpha.Source
 
         private void MoveUp()
         {
-            damage = collisionDamage;
+            //damage = collisionDamage;
             movingAxis.DOLocalRotate(Vector3.up * 0, moveUpSpeed)
                 .SetEase(Ease.OutBack)
                 .OnComplete(() => StartCoroutine(DelayedPunch(delay)));

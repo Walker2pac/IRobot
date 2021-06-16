@@ -12,7 +12,6 @@ namespace TeamAlpha.Source
         {
             base.OnTriggerEnter(other);
         }
-
-
     }
 }
+

@@ -23,7 +23,7 @@ namespace TeamAlpha.Source
         private void Start()
         {
             _startMuzzlePosition = gunMuzzle.transform.localPosition;
-            _recoilPosition = new Vector3(gunMuzzle.transform.localPosition.x, gunMuzzle.transform.localPosition.y, -recoilForce);
+            _recoilPosition = new Vector3(-recoilForce, gunMuzzle.transform.localPosition.y, -recoilForce);
             StartCoroutine(Shot());
         }
         private void FixedUpdate()
