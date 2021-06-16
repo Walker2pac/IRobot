@@ -95,7 +95,10 @@ namespace TeamAlpha.Source
 
         private void GameOver() 
         {
-            Debug.Break();
+            _detailController.DeathEffect();
+            _movingObject.ChangeSpeed(0f, 0f);
+            UIManager.Default.CurState = UIManager.State.Failed;
+            _animacer.Stop();
         }
         #endregion
     }

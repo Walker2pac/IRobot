@@ -8,6 +8,7 @@ public enum DetailType
     Hand,
     Torso,
     Foot,
+    Base,
 }
 public enum DetailSide 
 {
@@ -36,17 +37,19 @@ public class DetailController : MonoBehaviour
     private int _curentDetail = 0;
     private int _detailCount;
     private Dictionary<DetailType, List<RobotDetails>> _details;
+    private List<RobotDetails> _baseDetails;
 
     private void Start()
     {
         List<RobotDetails> details = new List<RobotDetails>(GetComponentsInChildren<RobotDetails>());
+        _baseDetails = details.FindAll((d) => d.Type == DetailType.Base);
 
         _details = new Dictionary<DetailType, List<RobotDetails>>();
         _details.Add(DetailType.Hand, details.FindAll((d) => d.Type == DetailType.Hand));
         _details.Add(DetailType.Torso, details.FindAll((d) => d.Type == DetailType.Torso));
         _details.Add(DetailType.Foot, details.FindAll((d) => d.Type == DetailType.Foot));
 
-        _detailCount = details.Count;
+        _detailCount = details.Count - _baseDetails.Count;
     }
 
     public bool LoseDetail(int damage)
@@ -94,7 +97,7 @@ public class DetailController : MonoBehaviour
 
     private RobotDetails GetPrevious() 
     {
-        if (_curentDetail <= 0)
+        if (_curentDetail < 0)
             return null;
 
         RobotDetails detail = GetCurrentDetail();
@@ -113,6 +116,17 @@ public class DetailController : MonoBehaviour
                 trueIndex -= _details[l.type].Count;
         }
         return null;
+    }
+
+    public void DeathEffect() 
+    {
+        foreach (RobotDetails d in _baseDetails) 
+            d.BreakDetail(breakedDetailPrefab, 0f);
+        foreach (Level level in levels) 
+        {
+            foreach (UpgradeObjectBridge upgrade in level.upgradeObjects)
+                upgrade.Delete();
+        }
     }
 }
 

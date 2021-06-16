@@ -34,7 +34,7 @@ namespace TeamAlpha.Source
             while (true)
             {
                 yield return new WaitForEndOfFrame();
-                if (LayerDefault.Default.Playing)
+                if (LayerDefault.Default.Playing && isShooting)
                 {
                     GameObject bullet = Instantiate(bulletPrefab.gameObject);
                     bullet.transform.SetParent(LevelController.Current.transform);

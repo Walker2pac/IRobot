@@ -29,7 +29,7 @@ public class RobotDetails : MonoBehaviour
         _renderer = GetComponent<Renderer>();
         _mesh = GetComponent<MeshFilter>();
 
-        _renderer.enabled = false;
+        _renderer.enabled = _type == DetailType.Base;
     }
 
     public void AttachDetail(GameObject forceFieldPrefab, GameObject dockingLinePrefab, Transform preAttachPoint) 
@@ -50,7 +50,7 @@ public class RobotDetails : MonoBehaviour
         _dockingLine.positionCount = 0;
     }
 
-    public void BreakDetail(GameObject breakedDetailPrefab)
+    public void BreakDetail(GameObject breakedDetailPrefab, float force = 3f)
     {
         _renderer.enabled = false;
         GameObject breakedDetail = Instantiate(breakedDetailPrefab);
@@ -58,15 +58,24 @@ public class RobotDetails : MonoBehaviour
         breakedDetail.transform.position = transform.position;
         breakedDetail.transform.rotation = transform.rotation;
         breakedDetail.AddComponent<MeshCollider>().convex = true;
+        breakedDetail.GetComponent<MeshRenderer>().sharedMaterials = _renderer.sharedMaterials;
 
         Vector3 forceDirection = (breakedDetail.transform.position - PlayerController.Current.transform.position).normalized;
 
         Rigidbody rb = breakedDetail.GetComponent<Rigidbody>();
-        rb.AddForce(3 * forceDirection, ForceMode.Impulse);
-        rb.AddTorque(Vector3.up * 3f, ForceMode.Impulse);
+        rb.AddForce(force * forceDirection, ForceMode.Impulse);
+        rb.AddTorque(Vector3.up * force, ForceMode.Impulse);
 
         EndAttach();
-        Destroy(breakedDetail, 5f);
+        StartCoroutine(DestroyBrokedDetail(breakedDetail));
+    }
+
+    private IEnumerator DestroyBrokedDetail(GameObject d) 
+    {
+        yield return new WaitForSeconds(5f);
+        d.transform.DOScale(Vector3.one * 0.01f, Random.Range(0.5f, 1f))
+            .SetEase(Ease.InBack)
+            .OnComplete(() => Destroy(d));
     }
 
     public void StartAttach() 
