@@ -10,7 +10,6 @@ namespace TeamAlpha.Source
     {
         [SerializeField, Required] private Rigidbody rigidBody;
         [SerializeField] private ParticleSystem explodeParticles;
-
         private void Start()
         {
             Invoke("DestroySelf", DataGameMain.Default.bulletLifeDuration);
@@ -32,9 +31,21 @@ namespace TeamAlpha.Source
             {
                 DamagedReaction();
             }
+            else
+            {
+                if (other.GetComponent<MirrorBarrier>())
+                {
+                    NonDamagedReaction();
+                }                
+            }
         }
 
         public override void DamagedReaction() => DestroySelf();
-        public override void NonDamagedReaction() => rigidBody.velocity *= -1f;
+        public override void NonDamagedReaction()
+        {           
+            rigidBody.velocity *= -1.3f;
+            Vector3 reflectDirection = new Vector3(rigidBody.velocity.x, rigidBody.velocity.y-1f, rigidBody.velocity.z);
+            rigidBody.velocity = reflectDirection;
+        }
     }
 }
