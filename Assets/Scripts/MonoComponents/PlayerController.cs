@@ -35,6 +35,7 @@ namespace TeamAlpha.Source
         [SerializeField] private AnimationClip _animRun;
         [SerializeField] private AnimationClip _animRunWithShield;
         [SerializeField] private AnimationClip _animTrip;
+        [SerializeField] private AnimationClip _animTripWithShield;
 
         [Space]
         [SerializeField] private float speed;
@@ -51,7 +52,8 @@ namespace TeamAlpha.Source
             _detailController = GetComponent<DetailController>();
             cameraSpline.startPosition = _movingObject.StartPosition;
 
-
+            Saw.Default.OnSpawned += () => _movingObject.ChangeSpeed(Saw.Default.MoveSpeed, 0f);
+            Saw.Default.OnDeleted += () => _movingObject.ChangeSpeed(speed, 0f);
             Shield.Default.OnShieldSpawned += () => _animacer.Play(_animRunWithShield);
             LayerDefault.Default.OnPlayStart += () =>
             {
@@ -71,20 +73,23 @@ namespace TeamAlpha.Source
         #region Methods
         public void SendDamage(int damage)
         {
-
+            bool shield = Shield.Default.Spawned;
             if (!_detailController.LoseDetail(damage))
                 GameOver();
             else 
             {
-                _movingObject.ChangeSpeed(0f, 0f, () => _movingObject.ChangeSpeed(speed, 1f));
-                StartCoroutine(TrippingAnim());
+                if (!Saw.Default.Spawned) 
+                {
+                    _movingObject.ChangeSpeed(0f, 0f, () => _movingObject.ChangeSpeed(speed, 1f));
+                    StartCoroutine(TrippingAnim(shield));
+                }
             }
         }
 
-        private IEnumerator TrippingAnim() 
+        private IEnumerator TrippingAnim(bool withShield) 
         {
-            _animacer.Play(_animTrip, 0.2f);
-            yield return new WaitForSeconds(0.3f);
+            _animacer.Play(withShield ? _animTripWithShield : _animTrip, withShield ? 0.5f : 0.2f);
+            yield return new WaitForSeconds(withShield ? 1.5f : 0.3f);
             _animacer.Play(_animRun, 1f);
         }
 
@@ -95,7 +100,10 @@ namespace TeamAlpha.Source
 
         private void GameOver() 
         {
-            Debug.Break();
+            _detailController.DeathEffect();
+            _movingObject.ChangeSpeed(0f, 0f);
+            UIManager.Default.CurState = UIManager.State.Failed;
+            _animacer.Stop();
         }
         #endregion
     }

@@ -9,8 +9,7 @@ namespace TeamAlpha.Source
     public class Bullet : DamagableBody
     {
         [SerializeField, Required] private Rigidbody rigidBody;
-
-        
+        [SerializeField] private ParticleSystem explodeParticles;
 
         private void Start()
         {
@@ -21,6 +20,9 @@ namespace TeamAlpha.Source
 
         private void DestroySelf() 
         {
+            explodeParticles?.gameObject.transform.SetParent(null);
+            explodeParticles?.Play();
+            Destroy(explodeParticles.gameObject, explodeParticles.main.duration);
             Destroy(gameObject);
         }
 

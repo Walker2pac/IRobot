@@ -11,12 +11,14 @@ public class RobotDetails : MonoBehaviour
     [SerializeField] private DetailSide _side;
 
     private Vector3 _defaultParentPosition;
+    private Vector3 _defaultParentScale;
     private Quaternion _defaultParentRotation;
     private Transform _defaultParent;
     private Transform _preAttachPoint;
     private Renderer _renderer;
     private MeshFilter _mesh;
     private LineRenderer _dockingLine;
+    private Sequence _attachSequence;
 
     public DetailType Type => _type;
     public DetailSide Side => _side;
@@ -24,12 +26,13 @@ public class RobotDetails : MonoBehaviour
     private void Start()
     {
         _defaultParentPosition = transform.localPosition;
+        _defaultParentScale = transform.localScale;
         _defaultParentRotation = transform.localRotation;
         _defaultParent = transform.parent;
         _renderer = GetComponent<Renderer>();
         _mesh = GetComponent<MeshFilter>();
 
-        _renderer.enabled = false;
+        _renderer.enabled = _type == DetailType.Base;
     }
 
     public void AttachDetail(GameObject forceFieldPrefab, GameObject dockingLinePrefab, Transform preAttachPoint) 
@@ -50,23 +53,33 @@ public class RobotDetails : MonoBehaviour
         _dockingLine.positionCount = 0;
     }
 
-    public void BreakDetail(GameObject breakedDetailPrefab)
+    public void BreakDetail(GameObject breakedDetailPrefab, float force = 3f)
     {
+        if (_attachSequence != null) EndAttach();
         _renderer.enabled = false;
         GameObject breakedDetail = Instantiate(breakedDetailPrefab);
         breakedDetail.GetComponent<MeshFilter>().sharedMesh = _mesh.sharedMesh;
         breakedDetail.transform.position = transform.position;
         breakedDetail.transform.rotation = transform.rotation;
         breakedDetail.AddComponent<MeshCollider>().convex = true;
+        breakedDetail.GetComponent<MeshRenderer>().sharedMaterials = _renderer.sharedMaterials;
 
         Vector3 forceDirection = (breakedDetail.transform.position - PlayerController.Current.transform.position).normalized;
 
         Rigidbody rb = breakedDetail.GetComponent<Rigidbody>();
-        rb.AddForce(3 * forceDirection, ForceMode.Impulse);
-        rb.AddTorque(Vector3.up * 3f, ForceMode.Impulse);
+        rb.AddForce(force * forceDirection, ForceMode.Impulse);
+        rb.AddTorque(Vector3.up * force, ForceMode.Impulse);
 
         EndAttach();
-        Destroy(breakedDetail, 5f);
+        StartCoroutine(DestroyBrokedDetail(breakedDetail));
+    }
+
+    private IEnumerator DestroyBrokedDetail(GameObject d) 
+    {
+        yield return new WaitForSeconds(5f);
+        d.transform.DOScale(Vector3.one * 0.01f, Random.Range(0.5f, 1f))
+            .SetEase(Ease.InBack)
+            .OnComplete(() => Destroy(d));
     }
 
     public void StartAttach() 
@@ -87,7 +100,7 @@ public class RobotDetails : MonoBehaviour
             1f, 1f)
             .SetEase(Ease.InExpo);
 
-        DOTween.Sequence()
+        _attachSequence = DOTween.Sequence()
             .Append(scaleTween)
             .Append(moveTween)
             .OnComplete(EndAttach);
@@ -95,8 +108,11 @@ public class RobotDetails : MonoBehaviour
 
     private void EndAttach() 
     {
+        _attachSequence.Kill();
+        _attachSequence = null;
         transform.SetParent(_defaultParent);
         transform.localPosition = _defaultParentPosition;
+        transform.localScale = _defaultParentScale;
         transform.localRotation = _defaultParentRotation;
 
         if (_dockingLine) 

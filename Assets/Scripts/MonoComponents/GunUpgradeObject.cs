@@ -21,6 +21,7 @@ public class GunUpgradeObject : MonoBehaviour, IUpgradeObject
             r.enabled = false;
 
         _gun = GetComponent<Gun>();
+        _gun.isShooting = false;
         _gun.onShoot += ShootAnim;
     }
 
@@ -49,6 +50,8 @@ public class GunUpgradeObject : MonoBehaviour, IUpgradeObject
 
         _spawned = false;
         _gun.isShooting = false;
+        foreach (Renderer r in _partRenderers)
+            r.enabled = false;
     }
 
     public void Spawn()
