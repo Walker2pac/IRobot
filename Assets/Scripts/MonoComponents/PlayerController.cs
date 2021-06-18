@@ -36,6 +36,7 @@ namespace TeamAlpha.Source
         [SerializeField] private AnimationClip _animRunWithShield;
         [SerializeField] private AnimationClip _animTrip;
         [SerializeField] private AnimationClip _animTripWithShield;
+        [SerializeField] private AnimationClip _animDance;
 
         [Space]
         [SerializeField] private float speed;
@@ -104,6 +105,17 @@ namespace TeamAlpha.Source
             _movingObject.ChangeSpeed(0f, 0f);
             UIManager.Default.CurState = UIManager.State.Failed;
             _animacer.Stop();
+        }
+
+        public void Finish()
+        {
+            if (Shield.Default)
+            {
+                Shield.Default.Break();
+            }            
+            _movingObject.ChangeSpeed(0f, 0f);
+            UIManager.Default.CurState = UIManager.State.Win;
+            _animacer.Play(_animDance);
         }
         #endregion
     }

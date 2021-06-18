@@ -9,7 +9,13 @@ namespace TeamAlpha.Source
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
+            {
                 LevelController.Current.CompleteLevel(true);
+                PlayerController player = PlayerController.Current;
+                player.Finish();
+            }
+                
+
         }
     }
 }
