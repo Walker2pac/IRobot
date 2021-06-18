@@ -89,7 +89,7 @@ public class DetailController : MonoBehaviour
             return null;
 
         RobotDetails detail = GetCurrentDetail();
-        if (_details[detail.Type].IndexOf(detail) == 0) 
+        if (_details[detail.Type].IndexOf(detail) == _details[detail.Type].Count -1 ) 
         {
             Level level = levels.Find((l) => l.type == detail.Type);
             foreach (UpgradeObjectBridge b in level.upgradeObjects)
