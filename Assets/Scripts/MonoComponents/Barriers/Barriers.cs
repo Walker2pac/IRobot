@@ -10,6 +10,7 @@ namespace TeamAlpha.Source
     {
         [Header("Damage")]        
         [SerializeField] protected int damageValue;
+        [SerializeField] private bool nonTrip;
         [Header("Object Behavior")]
         [SerializeField] private bool breakingObject;
         [ShowIf("breakingObject")]

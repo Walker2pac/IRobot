@@ -49,6 +49,7 @@ namespace TeamAlpha.Source
         #region Lifecycle
         public void Start()
         {
+            _animacer.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 180);
             _movingObject = GetComponent<MovingObject>();
             _detailController = GetComponent<DetailController>();
             cameraSpline.startPosition = _movingObject.StartPosition;
@@ -79,18 +80,21 @@ namespace TeamAlpha.Source
                 GameOver();
             else 
             {
-                if (!Saw.Default.Spawned) 
+                if (!Saw.Default.Spawned ) 
                 {
                     _movingObject.ChangeSpeed(0f, 0f, () => _movingObject.ChangeSpeed(speed, 1f));
-                    StartCoroutine(TrippingAnim(shield));
+                    StartCoroutine(TrippingAnim(shield, damage));
                 }
             }
         }
 
-        private IEnumerator TrippingAnim(bool withShield) 
+        private IEnumerator TrippingAnim(bool withShield, int damage) 
         {
-            _animacer.Play(withShield ? _animTripWithShield : _animTrip, withShield ? 0.5f : 0.2f);
-            yield return new WaitForSeconds(withShield ? 1.5f : 0.3f);
+            if (damage > 1)
+            {
+                _animacer.Play(withShield ? _animTripWithShield : _animTrip, withShield ? 0.5f : 0.2f);
+                yield return new WaitForSeconds(withShield ? 1.5f : 0.3f);
+            }            
             _animacer.Play(_animRun, 1f);
         }
 
@@ -109,6 +113,7 @@ namespace TeamAlpha.Source
 
         public void Finish()
         {
+            _animacer.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 180);
             if (Shield.Default)
             {
                 Shield.Default.Break();
