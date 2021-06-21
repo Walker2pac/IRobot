@@ -37,6 +37,7 @@ public class RobotDetails : MonoBehaviour
 
     public void AttachDetail(GameObject forceFieldPrefab, GameObject dockingLinePrefab, Transform preAttachPoint) 
     {
+        Debug.Log("AttachDetail");
         _preAttachPoint = preAttachPoint;
 
         transform.SetParent(preAttachPoint);
@@ -55,6 +56,7 @@ public class RobotDetails : MonoBehaviour
 
     public void BreakDetail(GameObject breakedDetailPrefab, float force = 3f)
     {
+        Debug.Log("BreakDetail");
         if (_attachSequence != null) EndAttach();
         _renderer.enabled = false;
         GameObject breakedDetail = Instantiate(breakedDetailPrefab);
@@ -85,6 +87,7 @@ public class RobotDetails : MonoBehaviour
     public void StartAttach() 
     {
         _renderer.enabled = true;
+        Debug.Log("StartAttach");
 
         Tween scaleTween = transform.DOScale(Vector3.one, 0.5f)
             .SetEase(Ease.OutBack);
@@ -108,6 +111,7 @@ public class RobotDetails : MonoBehaviour
 
     private void EndAttach() 
     {
+        Debug.Log("EndAttach");
         _attachSequence.Kill();
         _attachSequence = null;
         transform.SetParent(_defaultParent);

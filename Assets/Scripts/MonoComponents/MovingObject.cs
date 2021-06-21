@@ -14,6 +14,7 @@ namespace TeamAlpha.Source
         [SerializeField] private SplineFollower splineFollower;
         [SerializeField] public Transform model;
         
+
         private Tween speedChangeTween;
 
         public double StartPosition => splineFollower.startPosition;
@@ -53,5 +54,24 @@ namespace TeamAlpha.Source
             splineFollower.motion.offset = newOffset;
             return newOffset;
         }
+
+        public void Jump(float y, float duration, bool onPlatform)
+        {
+            //float defaultY = model.position.y;
+            GetComponent<PlayerController>().Jump(onPlatform, duration);
+            if (onPlatform)
+            {
+                model.DOMove(new Vector3(model.position.x, y, model.position.z + splineFollower.followSpeed), duration, false);
+            }
+            else
+            {
+                model.DOMove(new Vector3(model.position.x, 3, model.position.z + splineFollower.followSpeed / 2), 0.5f, false).OnComplete(() => Invoke("OnGround", duration - 0.5f));                  
+            }
+        }
+        public void OnGround()
+        {
+            model.DOMove(new Vector3(model.position.x, 0, model.position.z + splineFollower.followSpeed / 2), 0.5f, false);
+        }
+
     }
 }

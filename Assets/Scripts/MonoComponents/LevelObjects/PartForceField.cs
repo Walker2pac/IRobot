@@ -11,6 +11,7 @@ public class PartForceField : MonoBehaviour
     void Start()
     {
         detail = GetComponentInParent<RobotDetails>();
+        Debug.Log(detail.name);
         onShowParticles.transform.SetParent(transform.parent);
         onShowParticles.transform.localScale = Vector3.one;
     }
@@ -21,7 +22,7 @@ public class PartForceField : MonoBehaviour
         Destroy(onShowParticles.gameObject, onShowParticles.main.duration);
 
         detail.StartAttach();
-        Destroy(other);
+        //Destroy(other);
         Destroy(gameObject);
     }
 }

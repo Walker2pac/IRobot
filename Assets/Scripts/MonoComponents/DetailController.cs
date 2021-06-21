@@ -42,6 +42,7 @@ public class DetailController : MonoBehaviour
     private void Start()
     {
         List<RobotDetails> details = new List<RobotDetails>(GetComponentsInChildren<RobotDetails>());
+        Debug.Log(details);
         _baseDetails = details.FindAll((d) => d.Type == DetailType.Base);
 
         _details = new Dictionary<DetailType, List<RobotDetails>>();
