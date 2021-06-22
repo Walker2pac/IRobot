@@ -96,6 +96,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageValue: 1
   breakingObject: 1
+  wall: 0
   breakingByBullet: 0
   health: 0
   partsBarrier:
@@ -272,11 +273,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6738811453978866680}
     m_Modifications:
-    - target: {fileID: -8863667214212606868, guid: a1eb838d95e68cc4eb65aad8a42df602,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 267a1be0751e0ac40ae5e7283bd0fd0e, type: 2}
     - target: {fileID: -8679921383154817045, guid: a1eb838d95e68cc4eb65aad8a42df602,
         type: 3}
       propertyPath: m_RootOrder
@@ -347,41 +343,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8585496358435073542, guid: a1eb838d95e68cc4eb65aad8a42df602,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 267a1be0751e0ac40ae5e7283bd0fd0e, type: 2}
-    - target: {fileID: -2331214856467970893, guid: a1eb838d95e68cc4eb65aad8a42df602,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 267a1be0751e0ac40ae5e7283bd0fd0e, type: 2}
-    - target: {fileID: -895306380916907690, guid: a1eb838d95e68cc4eb65aad8a42df602,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 267a1be0751e0ac40ae5e7283bd0fd0e, type: 2}
-    - target: {fileID: 481159676114993254, guid: a1eb838d95e68cc4eb65aad8a42df602,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 267a1be0751e0ac40ae5e7283bd0fd0e, type: 2}
-    - target: {fileID: 625770602672179887, guid: a1eb838d95e68cc4eb65aad8a42df602,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 267a1be0751e0ac40ae5e7283bd0fd0e, type: 2}
     - target: {fileID: 919132149155446097, guid: a1eb838d95e68cc4eb65aad8a42df602,
         type: 3}
       propertyPath: m_Name
       value: BarrelBroken_01
       objectReference: {fileID: 0}
-    - target: {fileID: 5667493025264562740, guid: a1eb838d95e68cc4eb65aad8a42df602,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 267a1be0751e0ac40ae5e7283bd0fd0e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1eb838d95e68cc4eb65aad8a42df602, type: 3}
 --- !u!1 &3031417585194945281 stripped

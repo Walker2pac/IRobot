@@ -20,11 +20,11 @@ namespace TeamAlpha.Source
         {
             if (currentRotationDirection == RotationDirection.Forward)
             {
-                rotatableObject.transform.Rotate(Vector3.up * Time.deltaTime * rotationSpeed);
+                rotatableObject.transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
             }
             if (currentRotationDirection == RotationDirection.Back)
             {
-                rotatableObject.transform.Rotate(-Vector3.up * Time.deltaTime * rotationSpeed);
+                rotatableObject.transform.Rotate(-Vector3.forward * Time.deltaTime * rotationSpeed);
             }
         }
         protected override void OnTriggerEnter(Collider other)

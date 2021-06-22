@@ -39,7 +39,7 @@ namespace TeamAlpha.Source
         private void MoveDown()
         {
             //damage = hitDamage;
-            movingAxis.DOLocalRotate(Vector3.up * -90, moveDownSpeed)
+            movingAxis.DOLocalRotate(Vector3.right * 0, moveDownSpeed)
                 .SetEase(Ease.InQuint)
                 .OnComplete(MoveUp);
         }
@@ -47,7 +47,7 @@ namespace TeamAlpha.Source
         private void MoveUp()
         {
             //damage = collisionDamage;
-            movingAxis.DOLocalRotate(Vector3.up * 0, moveUpSpeed)
+            movingAxis.DOLocalRotate(Vector3.right * -90, moveUpSpeed)
                 .SetEase(Ease.OutBack)
                 .OnComplete(() => StartCoroutine(DelayedPunch(delay)));
         }
