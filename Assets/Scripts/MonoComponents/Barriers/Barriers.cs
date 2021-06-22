@@ -14,6 +14,12 @@ namespace TeamAlpha.Source
         [SerializeField] private bool breakingObject;
         [ShowIf("breakingObject")]
         [SerializeField] private bool breakingByBullet;
+        [ShowIf("breakingObject")]
+        [SerializeField] private bool wall;
+        [ShowIf("wall")]
+        [SerializeField] private GameObject staticWall;
+        [ShowIf("wall")]
+        [SerializeField] private GameObject dynamicWall;
         [ShowIf("breakingByBullet")]
         [SerializeField] protected int health;
         [ShowIf("breakingObject")]
@@ -28,6 +34,11 @@ namespace TeamAlpha.Source
                 collider.enabled = false;
                 if (breakingObject)
                 {
+                    if (wall)
+                    {
+                        dynamicWall.SetActive(true);
+                        staticWall.SetActive(false);
+                    }
                     Broken();
                 }
 
@@ -51,17 +62,19 @@ namespace TeamAlpha.Source
         {
             for (int i = 0; i < partsBarrier.Count; i++)
             {
-                Vector3 randomVector = Vector3.one * Random.Range(-1, 2);
-                Vector3 forceDirection = (partsBarrier[i].transform.position - transform.position).normalized;
-                Rigidbody rb = partsBarrier[i].GetComponent<Rigidbody>();
-                rb.AddForce(3 * forceDirection, ForceMode.Impulse);
-                rb.AddTorque(randomVector * 3f, ForceMode.Impulse);
+                if (!wall)
+                {
+                    Vector3 randomVector = Vector3.one * Random.Range(-1, 2);
+                    Vector3 forceDirection = (partsBarrier[i].transform.position - transform.position).normalized;
+                    Rigidbody rb = partsBarrier[i].GetComponent<Rigidbody>();
+                    rb.AddForce(3 * forceDirection, ForceMode.Impulse);
+                    rb.AddTorque(randomVector * 3f, ForceMode.Impulse);
+                }
                 if (partsBarrier[i] != null)
                 {
                     Destroy(partsBarrier[i], 3f);
                 }
             }
-
 
         }
     }

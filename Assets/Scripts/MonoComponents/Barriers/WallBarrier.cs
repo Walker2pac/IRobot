@@ -6,8 +6,6 @@ namespace TeamAlpha.Source
 {
     public class WallBarrier : Barriers
     {
-        [SerializeField] private int strengtheValue;
-
         protected override void OnTriggerEnter(Collider other)
         {
             base.OnTriggerEnter(other);
