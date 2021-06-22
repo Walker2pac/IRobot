@@ -7,12 +7,12 @@ namespace TeamAlpha.Source
 {
     public class RamCollider : MonoBehaviour
     {
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.layer == DataGameMain.LayerPlayer)
-            {
-                PlayerController.Current.StartCoroutine("Ram");
-            }
-        }
+         private void OnTriggerEnter(Collider other)
+         {
+             if (other.gameObject.layer == DataGameMain.LayerPlayer)
+             {
+                 PlayerController.Current.StartCoroutine("Ram");
+             }
+         }
     }
 }

@@ -15,7 +15,9 @@ namespace TeamAlpha.Source
         [ShowIf("breakingObject")]
         [SerializeField] private bool breakingByBullet;
         [ShowIf("breakingObject")]
-        [SerializeField] private bool wall;        
+        [SerializeField] private bool wall;
+        [ShowIf("breakingObject")]
+        [SerializeField] private RamCollider ramCollider;
         [ShowIf("wall")]
         [SerializeField] private GameObject staticWall;
         [ShowIf("wall")]
@@ -25,6 +27,13 @@ namespace TeamAlpha.Source
         [ShowIf("breakingObject")]
         [SerializeField] private List<GameObject> partsBarrier = new List<GameObject>();
 
+        protected virtual void Start()
+        {
+            if (breakingObject)
+            {
+                Instantiate(ramCollider, transform.position - Vector3.forward * 4.5f, Quaternion.identity);
+            }
+        }
         protected virtual void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer == DataGameMain.LayerPlayer)

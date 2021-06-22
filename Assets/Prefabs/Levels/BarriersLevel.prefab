@@ -195,9 +195,9 @@ MonoBehaviour:
   subscribers:
   - {fileID: 8834072271863897242}
   - {fileID: 1523038053293311214}
-  - {fileID: 0}
   - {fileID: 5447820430193870675}
   - {fileID: 9134797061359476165}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   nodes: []
@@ -11778,9 +11778,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5373767048085961382, guid: 8236275d7821d534d85dc917da8c27fe,
         type: 3}
+      propertyPath: _animRam
+      value: 
+      objectReference: {fileID: -203655887218126122, guid: d7bc9998367ad90429b582b0226df54d,
+        type: 3}
+    - target: {fileID: 5373767048085961382, guid: 8236275d7821d534d85dc917da8c27fe,
+        type: 3}
       propertyPath: _animJump
       value: 
       objectReference: {fileID: -203655887218126122, guid: 07d92c854204bf9409ed23bbb1584bf6,
+        type: 3}
+    - target: {fileID: 5373767048085961382, guid: 8236275d7821d534d85dc917da8c27fe,
+        type: 3}
+      propertyPath: _animTrip
+      value: 
+      objectReference: {fileID: -3298460134461853946, guid: 8284b174e501b5848893a7867b093f9e,
         type: 3}
     - target: {fileID: 5373767048085961382, guid: 8236275d7821d534d85dc917da8c27fe,
         type: 3}
@@ -11805,6 +11817,12 @@ PrefabInstance:
       objectReference: {fileID: 9134797061359476165}
     - target: {fileID: 5373767048085961382, guid: 8236275d7821d534d85dc917da8c27fe,
         type: 3}
+      propertyPath: _animRamWithShield
+      value: 
+      objectReference: {fileID: -203655887218126122, guid: d7bc9998367ad90429b582b0226df54d,
+        type: 3}
+    - target: {fileID: 5373767048085961382, guid: 8236275d7821d534d85dc917da8c27fe,
+        type: 3}
       propertyPath: _animJumpOnPlatform
       value: 
       objectReference: {fileID: -203655887218126122, guid: 07d92c854204bf9409ed23bbb1584bf6,
@@ -11818,13 +11836,13 @@ PrefabInstance:
         type: 3}
       propertyPath: _animJump.Array.data[0]
       value: 
-      objectReference: {fileID: -203655887218126122, guid: 466a301a5109bbf4bacbd08047583ea2,
+      objectReference: {fileID: 8860250709227844769, guid: 88ca58edc8537a04781dfeb093f22d77,
         type: 3}
     - target: {fileID: 5373767048085961382, guid: 8236275d7821d534d85dc917da8c27fe,
         type: 3}
       propertyPath: _animJump.Array.data[1]
       value: 
-      objectReference: {fileID: -203655887218126122, guid: e4d76bcd15260074497f8d946fec685b,
+      objectReference: {fileID: 866334234354777196, guid: 88ca58edc8537a04781dfeb093f22d77,
         type: 3}
     - target: {fileID: 7281603490549045356, guid: 8236275d7821d534d85dc917da8c27fe,
         type: 3}
