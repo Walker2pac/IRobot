@@ -36,8 +36,10 @@ namespace TeamAlpha.Source
         [SerializeField] private AnimationClip _animJumpOnPlatform;
         [SerializeField] private List<AnimationClip> _animJump = new List<AnimationClip>();
         [SerializeField] private AnimationClip _animRunWithShield;
+        //[SerializeField] private AnimationClip _animRam;
+        [SerializeField] private AnimationClip _animRamWithShield;
         [SerializeField] private AnimationClip _animTrip;
-        [SerializeField] private AnimationClip _animTripWithShield;
+        //[SerializeField] private AnimationClip _animTripWithShield;
         [SerializeField] private AnimationClip _animDance;
 
         [Space]
@@ -85,20 +87,34 @@ namespace TeamAlpha.Source
                 if (!Saw.Default.Spawned)
                 {
                     _movingObject.ChangeSpeed(0f, 0f, () => _movingObject.ChangeSpeed(speed, 1f));
-                    StartCoroutine(TrippingAnim(shield, damage));
+                    StartCoroutine(TrippingAnim(damage));
                 }
             }
         }
-
-        private IEnumerator TrippingAnim(bool withShield, int damage)
+        public IEnumerator Ram()
         {
-            if (damage > 1)
+            bool shield = Shield.Default.Spawned;
+            if (shield)
             {
-                _animacer.Play(withShield ? _animTripWithShield : _animTrip, withShield ? 0.5f : 0.2f);
-                yield return new WaitForSeconds(withShield ? 1.5f : 0.3f);
+                _animacer.Play(_animRamWithShield, 1f).Speed = 5f;
+                yield return new WaitForSeconds(0.7f);
+                _animacer.Play(_animRun, 0.3f);
+            }
+            
+        }
+
+        private IEnumerator TrippingAnim(int damage)
+        {
+            
+            if (damage > 1)
+            {                
+                _animacer.Play( _animTrip, 0.2f);
+                yield return new WaitForSeconds(0.3f);
             }
             _animacer.Play(_animRun, 1f);
         }
+
+
                 
         public void Jump(bool onPlatform, float duration)
         {
@@ -116,12 +132,12 @@ namespace TeamAlpha.Source
         {
             _animacer.Play(_animJump[0]);
             yield return new WaitForSeconds(0.5f);
-            _animacer.Play(_animJump[1], 0.5f);
+            _animacer.Play(_animJump[1], 0.5f).Speed = 1 / duration;
             yield return new WaitForSeconds(duration - 0.5f);
             _animacer.Play(_animRun, 0.5f);
         }
 
-        private IEnumerator JumpAnimaPlatform( float duration)
+        private IEnumerator JumpAnimaPlatform(float duration)
         {
             _animacer.Play(_animJumpOnPlatform).Speed = 1 / duration;
             yield return new WaitForSeconds(duration);

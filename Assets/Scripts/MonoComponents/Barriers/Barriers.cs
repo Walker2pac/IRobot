@@ -15,7 +15,7 @@ namespace TeamAlpha.Source
         [ShowIf("breakingObject")]
         [SerializeField] private bool breakingByBullet;
         [ShowIf("breakingObject")]
-        [SerializeField] private bool wall;
+        [SerializeField] private bool wall;        
         [ShowIf("wall")]
         [SerializeField] private GameObject staticWall;
         [ShowIf("wall")]
