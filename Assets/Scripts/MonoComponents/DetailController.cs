@@ -10,7 +10,7 @@ public enum DetailType
     Foot,
     Base,
 }
-public enum DetailSide 
+public enum DetailSide
 {
     Left,
     Right
@@ -19,7 +19,7 @@ public enum DetailSide
 public class DetailController : MonoBehaviour
 {
     [Serializable]
-    public class Level 
+    public class Level
     {
         public DetailType type;
         public List<UpgradeObjectBridge> upgradeObjects = new List<UpgradeObjectBridge>();
@@ -61,7 +61,7 @@ public class DetailController : MonoBehaviour
         if (Shield.Default.Spawned)
             Shield.Default.Break();
 
-        else 
+        else
         {
             for (int i = 0; i < damage; i++)
             {
@@ -77,20 +77,20 @@ public class DetailController : MonoBehaviour
     public void AddDetail()
     {
         RobotDetails detail = GetNext();
-        if (detail) 
+        if (detail)
         {
             Transform point = detail.Side == DetailSide.Left ? leftPreAttachPoint : rightPreAttachPoint;
             detail.AttachDetail(forceFieldPrefab, dockingLinePrefab, point);
         }
     }
 
-    private RobotDetails GetNext() 
+    private RobotDetails GetNext()
     {
         if (_curentDetail > _detailCount - 1)
             return null;
 
         RobotDetails detail = GetCurrentDetail();
-        if (_details[detail.Type].IndexOf(detail) == _details[detail.Type].Count -1 ) 
+        if (_details[detail.Type].IndexOf(detail) == _details[detail.Type].Count - 1)
         {
             Level level = levels.Find((l) => l.type == detail.Type);
             foreach (UpgradeObjectBridge b in level.upgradeObjects)
@@ -100,20 +100,25 @@ public class DetailController : MonoBehaviour
         return detail;
     }
 
-    private RobotDetails GetPrevious() 
+    private RobotDetails GetPrevious()
     {
         if (_curentDetail < 0)
+        {
             return null;
-
-        RobotDetails detail = GetCurrentDetail();
-        _curentDetail--;
-        return detail;
+        }
+        else
+        {
+            RobotDetails detail = GetCurrentDetail();
+            _curentDetail--;
+            return detail;
+        }    
     }
 
-    private RobotDetails GetCurrentDetail() 
+    private RobotDetails GetCurrentDetail()
     {
         int trueIndex = _curentDetail;
-        foreach (Level l in levels) 
+
+        foreach (Level l in levels)
         {
             if (trueIndex <= _details[l.type].Count - 1)
                 return _details[l.type][trueIndex];
@@ -121,13 +126,14 @@ public class DetailController : MonoBehaviour
                 trueIndex -= _details[l.type].Count;
         }
         return null;
+
     }
 
-    public void DeathEffect() 
+    public void DeathEffect()
     {
-        foreach (RobotDetails d in _baseDetails) 
+        foreach (RobotDetails d in _baseDetails)
             d.BreakDetail(breakedDetailPrefab, 0f);
-        foreach (Level level in levels) 
+        foreach (Level level in levels)
         {
             foreach (UpgradeObjectBridge upgrade in level.upgradeObjects)
                 upgrade.Delete();

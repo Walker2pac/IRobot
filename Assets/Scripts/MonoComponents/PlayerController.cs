@@ -81,7 +81,13 @@ namespace TeamAlpha.Source
         {
             bool shield = Shield.Default.Spawned;
             if (!_detailController.LoseDetail(damage))
-                GameOver();
+            {
+                Time.timeScale = 0.5f;
+                _movingObject.ChangeSpeed(0f, 0f);
+                _animacer.Play(_animTrip, 0.2f);
+                Invoke("GameOver", 1f);
+            }
+                
             else
             {
                 if (!Saw.Default.Spawned)
@@ -150,11 +156,15 @@ namespace TeamAlpha.Source
         }
 
         private void GameOver()
-        {
+        {            
             _detailController.DeathEffect();
-            _movingObject.ChangeSpeed(0f, 0f);
+            Invoke("ShowUI", 1f);
+            
+        }
+
+        void ShowUI()
+        {
             UIManager.Default.CurState = UIManager.State.Failed;
-            _animacer.Stop();
         }
 
         public void Finish()

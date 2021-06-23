@@ -24,7 +24,7 @@ public class RobotDetails : MonoBehaviour
     public DetailSide Side => _side;
 
     private void Start()
-    {
+    {        
         _defaultParentPosition = transform.localPosition;
         _defaultParentScale = transform.localScale;
         _defaultParentRotation = transform.localRotation;
@@ -78,10 +78,16 @@ public class RobotDetails : MonoBehaviour
 
     private IEnumerator DestroyBrokedDetail(GameObject d) 
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(1f);
         d.transform.DOScale(Vector3.one * 0.01f, Random.Range(0.5f, 1f))
-            .SetEase(Ease.InBack)
-            .OnComplete(() => Destroy(d));
+            .SetEase(Ease.InBack);
+        StartCoroutine(DestoyDetails(d, 2f));
+    }
+
+    IEnumerator DestoyDetails(GameObject d, float t)
+    {
+        yield return new WaitForSeconds(t);
+        Destroy(d);
     }
 
     public void StartAttach() 

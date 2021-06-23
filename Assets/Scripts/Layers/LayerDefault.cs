@@ -144,6 +144,7 @@ namespace TeamAlpha.Source
         }
         public void Restart()
         {
+            Time.timeScale = 1f;
             OnPlayStart = () => { };
             LevelStarted = false;
             if (PlayerWon)
@@ -175,6 +176,7 @@ namespace TeamAlpha.Source
             if (Application.isPlaying)
             {
                 animancers = new List<AnimancerComponent>(FindObjectsOfType<AnimancerComponent>());
+                
             }
         }
         private void EnableSelectedLevel(int levelIndex)
