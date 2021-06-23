@@ -159,8 +159,10 @@ namespace TeamAlpha.Source
 
         public void Finish()
         {
+            cameraSpline.gameObject.GetComponent<CameraAnimation>().FinishPosition();
             _animacer.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 180);
-            if (Shield.Default)
+            bool shield = Shield.Default.Spawned;
+            if (shield)
             {
                 Shield.Default.Break();
             }

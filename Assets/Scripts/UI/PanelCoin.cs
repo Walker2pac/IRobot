@@ -9,7 +9,7 @@ namespace TeamAlpha.Source
 {
     public class PanelCoin : MonoBehaviour
     {
-        [SerializeField] private Text coinText;
+        [SerializeField] private TMP_Text coinText;
         private static int allCoin;
         
        

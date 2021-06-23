@@ -26,5 +26,10 @@ public class CameraAnimation : MonoBehaviour
         lookAt.DOLocalMove(lookAtPlay, transitionTime);
         follow.DOLocalMove(followPlay, transitionTime);
     }
+
+    public void FinishPosition()
+    {
+        lookAt.DOLocalMove(new Vector3(0f, 1.8f, 2.02f), transitionTime);
+    }
     
 }
