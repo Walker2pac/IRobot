@@ -9,6 +9,7 @@ namespace TeamAlpha.Source
     public class Coin : MonoBehaviour
     {
         [SerializeField] bool randomRotate;
+        [SerializeField] CoinEffect coinEffect;
         [ShowIf ("@randomRotate==false")]
         [SerializeField, Range(20, 80)] private float rotationSpeed;
         private PanelCoin panel;        
@@ -33,6 +34,9 @@ namespace TeamAlpha.Source
         {
             if(other.gameObject.layer == DataGameMain.LayerPlayer)
             {
+                float screenPosition = transform.position.x / Screen.width * 50000; 
+                CoinEffect coin = Instantiate(coinEffect);
+                coin.SetPosition(screenPosition);
                 panel.UpdateCoinText(1);
                 Destroy(gameObject);
             }
