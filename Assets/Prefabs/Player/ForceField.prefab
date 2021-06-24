@@ -543,7 +543,7 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.045744933}
 --- !u!54 &8340858427022693999
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -584,7 +584,7 @@ GameObject:
   - component: {fileID: 2791844500343907421}
   - component: {fileID: 5117291729019436128}
   - component: {fileID: 6498019195019796371}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5392,9 +5392,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6035086867609229534}
     m_Modifications:
+    - target: {fileID: 102740, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 102984, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
       propertyPath: m_Name
       value: LaserExplosionBlue
+      objectReference: {fileID: 0}
+    - target: {fileID: 102984, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 104660, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 127412, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 130964, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 439330, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
       propertyPath: m_RootOrder
@@ -5442,23 +5462,51 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 19823510, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19865196, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19865196, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
+      propertyPath: InitialModule.startRotationX.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19865196, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
+      propertyPath: InitialModule.startRotationY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19869370, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
+      propertyPath: lengthInSec
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19869370, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19869370, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
+      propertyPath: simulationSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19869370, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
+      propertyPath: InitialModule.startLifetime.scalar
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 19872452, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
       propertyPath: playOnAwake
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19882324, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
       propertyPath: playOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882324, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
+      propertyPath: TriggerModule.enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 19882324, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
+      propertyPath: CollisionModule.enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 19919324, guid: 63782bd2b5a23754181adaf65653088a, type: 3}
       propertyPath: m_SortingOrder

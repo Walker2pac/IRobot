@@ -78,9 +78,9 @@ public class RobotDetails : MonoBehaviour
 
     private IEnumerator DestroyBrokedDetail(GameObject d) 
     {
-        yield return new WaitForSeconds(1f);
-        d.transform.DOScale(Vector3.one * 0.01f, Random.Range(0.5f, 1f))
-            .SetEase(Ease.InBack);
+        yield return new WaitForSeconds(0f);
+        d.transform.DOScale(new Vector3(0.1f,0.1f,0.1f),0f)
+            .SetEase(Ease.InBack).SetUpdate(UpdateType.Normal,true);
         StartCoroutine(DestoyDetails(d, 2f));
     }
 
@@ -96,7 +96,7 @@ public class RobotDetails : MonoBehaviour
         Debug.Log("StartAttach");
 
         Tween scaleTween = transform.DOScale(Vector3.one, 0.5f)
-            .SetEase(Ease.OutBack);
+            .SetEase(Ease.OutBack).SetUpdate(UpdateType.Normal, true);
 
         Tween moveTween = DOTween.To(
             () => 0f,
@@ -107,12 +107,12 @@ public class RobotDetails : MonoBehaviour
                 CalculateLine(v);
             },
             1f, 1f)
-            .SetEase(Ease.InExpo);
+            .SetEase(Ease.InExpo).SetUpdate(UpdateType.Normal, true);
 
         _attachSequence = DOTween.Sequence()
             .Append(scaleTween)
             .Append(moveTween)
-            .OnComplete(EndAttach);
+            .OnComplete(EndAttach).SetUpdate(UpdateType.Normal, true);
     }
 
     private void EndAttach() 
@@ -145,7 +145,7 @@ public class RobotDetails : MonoBehaviour
             {
                 float strenght = DataGameMain.Default.dockingLineNoiseStrenght;
                 float frequency = DataGameMain.Default.dockingLineNoiseFrequency;
-                float t = 1f / (DataGameMain.Default.dockingLineBetweenPoints + 2f) * (i + 1f);
+                float t =  1f / (DataGameMain.Default.dockingLineBetweenPoints + 2f) * (i + 1f);
                 Vector3 betweenPoint = Vector3.Lerp(endPoint, startPoint, t);
                 /*betweenPoint.x += (0.5f - Mathf.PerlinNoise(betweenPoint.x, Time.time * frequency)) * strenght * (1 - tweenValue);*/
                 Vector3 normal = (endPoint - startPoint).normalized;

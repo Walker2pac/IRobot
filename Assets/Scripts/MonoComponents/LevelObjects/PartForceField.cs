@@ -14,9 +14,11 @@ public class PartForceField : MonoBehaviour
         Debug.Log(detail.name);
         onShowParticles.transform.SetParent(transform.parent);
         onShowParticles.transform.localScale = Vector3.one;
+        Invoke("Attach", 0.2f);
+
     }
 
-    private void OnParticleCollision(GameObject other)
+    void Attach()
     {
         onShowParticles.Play();
         Destroy(onShowParticles.gameObject, onShowParticles.main.duration);
@@ -25,4 +27,10 @@ public class PartForceField : MonoBehaviour
         //Destroy(other);
         Destroy(gameObject);
     }
+
+    /*private void OnParticleCollision(GameObject other)
+    {
+        
+    }*/
+
 }
