@@ -144,6 +144,7 @@ namespace TeamAlpha.Source
         }
         public void Restart()
         {
+
             Time.timeScale = 1f;
             OnPlayStart = () => { };
             LevelStarted = false;
@@ -167,6 +168,7 @@ namespace TeamAlpha.Source
             UIManager.Default.CurState = UIManager.State.MainMenu;
             UpdateLevel();
             AnimSpeedGlobal = 1f;
+            Debug.Log(curLevelIndex + "level");
         }
 
         private void UpdateLevel()

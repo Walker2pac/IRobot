@@ -31,7 +31,8 @@ namespace TeamAlpha.Source
 
         [Header("Animation")]
         [SerializeField] private NamedAnimancerComponent _animacer;
-        [SerializeField] private AnimationClip _animIdle;
+        [SerializeField] private List<AnimationClip> _animsIdle = new List<AnimationClip>();
+        //[SerializeField] private AnimationClip _animIdle;
         [SerializeField] private AnimationClip _animRun;
         [SerializeField] private AnimationClip _animJumpOnPlatform;
         [SerializeField] private List<AnimationClip> _animJump = new List<AnimationClip>();
@@ -44,7 +45,7 @@ namespace TeamAlpha.Source
 
         [Space]
         [SerializeField] private float speed;
-
+        
         private MovingObject _movingObject;
         private DetailController _detailController;
 
@@ -53,6 +54,7 @@ namespace TeamAlpha.Source
         #region Lifecycle
         public void Start()
         {
+            int randomIdleAnim = UnityEngine.Random.Range(0, _animsIdle.Count);
             _animacer.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 180);
             _movingObject = GetComponent<MovingObject>();
             _detailController = GetComponent<DetailController>();
@@ -66,7 +68,14 @@ namespace TeamAlpha.Source
                 _movingObject.ChangeSpeed(speed, 0f);
                 _animacer.Play(_animRun, 0.15f);
             };
-            _animacer.Play(_animIdle, 0.15f);
+            for (int i = 0; i < _animsIdle.Count; i++)
+            {
+                if(i == randomIdleAnim)
+                {
+                    _animacer.Play(_animsIdle[i], 0.15f);
+                }
+                
+            }
         }
 
         private void FixedUpdate()
@@ -172,11 +181,18 @@ namespace TeamAlpha.Source
             cameraSpline.gameObject.GetComponent<CameraAnimation>().FinishPosition();
             _animacer.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 180);
             bool shield = Shield.Default.Spawned;
+            bool saw = Saw.Default.Spawned;
             if (shield)
             {
                 Shield.Default.Break();
             }
+            if (saw)
+            {
+                Saw.Default.Delete();
+            }
+
             _movingObject.ChangeSpeed(0f, 0f);
+            LayerDefault.Default.PlayerWon = true;
             UIManager.Default.CurState = UIManager.State.Win;
             _animacer.Play(_animDance);
         }
