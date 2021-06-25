@@ -57,7 +57,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6161239782081111836}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.7480004, y: 0, z: 0}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5912058579391408364}
@@ -87,7 +87,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6161239782094489263}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.7480004, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5912058579391408364}
@@ -156,7 +156,7 @@ Transform:
   - {fileID: 5912058579391408364}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: -54.97, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3199248891713205105
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,9 +185,21 @@ MonoBehaviour:
     blend: 1
     keys: []
   sampleCollection:
-    samples: []
+    samples:
+    - position: {x: 0, y: 0, z: 0}
+      up: {x: 0, y: 1, z: 0}
+      forward: {x: 0, y: 0, z: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
+      size: 1
+      percent: 0
+    - position: {x: 0, y: 0, z: 500}
+      up: {x: 0, y: 1, z: 0}
+      forward: {x: 0, y: 0, z: 1}
+      color: {r: 1, g: 1, b: 1, a: 1}
+      size: 1
+      percent: 1
     optimizedIndices: 
-    sampleMode: 0
+    sampleMode: 1
     clipFrom: 0
     clipTo: 1
     loopSamples: 0
@@ -199,15 +211,15 @@ MonoBehaviour:
     size: 1
     percent: 0
   clipToSample:
-    position: {x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 500}
     up: {x: 0, y: 1, z: 0}
     forward: {x: 0, y: 0, z: 1}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
-    percent: 0
+    percent: 1
   animClipFrom: 0
   animClipTo: 1
-  _sampleCount: 0
+  _sampleCount: 2
   startSampleIndex: 0
   multithreaded: 0
   buildOnAwake: 0
@@ -237,19 +249,19 @@ MonoBehaviour:
   targetRigidbody2D: {fileID: 0}
   targetTransform: {fileID: 6161239783413642722}
   _result:
-    position: {x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 195.18}
     up: {x: 0, y: 1, z: 0}
     forward: {x: 0, y: 0, z: 1}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
-    percent: 0
+    percent: 0.39035998535156247
   _finalResult:
-    position: {x: 0, y: 0, z: 0}
+    position: {x: 0, y: 0, z: 195.18}
     up: {x: 0, y: 1, z: 0}
     forward: {x: 0, y: 0, z: 1}
     color: {r: 1, g: 1, b: 1, a: 1}
     size: 1
-    percent: 0
+    percent: 0.39035998535156247
   _mode: 1
   _autoProject: 1
   _subdivide: 4
@@ -258,7 +270,7 @@ MonoBehaviour:
   _targetObject: {fileID: 6161239783413642721}
   _offset: {x: 0, y: 0}
   _rotationOffset: {x: 0, y: 0, z: 0}
-  lastPosition: {x: 0, y: 0, z: 0}
+  lastPosition: {x: 0, y: 0, z: 195.18}
 --- !u!114 &6161239783413642723
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,12 +286,16 @@ MonoBehaviour:
   damageValue: 1
   breakingObject: 0
   breakingByBullet: 0
+  wall: 0
+  ramCollider: {fileID: 0}
+  staticWall: {fileID: 0}
+  dynamicWall: {fileID: 0}
   health: 0
   partsBarrier: []
   rotationSpeed: 120
   currentRotationSide: 0
   numberBarriers: 2
-  barrierPrefab: {fileID: 3108539457428349518, guid: 83d0d152a76eed145b0c498b71962381,
+  barrierPrefab: {fileID: 8899127658769785245, guid: 945fd4886494b2e4098716dc692c5640,
     type: 3}
   barriersPosition:
   - {fileID: 6161239783260690583}
@@ -296,6 +312,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9141295a2a216f43883558fcf0322f3,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a9141295a2a216f43883558fcf0322f3,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a9141295a2a216f43883558fcf0322f3,
         type: 3}
