@@ -116,21 +116,15 @@ namespace TeamAlpha.Source
             {
                 _animacer.Play(_animRamWithShield, 1f).Speed = 5f;
                 yield return new WaitForSeconds(0f);
-                StartCoroutine(CheckShield());
             }
-        }
-
-        IEnumerator CheckShield()
-        {
-            bool shield = Shield.Default.Spawned;
             if (shield)
             {
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(0);
                 _animacer.Play(_animRunWithShield, 0.7f);
             }
             else
             {
-                yield return new WaitForSeconds(1);
+                yield return new WaitForSeconds(0);
                 _animacer.Play(_animRun, 0.7f);
             }
         }
