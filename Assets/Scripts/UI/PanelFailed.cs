@@ -35,6 +35,7 @@ namespace TeamAlpha.Source
 
         private void HandleButtonRestartClick()
         {
+            
             LayerDefault.Default.Restart();
         }
     }

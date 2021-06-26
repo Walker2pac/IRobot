@@ -24,7 +24,7 @@ namespace TeamAlpha.Source
         [SerializeField] private GameObject staticWall;
         [ShowIf("wall")]
         [SerializeField] private GameObject dynamicWall;
-        
+
         [ShowIf("breakingObject")]
         [SerializeField] private List<GameObject> partsBarrier = new List<GameObject>();
 
@@ -41,16 +41,18 @@ namespace TeamAlpha.Source
             {
                 if (breakingObject)
                 {
+                    if (wall)
+                    {
+                        dynamicWall.SetActive(true);
+                        staticWall.SetActive(false);
+                    }
                     health -= 1;
                     if (health <= 0)
                     {
-                        if (wall)
-                        {
-                            dynamicWall.SetActive(true);
-                            staticWall.SetActive(false);
-                        }
+
                         Collider collider = GetComponentInChildren<Collider>();
                         collider.enabled = false;
+
                         Broken();
                     }
                 }
@@ -66,35 +68,37 @@ namespace TeamAlpha.Source
                     {
                         dynamicWall.SetActive(true);
                         staticWall.SetActive(false);
+                        for (int i = 0; i < partsBarrier.Count; i ++)
+                        {
+                            if (partsBarrier[i] != null)
+                            {
+                                Destroy(partsBarrier[i], 3f);
+                            }
+                        }
                     }
-                    Broken();
                 }
 
             }
-            
+
         }
 
         protected virtual void Broken()
         {
             for (int i = 0; i < partsBarrier.Count; i++)
             {
-                if (!wall)
-                {
-                    Vector3 randomVector = Vector3.one * Random.Range(-1, 2);
-                    Vector3 forceDirection = (partsBarrier[i].transform.position - transform.position).normalized;
-                    Rigidbody rb = partsBarrier[i].GetComponent<Rigidbody>();
-                    rb.AddForce(3 * forceDirection, ForceMode.Impulse);
-                    rb.AddTorque(randomVector * 3f, ForceMode.Impulse);
-                }
-                if (partsBarrier[i] != null)
-                {
-                    Destroy(partsBarrier[i], 3f);
-                }
+                Vector3 randomVector = Vector3.one * Random.Range(-1, 2);
+                Vector3 forceDirection = (partsBarrier[i].transform.position - transform.position).normalized;
+                Rigidbody rb = partsBarrier[i].GetComponent<Rigidbody>();
+                rb.AddForce(3 * forceDirection, ForceMode.Impulse);
+                rb.AddTorque(randomVector * 3f, ForceMode.Impulse);
+                
             }
-
+            
         }
+
     }
 }
+
 
 
 public interface IButton

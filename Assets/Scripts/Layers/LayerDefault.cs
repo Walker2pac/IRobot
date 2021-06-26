@@ -144,6 +144,11 @@ namespace TeamAlpha.Source
         }
         public void Restart()
         {
+            BrokenDetail[] brokenDetail = FindObjectsOfType<BrokenDetail>();
+            for (int i = 0; i < brokenDetail.Length; i++)
+            {
+                Destroy(brokenDetail[i].gameObject);
+            }
 
             Time.timeScale = 1f;
             OnPlayStart = () => { };
