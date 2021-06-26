@@ -151,7 +151,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2243557191292839143}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 84.022285}
+  m_LocalPosition: {x: 0, y: 0, z: 500}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4687521543164873378}
@@ -462,33 +462,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
+      propertyPath: rotateSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
+        type: 3}
       propertyPath: currentColor.a
       value: 0.38431373
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.b
-      value: 0.100302614
+      value: 0.10196076
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.g
-      value: 0.100302614
+      value: 0.81401086
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.r
-      value: 0.9245283
+      value: 0.9254902
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: spotlightAngle
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: speedSpotlightTilt
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6722062825965953130, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
@@ -594,33 +599,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
+      propertyPath: rotateSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
+        type: 3}
       propertyPath: currentColor.a
       value: 0.38431373
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.b
-      value: 0.100302614
+      value: 0.10196076
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.g
-      value: 0.100302614
+      value: 0.81401086
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.r
-      value: 0.9245283
+      value: 0.9254902
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: spotlightAngle
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: speedSpotlightTilt
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6722062825965953130, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
@@ -726,33 +736,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
+      propertyPath: rotateSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
+        type: 3}
       propertyPath: currentColor.a
       value: 0.38431373
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.b
-      value: 0.100302614
+      value: 0.10196076
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.g
-      value: 0.100302614
+      value: 0.81401086
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.r
-      value: 0.9245283
+      value: 0.9254902
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: spotlightAngle
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: speedSpotlightTilt
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
@@ -863,33 +878,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
+      propertyPath: rotateSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
+        type: 3}
       propertyPath: currentColor.a
       value: 0.38431373
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.b
-      value: 0.100302614
+      value: 0.10196076
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.g
-      value: 0.100302614
+      value: 0.81401086
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.r
-      value: 0.9245283
+      value: 0.9254902
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: spotlightAngle
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: speedSpotlightTilt
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
@@ -1000,33 +1020,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
+      propertyPath: rotateSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
+        type: 3}
       propertyPath: currentColor.a
       value: 0.38431373
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.b
-      value: 0.100302614
+      value: 0.10196076
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.g
-      value: 0.100302614
+      value: 0.81401086
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.r
-      value: 0.9245283
+      value: 0.9254902
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: spotlightAngle
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: speedSpotlightTilt
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
@@ -1137,33 +1162,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
+      propertyPath: rotateSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
+        type: 3}
       propertyPath: currentColor.a
       value: 0.38431373
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.b
-      value: 0.100302614
+      value: 0.10196076
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.g
-      value: 0.100302614
+      value: 0.81401086
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.r
-      value: 0.9245283
+      value: 0.9254902
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: spotlightAngle
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: speedSpotlightTilt
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6722062825965953130, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
@@ -1269,33 +1299,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
+      propertyPath: rotateSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
+        type: 3}
       propertyPath: currentColor.a
       value: 0.38431373
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.b
-      value: 0.100302614
+      value: 0.10196076
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.g
-      value: 0.100302614
+      value: 0.81401086
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: currentColor.r
-      value: 0.9245283
+      value: 0.9254902
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: spotlightAngle
-      value: 40
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
       propertyPath: speedSpotlightTilt
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6614220690248301276, guid: 7145c19f75a32944aa6e5c559a3db74d,
         type: 3}
