@@ -91,23 +91,27 @@ namespace TeamAlpha.Source
         #region Methods
         public void SendDamage(int damage)
         {
-            bool shield = Shield.Default.Spawned;
-            if (!_detailController.LoseDetail(damage))
+            if (damage > 0)
             {
-                Time.timeScale = 0.5f;
-                _movingObject.ChangeSpeed(0f, 0f);
-                _animacer.Play(_animTrip, 0.2f);
-                Invoke("GameOver", 1f);
-            }
-                
-            else
-            {
-                if (!Saw.Default.Spawned)
+                bool shield = Shield.Default.Spawned;
+                if (!_detailController.LoseDetail(damage))
                 {
-                    _movingObject.ChangeSpeed(0f, 0f, () => _movingObject.ChangeSpeed(speed, 1f));
-                    StartCoroutine(TrippingAnim(damage));
+                    Time.timeScale = 0.5f;
+                    _movingObject.ChangeSpeed(0f, 0f);
+                    _animacer.Play(_animTrip, 0.2f);
+                    Invoke("GameOver", 1f);
+                }
+
+                else
+                {
+                    if (!Saw.Default.Spawned)
+                    {
+                        _movingObject.ChangeSpeed(0f, 0f, () => _movingObject.ChangeSpeed(speed, 1f));
+                        StartCoroutine(TrippingAnim(damage));
+                    }
                 }
             }
+            
         }
         public IEnumerator Ram()
         {

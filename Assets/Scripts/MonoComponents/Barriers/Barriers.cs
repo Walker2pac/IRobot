@@ -76,6 +76,10 @@ namespace TeamAlpha.Source
                             }
                         }
                     }
+                    else
+                    {
+                        Broken();
+                    }
                 }
 
             }

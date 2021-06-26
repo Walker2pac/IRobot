@@ -16,6 +16,7 @@ namespace TeamAlpha.Source
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
             {
                 button.transform.DOLocalMove(new Vector3(0, 0.1f, 0), 0.5f, false).OnComplete(()=> PushButton(responseSpeed));
+                button.GetComponent<Renderer>().material.color = Color.green;
             }
         }
         public void PushButton(float speed)
