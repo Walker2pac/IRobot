@@ -28,6 +28,7 @@ namespace TeamAlpha.Source
         public SplineFollower cameraSpline;
         public Transform vcamLookAt;
         public Transform vcamFollow;
+        public SplineFollower preAttachPositionSpline;
 
         [Header("Animation")]
         [SerializeField] private NamedAnimancerComponent _animacer;
@@ -59,6 +60,7 @@ namespace TeamAlpha.Source
             _movingObject = GetComponent<MovingObject>();
             _detailController = GetComponent<DetailController>();
             cameraSpline.startPosition = _movingObject.StartPosition;
+            preAttachPositionSpline.startPosition = _movingObject.StartPosition;
 
             Saw.Default.OnSpawned += () => _movingObject.ChangeSpeed(Saw.Default.MoveSpeed, 0f);
             Saw.Default.OnDeleted += () => _movingObject.ChangeSpeed(speed, 0f);
@@ -82,6 +84,7 @@ namespace TeamAlpha.Source
         {
             _movingObject.ChangeOffsetX(JoystickController.Default.DeltaSlide);
             cameraSpline.followSpeed = _movingObject.Speed;
+            preAttachPositionSpline.followSpeed = _movingObject.Speed;
         }
         #endregion
 
