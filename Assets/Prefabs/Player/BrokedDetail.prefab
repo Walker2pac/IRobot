@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4845659407104211971}
   - component: {fileID: 3377790894808496603}
   - component: {fileID: 1185117728110452130}
+  - component: {fileID: 110202928957460447}
   m_Layer: 11
   m_Name: BrokedDetail
   m_TagString: Untagged
@@ -97,6 +98,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &110202928957460447
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 412717213917622936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbdfc9706ea890845ae5ae35ddb51544, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5996080241429655445
 PrefabInstance:
   m_ObjectHideFlags: 0
