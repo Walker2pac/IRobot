@@ -980,15 +980,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bda14ef3834691a40a6a20c43115b3b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageValue: 1
+  damageValue: 100
   breakingObject: 1
-  breakingByBullet: 0
+  health: 0
+  breakingByPlayer: 0
   wall: 0
   ramCollider: {fileID: 1457104459583082347, guid: d29c2ac92d05ee54780954ad1514f04d,
     type: 3}
   staticWall: {fileID: 0}
   dynamicWall: {fileID: 0}
-  health: 0
   partsBarrier:
   - {fileID: 7290410104680827649}
   - {fileID: 5715795931403547932}
