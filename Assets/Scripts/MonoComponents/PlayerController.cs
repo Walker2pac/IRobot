@@ -115,10 +115,24 @@ namespace TeamAlpha.Source
             if (shield)
             {
                 _animacer.Play(_animRamWithShield, 1f).Speed = 5f;
-                yield return new WaitForSeconds(0.7f);
-                _animacer.Play(shield ? _animRunWithShield : _animRun, 0.7f);
+                yield return new WaitForSeconds(0f);
+                StartCoroutine(CheckShield());
             }
-            
+        }
+
+        IEnumerator CheckShield()
+        {
+            bool shield = Shield.Default.Spawned;
+            if (shield)
+            {
+                yield return new WaitForSeconds(1);
+                _animacer.Play(_animRunWithShield, 0.7f);
+            }
+            else
+            {
+                yield return new WaitForSeconds(1);
+                _animacer.Play(_animRun, 0.7f);
+            }
         }
 
         private IEnumerator TrippingAnim(int damage)

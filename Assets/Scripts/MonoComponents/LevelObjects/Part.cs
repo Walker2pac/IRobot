@@ -30,9 +30,13 @@ namespace TeamAlpha.Source
         {
             if (other.gameObject.layer == DataGameMain.LayerPlayer) 
             {
-                PlayerController.Current.SendPart();
-                ParticleSystem destroyParts = Instantiate(Effect, other.transform).GetComponent<ParticleSystem>();
-                Destroy(gameObject);
+                if (!Saw.Default.Spawned) 
+                {
+                    PlayerController.Current.SendPart();
+                    ParticleSystem destroyParts = Instantiate(Effect, other.transform).GetComponent<ParticleSystem>();
+                    Destroy(gameObject);
+                }
+                
             }
         }
     }
