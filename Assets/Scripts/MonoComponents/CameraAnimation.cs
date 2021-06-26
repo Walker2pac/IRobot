@@ -16,6 +16,10 @@ public class CameraAnimation : MonoBehaviour
     [SerializeField] private Vector3 lookAtPlay;
     [SerializeField] private Vector3 followPlay;
 
+    [Header("Finish position")]
+    [SerializeField] private Vector3 lookAtFinish;
+    [SerializeField] private Vector3 followFinish;
+
     void Start()
     {
         LayerDefault.Default.OnPlayStart += GoToPlayPosition;
@@ -29,7 +33,8 @@ public class CameraAnimation : MonoBehaviour
 
     public void FinishPosition()
     {
-        lookAt.DOLocalMove(new Vector3(0f, 1.8f, 2.02f), transitionTime);
+        lookAt.DOLocalMove(lookAtFinish, transitionTime);
+        follow.DOLocalMove(followFinish, transitionTime);
     }
     
 }

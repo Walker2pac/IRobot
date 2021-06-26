@@ -90,7 +90,7 @@ public class DetailController : MonoBehaviour
             return null;
 
         RobotDetails detail = GetCurrentDetail();
-        if (_details[detail.Type].IndexOf(detail) == _details[detail.Type].Count - 1)
+        if (_details[detail.Type].IndexOf(detail) == _details[detail.Type].Count - 1 && _details[detail.Type].IndexOf(detail) >= 0)
         {
             Level level = levels.Find((l) => l.type == detail.Type);
             foreach (UpgradeObjectBridge b in level.upgradeObjects)
@@ -120,10 +120,18 @@ public class DetailController : MonoBehaviour
 
         foreach (Level l in levels)
         {
-            if (trueIndex <= _details[l.type].Count - 1)
+            if (trueIndex <= _details[l.type].Count - 1 && trueIndex >= 0)
                 return _details[l.type][trueIndex];
             else
+                if (trueIndex >= 0)
+            {
                 trueIndex -= _details[l.type].Count;
+            }
+            else
+            {
+                Debug.Log("BigDetail");
+            }
+                
         }
         return null;
 

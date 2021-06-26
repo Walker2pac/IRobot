@@ -113,7 +113,7 @@ namespace TeamAlpha.Source
             {
                 _animacer.Play(_animRamWithShield, 1f).Speed = 5f;
                 yield return new WaitForSeconds(0.7f);
-                _animacer.Play(_animRun, 0.3f);
+                _animacer.Play(shield ? _animRunWithShield : _animRun, 0.7f);
             }
             
         }
@@ -126,7 +126,7 @@ namespace TeamAlpha.Source
                 _animacer.Play( _animTrip, 0.2f);
                 yield return new WaitForSeconds(0.3f);
             }
-            _animacer.Play(_animRun, 1f);
+            _animacer.Play(_animRun, 0.7f);
         }
 
 
@@ -190,7 +190,7 @@ namespace TeamAlpha.Source
             {
                 Saw.Default.Delete();
             }
-
+            FindObjectOfType<GunUpgradeObject>().Finish();
             _movingObject.ChangeSpeed(0f, 0f);
             LayerDefault.Default.PlayerWon = true;
             UIManager.Default.CurState = UIManager.State.Win;

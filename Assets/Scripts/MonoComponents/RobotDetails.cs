@@ -78,10 +78,10 @@ public class RobotDetails : MonoBehaviour
 
     private IEnumerator DestroyBrokedDetail(GameObject d) 
     {
-        yield return new WaitForSeconds(0f);
-        d.transform.DOScale(new Vector3(0.1f,0.1f,0.1f),0f)
+        yield return new WaitForSeconds(1f);
+        d.transform.DOScale(new Vector3(0.1f,0.1f,0.1f),1f)
             .SetEase(Ease.InBack).SetUpdate(UpdateType.Normal,true);
-        StartCoroutine(DestoyDetails(d, 2f));
+        StartCoroutine(DestoyDetails(d, 1f));
     }
 
     IEnumerator DestoyDetails(GameObject d, float t)

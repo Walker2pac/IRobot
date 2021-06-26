@@ -10,11 +10,13 @@ public class GunUpgradeObject : MonoBehaviour, IUpgradeObject
     [SerializeField] private Transform gunSegmentModel;
 
     private bool _spawned;
+    private bool _finished;
     private List<Renderer> _partRenderers;
     private Gun _gun;
 
+
     void Start()
-    {
+    {        
         _partRenderers = new List<Renderer>();
         _partRenderers.AddRange(GetComponentsInChildren<Renderer>());
         foreach (Renderer r in _partRenderers)
@@ -31,16 +33,31 @@ public class GunUpgradeObject : MonoBehaviour, IUpgradeObject
         {
             gunModel.rotation = PlayerController.Current.transform.rotation;
         }
+        if (_finished)
+        {
+            gunModel.localRotation = Quaternion.Euler(Vector3.zero);
+            
+        }
     }
 
     private void ShootAnim() 
     {
-        gunSegmentModel.DOLocalRotate(Vector3.right * -50f, 0.2f)
+        {
+            gunSegmentModel.DOLocalRotate(Vector3.right * -50f, 0.2f)
             .SetEase(Ease.OutQuint)
             .OnComplete(() =>
             {
                 gunSegmentModel.DOLocalRotate(Vector3.right * 30f, 1f);
             });
+        }
+        
+    }
+
+    public void Finish()
+    {
+        _finished = true;
+        _spawned = false;
+        _gun.StopAllCoroutines();
     }
 
     #region IUpgradeObject

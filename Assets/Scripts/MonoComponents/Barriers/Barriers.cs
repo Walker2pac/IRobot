@@ -13,7 +13,9 @@ namespace TeamAlpha.Source
         [Header("Object Behavior")]
         [SerializeField] private bool breakingObject;
         [ShowIf("breakingObject")]
-        [SerializeField] private bool breakingByBullet;
+        [SerializeField] protected int health;
+        [ShowIf("breakingObject")]
+        [SerializeField] private bool breakingByPlayer;
         [ShowIf("breakingObject")]
         [SerializeField] private bool wall;
         [ShowIf("breakingObject")]
@@ -22,8 +24,7 @@ namespace TeamAlpha.Source
         [SerializeField] private GameObject staticWall;
         [ShowIf("wall")]
         [SerializeField] private GameObject dynamicWall;
-        [ShowIf("breakingByBullet")]
-        [SerializeField] protected int health;
+        
         [ShowIf("breakingObject")]
         [SerializeField] private List<GameObject> partsBarrier = new List<GameObject>();
 
@@ -36,12 +37,30 @@ namespace TeamAlpha.Source
         }
         protected virtual void OnTriggerEnter(Collider other)
         {
+            if (other.gameObject.GetComponent<Bullet>())
+            {
+                if (breakingObject)
+                {
+                    health -= 1;
+                    if (health <= 0)
+                    {
+                        if (wall)
+                        {
+                            dynamicWall.SetActive(true);
+                            staticWall.SetActive(false);
+                        }
+                        Collider collider = GetComponentInChildren<Collider>();
+                        collider.enabled = false;
+                        Broken();
+                    }
+                }
+            }
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
             {
                 PlayerController.Current.SendDamage(damageValue);
                 Collider collider = GetComponentInChildren<Collider>();
                 collider.enabled = false;
-                if (breakingObject)
+                if (breakingByPlayer)
                 {
                     if (wall)
                     {
@@ -52,19 +71,7 @@ namespace TeamAlpha.Source
                 }
 
             }
-            if (other.gameObject.GetComponent<Bullet>())
-            {
-                if (breakingByBullet)
-                {
-                    health -= 1;
-                    if (health <= 0)
-                    {
-                        Collider collider = GetComponentInChildren<Collider>();
-                        collider.enabled = false;
-                        Broken();
-                    }
-                }
-            }
+            
         }
 
         protected virtual void Broken()
