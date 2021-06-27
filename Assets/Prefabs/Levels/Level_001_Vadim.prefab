@@ -663,7 +663,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 64a50d2ae7da00e42b3a606de69dca29, type: 2}
+  - {fileID: 2100000, guid: 2cbf55a93fae2b8498a924b58c0c9231, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5748,10 +5748,35 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4104496547229020254}
     m_Modifications:
+    - target: {fileID: 315562772466439126, guid: 5c59cef4e7980ed4bbc31b391df74819,
+        type: 3}
+      propertyPath: currentColor.a
+      value: 0.18039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 418388883094791806, guid: 5c59cef4e7980ed4bbc31b391df74819,
+        type: 3}
+      propertyPath: currentColor.a
+      value: 0.18039216
+      objectReference: {fileID: 0}
     - target: {fileID: 2243557191292839143, guid: 5c59cef4e7980ed4bbc31b391df74819,
         type: 3}
       propertyPath: m_Name
       value: Finish
+      objectReference: {fileID: 0}
+    - target: {fileID: 3003124282107647986, guid: 5c59cef4e7980ed4bbc31b391df74819,
+        type: 3}
+      propertyPath: currentColor.a
+      value: 0.18039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 5768152799263778469, guid: 5c59cef4e7980ed4bbc31b391df74819,
+        type: 3}
+      propertyPath: currentColor.a
+      value: 0.18039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 5818043021416276094, guid: 5c59cef4e7980ed4bbc31b391df74819,
+        type: 3}
+      propertyPath: currentColor.a
+      value: 0.18039216
       objectReference: {fileID: 0}
     - target: {fileID: 5992839893298897723, guid: 5c59cef4e7980ed4bbc31b391df74819,
         type: 3}
@@ -5813,6 +5838,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6956659563345706165, guid: 5c59cef4e7980ed4bbc31b391df74819,
+        type: 3}
+      propertyPath: currentColor.a
+      value: 0.18039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 7075707158535611044, guid: 5c59cef4e7980ed4bbc31b391df74819,
+        type: 3}
+      propertyPath: currentColor.a
+      value: 0.18039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 8625377631428906671, guid: 5c59cef4e7980ed4bbc31b391df74819,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2cbf55a93fae2b8498a924b58c0c9231, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c59cef4e7980ed4bbc31b391df74819, type: 3}
 --- !u!114 &1826825806739327039 stripped
