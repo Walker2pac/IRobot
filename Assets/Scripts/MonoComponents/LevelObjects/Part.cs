@@ -9,7 +9,7 @@ namespace TeamAlpha.Source
     public class Part : MonoBehaviour
     {
         public GameObject Effect;
-
+        [SerializeField] GameObject plusOneEffect;
         [SerializeField] bool randomRotate;
         [ShowIf("@randomRotate==false")]
         [SerializeField, Range(20, 80)] private float rotationSpeed;
@@ -33,6 +33,7 @@ namespace TeamAlpha.Source
                 if (!Saw.Default.Spawned) 
                 {
                     PlayerController.Current.SendPart();
+                    Instantiate(plusOneEffect, other.transform).GetComponent<ParticleSystem>().Play();
                     ParticleSystem destroyParts = Instantiate(Effect, other.transform).GetComponent<ParticleSystem>();
                     Destroy(gameObject);
                 }

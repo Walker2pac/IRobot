@@ -106,7 +106,7 @@ public class RobotDetails : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, _defaultParent.rotation*_defaultParentRotation, v);
                 CalculateLine(v);
             },
-            1f, 1f)
+            1f, 0.5f)
             .SetEase(Ease.InExpo).SetUpdate(UpdateType.Normal, true);
 
         _attachSequence = DOTween.Sequence()

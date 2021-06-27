@@ -96,7 +96,7 @@ namespace TeamAlpha.Source
                 bool shield = Shield.Default.Spawned;
                 if (!_detailController.LoseDetail(damage))
                 {
-                    Time.timeScale = 0.5f;
+                    Time.timeScale = 0.7f;
                     _movingObject.ChangeSpeed(0f, 0f);
                     _animacer.Play(_animTrip, 0.2f);
                     Invoke("GameOver", 1f);
@@ -182,13 +182,8 @@ namespace TeamAlpha.Source
         private void GameOver()
         {            
             _detailController.DeathEffect();
-            Invoke("ShowUI", 1f);
-            
-        }
-
-        void ShowUI()
-        {
             UIManager.Default.CurState = UIManager.State.Failed;
+
         }
 
         public void Finish()
