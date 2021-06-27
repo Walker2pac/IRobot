@@ -218,9 +218,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 110610293211281981, guid: 3e80f9ca01c6cb1429842d29cc77b8a6, type: 3}
-  - {fileID: 1368732612207744897, guid: 3e80f9ca01c6cb1429842d29cc77b8a6, type: 3}
-  - {fileID: -854477803481496224, guid: 3e80f9ca01c6cb1429842d29cc77b8a6, type: 3}
+  - {fileID: 2100000, guid: 67ffc7bb58a740e489710b5aa87c874d, type: 2}
+  - {fileID: 2100000, guid: 67ffc7bb58a740e489710b5aa87c874d, type: 2}
+  - {fileID: 2100000, guid: 10b8b268fb7ecb44abc77fef66f41247, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -253,13 +253,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c6e07ff824d4774f859e297d93f03f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  randomValues: 0
   currentRoteteDirection: 0
   rotateSpeed: 10
+  spotlightAngle: 40
+  speedSpotlightTilt: 1
   spotlight: {fileID: 7656943122002992441}
+  currentColor: {r: 0, g: 0, b: 0, a: 0}
   spotlightRenders:
   - {fileID: 8079203162609855139}
   - {fileID: 9180304594914527208}
-  currentColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &7656943122002992441
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,9 +323,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -2060580946197392769, guid: 3e80f9ca01c6cb1429842d29cc77b8a6, type: 3}
-  - {fileID: 6179966397908386522, guid: 3e80f9ca01c6cb1429842d29cc77b8a6, type: 3}
-  - {fileID: 8556262120643298411, guid: 3e80f9ca01c6cb1429842d29cc77b8a6, type: 3}
+  - {fileID: 2100000, guid: 67ffc7bb58a740e489710b5aa87c874d, type: 2}
+  - {fileID: 2100000, guid: d57bffa8b4f56b2489451ca4f5a17c7e, type: 2}
+  - {fileID: 2100000, guid: 889198440738c0c4fb762685e4cecd69, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

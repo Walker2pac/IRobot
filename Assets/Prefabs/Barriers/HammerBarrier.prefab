@@ -433,9 +433,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageValue: 1
   breakingObject: 0
-  wall: 0
-  breakingByBullet: 0
   health: 0
+  breakingByPlayer: 0
+  wall: 0
+  ramCollider: {fileID: 0}
+  staticWall: {fileID: 0}
+  dynamicWall: {fileID: 0}
   partsBarrier: []
   movingAxis: {fileID: 9086149145286818356}
   moveDownSpeed: 1
@@ -1043,6 +1046,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 5abc0cc25167ac843bb1dc34d7ccb5d7,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfa413c1f05c4f478453af1656d1128, type: 2}
     - target: {fileID: -2202955694483638325, guid: 5abc0cc25167ac843bb1dc34d7ccb5d7,
         type: 3}
       propertyPath: m_LocalScale.x
