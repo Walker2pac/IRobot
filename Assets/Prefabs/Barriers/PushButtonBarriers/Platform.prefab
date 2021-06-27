@@ -285,12 +285,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageValue: 1
   breakingObject: 0
-  breakingByBullet: 0
+  health: 0
+  breakingByPlayer: 0
   wall: 0
   ramCollider: {fileID: 0}
   staticWall: {fileID: 0}
   dynamicWall: {fileID: 0}
-  health: 0
   partsBarrier: []
   rotationSpeed: 120
   currentRotationSide: 0
@@ -378,6 +378,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Round_ring
       objectReference: {fileID: 0}
+    - target: {fileID: 7071182760956848314, guid: a9141295a2a216f43883558fcf0322f3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6a6c8fce1fcf3804b936368c70ba6d3c, type: 2}
+    - target: {fileID: 7071182760956848314, guid: a9141295a2a216f43883558fcf0322f3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: ee0a613808351464898fcd0e6e142b02, type: 2}
+    - target: {fileID: 8100320773420232829, guid: a9141295a2a216f43883558fcf0322f3,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ee0a613808351464898fcd0e6e142b02, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9141295a2a216f43883558fcf0322f3, type: 3}
 --- !u!4 &879763541265726796 stripped
