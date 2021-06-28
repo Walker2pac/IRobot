@@ -35,6 +35,7 @@ namespace TeamAlpha.Source
             {
                 if (other.GetComponent<MirrorBarrier>())
                 {
+                    Debug.Log("mirror");
                     NonDamagedReaction();
                 }                
             }

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Dreamteck.Splines;
+using ToonyColorsPro.Utilities;
 
 namespace TeamAlpha.Source
 {
@@ -46,6 +47,8 @@ namespace TeamAlpha.Source
 
         [Space]
         [SerializeField] private float speed;
+        //[SerializeField] private Material outline;
+        //[SerializeField] private Material noOutline;
         
         private MovingObject _movingObject;
         private DetailController _detailController;
@@ -55,6 +58,7 @@ namespace TeamAlpha.Source
         #region Lifecycle
         public void Start()
         {
+            //outline = noOutline;
             int randomIdleAnim = UnityEngine.Random.Range(0, _animsIdle.Count);
             _animacer.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 180);
             _movingObject = GetComponent<MovingObject>();
@@ -106,6 +110,7 @@ namespace TeamAlpha.Source
                 {
                     if (!Saw.Default.Spawned)
                     {
+                        
                         _movingObject.ChangeSpeed(0f, 0f, () => _movingObject.ChangeSpeed(speed, 1f));
                         StartCoroutine(TrippingAnim(damage));
                     }
@@ -206,6 +211,24 @@ namespace TeamAlpha.Source
             UIManager.Default.CurState = UIManager.State.Win;
             _animacer.Play(_animDance);
         }
+
+        /*public void OutlineRoboto()
+        {
+            for (int i = 0; i < _animacer.GetComponentsInChildren<Renderer>().Length; i++)
+            {
+                if (_animacer.GetComponentsInChildren<Renderer>()[i].material.name == "Outline")
+                {
+                    Debug.Log(i);
+                    for (int j = 0; j < _animacer.GetComponentsInChildren<Renderer>()[i].materials.Length; j++)
+                    {
+                        if(j == _animacer.GetComponentsInChildren<Renderer>()[i].materials.Length - 1)
+                        {
+                            _animacer.GetComponentsInChildren<Renderer>()[i].materials[j] = noOutline;
+                        }
+                    }
+                }
+            }
+        }*/
         #endregion
     }
 }

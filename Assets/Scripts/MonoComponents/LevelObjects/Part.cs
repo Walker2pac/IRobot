@@ -33,8 +33,11 @@ namespace TeamAlpha.Source
                 if (!Saw.Default.Spawned) 
                 {
                     PlayerController.Current.SendPart();
-                    Instantiate(plusOneEffect, other.transform).GetComponent<ParticleSystem>().Play();
+                    GameObject effect = Instantiate(plusOneEffect, new Vector3(transform.position.x,transform.position.y,other.transform.position.z), Quaternion.identity);
+                    effect.GetComponent<ParticleSystem>().Play();
+                    
                     ParticleSystem destroyParts = Instantiate(Effect, other.transform).GetComponent<ParticleSystem>();
+                    //PlayerController.Current.OutlineRoboto();
                     Destroy(gameObject);
                 }
                 

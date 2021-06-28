@@ -29,7 +29,11 @@ namespace TeamAlpha.Source
         }
         protected override void OnTriggerEnter(Collider other)
         {
-            base.OnTriggerEnter(other);
+            if (other.gameObject.layer == DataGameMain.LayerPlayer)
+            {
+                rotationSpeed = 0f;
+            }
+                base.OnTriggerEnter(other);
         }
     }
 }

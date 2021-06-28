@@ -16,9 +16,9 @@ namespace TeamAlpha.Source
         [SerializeField] protected int health;
         [ShowIf("breakingObject")]
         [SerializeField] private bool breakingByPlayer;
-        [ShowIf("breakingObject")]
+        
         [SerializeField] private bool wall;
-        [ShowIf("breakingObject")]
+        [ShowIf("breakingByPlayer")]
         [SerializeField] private RamCollider ramCollider;
         [ShowIf("wall")]
         [SerializeField] private GameObject staticWall;
@@ -53,49 +53,65 @@ namespace TeamAlpha.Source
                         Collider collider = GetComponentInChildren<Collider>();
                         collider.enabled = false;
 
-                        Broken();
+                        Broken(3);
                     }
                 }
             }
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
             {
-                PlayerController.Current.SendDamage(damageValue);
-                Collider collider = GetComponentInChildren<Collider>();
-                collider.enabled = false;
-                if (breakingByPlayer)
+                if (Saw.Default.Spawned)
                 {
                     if (wall)
                     {
                         dynamicWall.SetActive(true);
                         staticWall.SetActive(false);
-                        for (int i = 0; i < partsBarrier.Count; i ++)
+                    }
+                    Broken(10);
+                }
+                else
+                {
+                    PlayerController.Current.SendDamage(damageValue);
+                    Collider collider = GetComponentInChildren<Collider>();
+                    collider.enabled = false;
+                    if (breakingByPlayer)
+                    {
+                        if (wall)
                         {
-                            if (partsBarrier[i] != null)
+                            dynamicWall.SetActive(true);
+                            staticWall.SetActive(false);
+                            for (int i = 0; i < partsBarrier.Count; i++)
                             {
-                                Destroy(partsBarrier[i], 3f);
+                                if (partsBarrier[i] != null)
+                                {
+                                    Destroy(partsBarrier[i], 3f);
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        Broken();
+                        else
+                        {
+                            Broken(3);
+                        }
                     }
                 }
+                
 
             }
 
         }
 
-        protected virtual void Broken()
+        protected virtual void Broken(float force)
         {
             for (int i = 0; i < partsBarrier.Count; i++)
             {
                 Vector3 randomVector = Vector3.one * Random.Range(-1, 2);
                 Vector3 forceDirection = (partsBarrier[i].transform.position - transform.position).normalized;
                 Rigidbody rb = partsBarrier[i].GetComponent<Rigidbody>();
-                rb.AddForce(3 * forceDirection, ForceMode.Impulse);
+                rb.AddForce(force * forceDirection, ForceMode.Impulse);
                 rb.AddTorque(randomVector * 3f, ForceMode.Impulse);
-                
+                if (partsBarrier[i] != null)
+                {
+                    Destroy(partsBarrier[i], 3f);
+                }
             }
             
         }

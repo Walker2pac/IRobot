@@ -8,14 +8,13 @@ namespace TeamAlpha.Source
 
     public class MirrorBarrier : MonoBehaviour
     {
-        [SerializeField] private MirrorReflection mirror;
+        //[SerializeField] private MirrorReflection mirror;
         [SerializeField] private List<GameObject> partsBarrier = new List<GameObject>();
 
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
-            {
-                mirror.transform.position = Vector3.zero;
+            {             
 
                 for (int i = 0; i < partsBarrier.Count; i++)
                 {
