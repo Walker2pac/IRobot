@@ -727,7 +727,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d439bb048c9eb8c4d838f03e4ac75061, type: 2}
+  - {fileID: 2100000, guid: 64a50d2ae7da00e42b3a606de69dca29, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4187,6 +4187,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5218630566887764854}
     m_Modifications:
+    - target: {fileID: 1741290194886346284, guid: 8f59cb096b3d58545b39aa808007bd17,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.97
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741290194886346284, guid: 8f59cb096b3d58545b39aa808007bd17,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 54.50001
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741290194886346284, guid: 8f59cb096b3d58545b39aa808007bd17,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.056803964
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741290194886346284, guid: 8f59cb096b3d58545b39aa808007bd17,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.002196532
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741290194886346284, guid: 8f59cb096b3d58545b39aa808007bd17,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.99763733
+      objectReference: {fileID: 0}
+    - target: {fileID: 1741290194886346284, guid: 8f59cb096b3d58545b39aa808007bd17,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.03857731
+      objectReference: {fileID: 0}
     - target: {fileID: 3523945690847778473, guid: 8f59cb096b3d58545b39aa808007bd17,
         type: 3}
       propertyPath: m_RootOrder
@@ -4286,6 +4316,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mirror
+      objectReference: {fileID: 0}
+    - target: {fileID: 7592030415109406331, guid: 8f59cb096b3d58545b39aa808007bd17,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9125868387851193233, guid: 8f59cb096b3d58545b39aa808007bd17,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f59cb096b3d58545b39aa808007bd17, type: 3}
