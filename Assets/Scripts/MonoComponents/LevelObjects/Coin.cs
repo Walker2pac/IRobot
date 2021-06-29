@@ -35,7 +35,7 @@ namespace TeamAlpha.Source
         {
             if(other.gameObject.layer == DataGameMain.LayerPlayer)
             {
-                float screenPosition = transform.position.x / Screen.width * 50000; 
+                float screenPosition = transform.position.x / Screen.width * 25000; 
                 CoinEffect coin = Instantiate(coinEffect);
                 coin.SetPosition(screenPosition);
                 panel.UpdateCoinText(1);
