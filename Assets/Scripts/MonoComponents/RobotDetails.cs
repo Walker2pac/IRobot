@@ -52,7 +52,7 @@ public class RobotDetails : MonoBehaviour
         _dockingLine.transform.SetParent(transform);
         _dockingLine.transform.localPosition = Vector3.zero;
         _dockingLine.positionCount = 0;
-    }
+    }  
 
     public void BreakDetail(GameObject breakedDetailPrefab, float force = 3f)
     {

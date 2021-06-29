@@ -9,10 +9,12 @@ namespace TeamAlpha.Source
     public class Part : MonoBehaviour
     {
         public GameObject Effect;
-        [SerializeField] GameObject plusOneEffect;
+        //[SerializeField] GameObject plusOneEffect;
         [SerializeField] bool randomRotate;
+        [SerializeField] PlusOne plusOneEffectUI;
         [ShowIf("@randomRotate==false")]
         [SerializeField, Range(20, 80)] private float rotationSpeed;
+
         private void Update()
         {
             if (randomRotate)
@@ -33,11 +35,14 @@ namespace TeamAlpha.Source
                 if (!Saw.Default.Spawned) 
                 {
                     PlayerController.Current.SendPart();
-                    GameObject effect = Instantiate(plusOneEffect, new Vector3(transform.position.x,transform.position.y,other.transform.position.z), Quaternion.identity);
-                    effect.GetComponent<ParticleSystem>().Play();
-                    
-                    ParticleSystem destroyParts = Instantiate(Effect, other.transform).GetComponent<ParticleSystem>();
-                    //PlayerController.Current.OutlineRoboto();
+                    float screenPositionX = transform.position.x / Screen.width * 50000;
+                    PlusOne plusOne = Instantiate(plusOneEffectUI);
+                    plusOne.SetPosition(screenPositionX);
+                    /*GameObject effect = Instantiate(plusOneEffect, new Vector3(transform.position.x,transform.position.y,other.transform.position.z), Quaternion.identity);
+                    effect.GetComponent<ParticleSystem>().Play();*/
+
+                    //ParticleSystem destroyParts = Instantiate(Effect, other.transform).GetComponent<ParticleSystem>();
+                    //PlayerController.Current.DetailController.Outline();
                     Destroy(gameObject);
                 }
                 

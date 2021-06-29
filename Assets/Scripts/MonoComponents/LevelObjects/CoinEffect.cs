@@ -26,7 +26,7 @@ namespace TeamAlpha.Source
         void OnBase()
         {
             coinPrefab.transform.DOScale(Vector3.zero, 0.3f);
-            coinPrefab.transform.DOLocalJump(new Vector3(310, 710, 0), 50, 1, 0.5f, false);
+            coinPrefab.transform.DOLocalJump(new Vector3(310, 710, 0), 50, 1, 0.5f, false).OnComplete(() => Destroy(gameObject));
         }
     }
 }

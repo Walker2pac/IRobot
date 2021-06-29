@@ -53,7 +53,13 @@ namespace TeamAlpha.Source
         private MovingObject _movingObject;
         private DetailController _detailController;
 
+        public DetailController DetailController => _detailController;
+
         public MovingObject MovingObject => _movingObject;
+
+        [Header("Outline")]
+        [SerializeField] private Outline outline;
+        private int seriaPart;
 
         #region Lifecycle
         public void Start()
@@ -181,7 +187,23 @@ namespace TeamAlpha.Source
 
         public void SendPart()
         {
+            seriaPart = 1;
+            outline.OutlineWidth = 0f;
+            outline.OutlineColor = new Color(1, 1, 1, 1);
             _detailController.AddDetail();
+            StartCoroutine(OutlineRoboto(seriaPart));
+        }
+
+        IEnumerator OutlineRoboto(int seria)
+        {
+            seriaPart += seria;
+            Tween tweenWidth = DOTween.To(x => outline.OutlineWidth = x, 0, 7.5f, 0.5f).SetUpdate(UpdateType.Normal, true);
+
+            yield return new WaitForSeconds(0.2f * seriaPart);
+            Tween tweenColor = DOTween.ToAlpha(() => outline.OutlineColor, c => outline.OutlineColor = c, 0, 0.25f).SetUpdate(UpdateType.Normal, true);
+            seriaPart = 0;
+            //_animacer.gameObject.transform.DOScale(Vector3.one * 1.2f, 04f).OnComplete(() => _animacer.gameObject.transform.DOScale(Vector3.one, 04f));
+
         }
 
         private void GameOver()

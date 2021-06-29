@@ -28,22 +28,27 @@ public class DetailController : MonoBehaviour
     [SerializeField] private GameObject forceFieldPrefab;
     [SerializeField] private GameObject dockingLinePrefab;
     [SerializeField] private GameObject breakedDetailPrefab;
+    [SerializeField] private GameObject outlineDetailPrefab;
     [Space]
     [SerializeField] private Transform leftPreAttachPoint;
     [SerializeField] private Transform rightPreAttachPoint;
     [Space]
     [SerializeField] private List<Level> levels = new List<Level>();
+    [Space, Header("Outline")]
+    //[SerializeField] private Material outlineMAterial;
 
     private int _curentDetail = 0;
     private int _detailCount;
     private Dictionary<DetailType, List<RobotDetails>> _details;
     private List<RobotDetails> _baseDetails;
+    private List<RobotDetails> _outlineDetails;
 
     private void Start()
     {
         List<RobotDetails> details = new List<RobotDetails>(GetComponentsInChildren<RobotDetails>());
         Debug.Log(details);
         _baseDetails = details.FindAll((d) => d.Type == DetailType.Base);
+        _outlineDetails = details.FindAll((d) => d.Type == DetailType.Base);
 
         _details = new Dictionary<DetailType, List<RobotDetails>>();
         _details.Add(DetailType.Hand, details.FindAll((d) => d.Type == DetailType.Hand));
