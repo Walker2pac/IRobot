@@ -199,7 +199,7 @@ namespace TeamAlpha.Source
             seriaPart += seria;
             Tween tweenWidth = DOTween.To(x => outline.OutlineWidth = x, 0, 7.5f, 0.5f).SetUpdate(UpdateType.Normal, true);
 
-            yield return new WaitForSeconds(0.2f * seriaPart);
+            yield return new WaitForSeconds(0.3f * seriaPart);
             Tween tweenColor = DOTween.ToAlpha(() => outline.OutlineColor, c => outline.OutlineColor = c, 0, 0.25f).SetUpdate(UpdateType.Normal, true);
             seriaPart = 0;
             //_animacer.gameObject.transform.DOScale(Vector3.one * 1.2f, 04f).OnComplete(() => _animacer.gameObject.transform.DOScale(Vector3.one, 04f));
