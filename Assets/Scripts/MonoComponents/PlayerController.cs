@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Dreamteck.Splines;
-using ToonyColorsPro.Utilities;
+//using ToonyColorsPro.Utilities;
 
 namespace TeamAlpha.Source
 {
@@ -203,13 +203,21 @@ namespace TeamAlpha.Source
         }
 
         public void GameOver(bool door)
-        {
-
+        {           
             Time.timeScale = 0.7f;
             _movingObject.ChangeSpeed(0f, 0f);
             if (door)
             {
                 _animacer.Play(_animTripDoor, 0.2f);
+                for (int i = 0; i < 30; i++)
+                {
+                    _detailController.LoseDetail(1);
+                    if (!_detailController.LoseDetail(1))
+                    {
+                        break;
+                    }
+                }
+                
             }
             else
             {
