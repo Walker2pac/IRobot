@@ -1,37 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 
 namespace TeamAlpha.Source
 {
     public class SpinnerBarrier : Barriers
     {
-        [SerializeField] private GameObject bodyBarrier;
+        [Space, Header("RotationObject")]
+        [SerializeField] private GameObject rotationObject;
+        [Space, Header("Position")]
         [SerializeField] private RotationSide currentRotationSide;
-        [SerializeField] private float rotationSpeed;
+        [SerializeField, Range(0.5f, 3f)] private float turnTime;
 
-        private void Update()
+        protected override void Start()
         {
-            if(bodyBarrier != null)
-            {
-                if (currentRotationSide == RotationSide.Right)
-                {
-                    bodyBarrier.transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
-                }
-                if (currentRotationSide == RotationSide.Left)
-                {
-                    bodyBarrier.transform.Rotate(-Vector3.forward * Time.deltaTime * rotationSpeed);
-                }
-            }            
+            base.Start();
+            float direction = currentRotationSide == RotationSide.Right ? 360 : -360;
+            rotationObject.transform.DORotate(new Vector3(0, direction, 0), turnTime, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(int.MaxValue, LoopType.Incremental);
         }
-
         protected override void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == DataGameMain.LayerPlayer)
-            {
-                rotationSpeed = 0f;
-            }
             base.OnTriggerEnter(other);
         }
     }

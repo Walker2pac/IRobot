@@ -12,36 +12,19 @@ namespace TeamAlpha.Source
     }
     public class HorizontalCylinderBarrier : Barriers
     {
+        [Space, Header("Position")]
         [SerializeField] private RotationDirection currentRotationDirection;
-        [SerializeField] private GameObject rotatableObject;
-        [SerializeField] private float rotationSpeed;
-        bool rotated;
-        private void Start()
+        [SerializeField, Range(0.5f, 3f)] private float turnTime;
+        [SerializeField] private GameObject gear;
+        protected override void Start()
         {
-            rotated = true;
-        }
-
-        private void Update()
-        {
-            if (rotated)
-            {
-                if (currentRotationDirection == RotationDirection.Forward)
-                {
-                    rotatableObject.transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
-                }
-                if (currentRotationDirection == RotationDirection.Back)
-                {
-                    rotatableObject.transform.Rotate(-Vector3.forward * Time.deltaTime * rotationSpeed);
-                }
-            }
+            base.Start();
+            float direction = currentRotationDirection == RotationDirection.Forward ? 360 : -360;
+            gear.transform.DORotate(new Vector3(direction, 0, 0), turnTime, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(int.MaxValue, LoopType.Incremental);
         }
         protected override void OnTriggerEnter(Collider other)
         {
-            base.OnTriggerEnter(other);
-            if (other.gameObject.layer == DataGameMain.LayerPlayer)
-            {
-                rotated = false;
-            }               
+            base.OnTriggerEnter(other);     
         }
     }
 }
