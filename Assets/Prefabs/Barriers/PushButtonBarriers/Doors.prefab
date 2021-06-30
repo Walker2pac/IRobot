@@ -239,8 +239,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.07948496, y: 0.08107616, z: 0.01629964}
-  m_Center: {x: 6.8139197e-15, y: -0.03524805, z: 0.004834247}
+  m_Size: {x: 0.07948496, y: 0.08107616, z: 0.027338017}
+  m_Center: {x: 6.4281737e-15, y: -0.03524805, z: 0.010353434}
 --- !u!1 &1798797220577520185
 GameObject:
   m_ObjectHideFlags: 0
@@ -1381,14 +1381,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageValue: 100
-  breakingObject: 0
-  health: 0
+  breakingObject: 1
+  health: 100
   breakingByPlayer: 0
-  wall: 1
+  changToDynamics: 1
   ramCollider: {fileID: 1457104459583082347, guid: d29c2ac92d05ee54780954ad1514f04d,
     type: 3}
-  staticWall: {fileID: 3277974296665611985}
-  dynamicWall: {fileID: 2008850895316141868}
+  staticObject: {fileID: 3277974296665611985}
+  dynamicOject: {fileID: 2008850895316141868}
   partsBarrier:
   - {fileID: 7290410104680827649}
   - {fileID: 5715795931403547932}

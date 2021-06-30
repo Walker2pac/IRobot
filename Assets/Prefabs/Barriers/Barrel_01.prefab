@@ -98,11 +98,11 @@ MonoBehaviour:
   breakingObject: 1
   health: 0
   breakingByPlayer: 1
-  wall: 0
+  changToDynamics: 0
   ramCollider: {fileID: 1457104459583082347, guid: d29c2ac92d05ee54780954ad1514f04d,
     type: 3}
-  staticWall: {fileID: 0}
-  dynamicWall: {fileID: 0}
+  staticObject: {fileID: 0}
+  dynamicOject: {fileID: 0}
   partsBarrier:
   - {fileID: 5035532179266260952}
   - {fileID: 6541366411325489956}
@@ -141,8 +141,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.8927745, y: 2.125786, z: 1.9826424}
-  m_Center: {x: -0.011653701, y: 0.97644883, z: 0}
+  m_Size: {x: 1.8927745, y: 4.1783915, z: 1.9826424}
+  m_Center: {x: -0.011653701, y: 2.0027516, z: 0}
 --- !u!54 &3304295584411652091
 Rigidbody:
   m_ObjectHideFlags: 0

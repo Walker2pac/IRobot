@@ -15,10 +15,14 @@ namespace TeamAlpha.Source
 
         protected override void OnTriggerEnter(Collider other)
         {
-            base.OnTriggerEnter(other);           
-
+            base.OnTriggerEnter(other);
+            if (other.gameObject.layer == DataGameMain.LayerPlayer)
+            {
+                GetComponent<Rigidbody>().AddForce(Vector3.one * 3, ForceMode.Impulse);
+                transform.parent = null;
+            }
         }
 
-        
+
     }
 }

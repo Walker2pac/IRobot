@@ -42,7 +42,7 @@ namespace TeamAlpha.Source
         //[SerializeField] private AnimationClip _animRam;
         [SerializeField] private AnimationClip _animRamWithShield;
         [SerializeField] private AnimationClip _animTrip;
-        //[SerializeField] private AnimationClip _animTripWithShield;
+        [SerializeField] private AnimationClip _animTripDoor;
         [SerializeField] private AnimationClip _animDance;
 
         [Space]
@@ -106,17 +106,13 @@ namespace TeamAlpha.Source
                 bool shield = Shield.Default.Spawned;
                 if (!_detailController.LoseDetail(damage))
                 {
-                    Time.timeScale = 0.7f;
-                    _movingObject.ChangeSpeed(0f, 0f);
-                    _animacer.Play(_animTrip, 0.2f);
-                    Invoke("GameOver", 1f);
+                    GameOver(false);
                 }
 
                 else
                 {
                     if (!Saw.Default.Spawned)
-                    {
-                        
+                    {              
                         _movingObject.ChangeSpeed(0f, 0f, () => _movingObject.ChangeSpeed(speed, 1f));
                         StartCoroutine(TrippingAnim(damage));
                     }
@@ -206,11 +202,27 @@ namespace TeamAlpha.Source
 
         }
 
-        private void GameOver()
-        {            
+        public void GameOver(bool door)
+        {
+
+            Time.timeScale = 0.7f;
+            _movingObject.ChangeSpeed(0f, 0f);
+            if (door)
+            {
+                _animacer.Play(_animTripDoor, 0.2f);
+            }
+            else
+            {
+                _animacer.Play(_animTrip, 0.2f);
+            }            
+            StartCoroutine(DeathRobot());
+
+        }
+        IEnumerator DeathRobot()
+        {
+            yield return new WaitForSeconds(1f);
             _detailController.DeathEffect();
             UIManager.Default.CurState = UIManager.State.Failed;
-
         }
 
         public void Finish()

@@ -431,19 +431,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f17a3dbe70106f943928b78053075140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageValue: 1
+  damageValue: 2
   breakingObject: 0
   health: 0
   breakingByPlayer: 0
-  wall: 0
+  changToDynamics: 0
   ramCollider: {fileID: 0}
-  staticWall: {fileID: 0}
-  dynamicWall: {fileID: 0}
+  staticObject: {fileID: 0}
+  dynamicOject: {fileID: 0}
   partsBarrier: []
   movingAxis: {fileID: 9086149145286818356}
-  moveDownSpeed: 1
-  moveUpSpeed: 2
-  delay: 0.25
+  moveDownSpeed: 0.2
+  moveUpSpeed: 0.2
+  delay: 0
   timeOffset: 0
 --- !u!1 &5727875993741006049
 GameObject:

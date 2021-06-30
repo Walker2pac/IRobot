@@ -21,7 +21,10 @@ namespace TeamAlpha.Source
 
         private void Start()
         {
-            StartCoroutine(DelayedPunch(timeOffset));
+            //LayerDefault.Default.OnPlayStart += () =>
+           // {
+                StartCoroutine(DelayedPunch(timeOffset));
+           // };
         }
 
         protected override void OnTriggerEnter(Collider other)
