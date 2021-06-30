@@ -15,25 +15,33 @@ namespace TeamAlpha.Source
         [SerializeField] private RotationDirection currentRotationDirection;
         [SerializeField] private GameObject rotatableObject;
         [SerializeField] private float rotationSpeed;
+        bool rotated;
+        private void Start()
+        {
+            rotated = true;
+        }
 
         private void Update()
         {
-            if (currentRotationDirection == RotationDirection.Forward)
+            if (rotated)
             {
-                rotatableObject.transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
-            }
-            if (currentRotationDirection == RotationDirection.Back)
-            {
-                rotatableObject.transform.Rotate(-Vector3.forward * Time.deltaTime * rotationSpeed);
+                if (currentRotationDirection == RotationDirection.Forward)
+                {
+                    rotatableObject.transform.Rotate(Vector3.forward * Time.deltaTime * rotationSpeed);
+                }
+                if (currentRotationDirection == RotationDirection.Back)
+                {
+                    rotatableObject.transform.Rotate(-Vector3.forward * Time.deltaTime * rotationSpeed);
+                }
             }
         }
         protected override void OnTriggerEnter(Collider other)
         {
+            base.OnTriggerEnter(other);
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
             {
-                rotationSpeed = 0f;
-            }
-                base.OnTriggerEnter(other);
+                rotated = false;
+            }               
         }
     }
 }
