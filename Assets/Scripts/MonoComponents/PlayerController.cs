@@ -198,8 +198,6 @@ namespace TeamAlpha.Source
             yield return new WaitForSeconds(0.3f * seriaPart);
             Tween tweenColor = DOTween.ToAlpha(() => outline.OutlineColor, c => outline.OutlineColor = c, 0, 0.25f).SetUpdate(UpdateType.Normal, true);
             seriaPart = 0;
-            //_animacer.gameObject.transform.DOScale(Vector3.one * 1.2f, 04f).OnComplete(() => _animacer.gameObject.transform.DOScale(Vector3.one, 04f));
-
         }
 
         public void GameOver(bool door)
@@ -216,8 +214,7 @@ namespace TeamAlpha.Source
                     {
                         break;
                     }
-                }
-                
+                }                
             }
             else
             {
@@ -228,7 +225,7 @@ namespace TeamAlpha.Source
         }
         IEnumerator DeathRobot()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             _detailController.DeathEffect();
             UIManager.Default.CurState = UIManager.State.Failed;
         }
@@ -253,24 +250,6 @@ namespace TeamAlpha.Source
             UIManager.Default.CurState = UIManager.State.Win;
             _animacer.Play(_animDance);
         }
-
-        /*public void OutlineRoboto()
-        {
-            for (int i = 0; i < _animacer.GetComponentsInChildren<Renderer>().Length; i++)
-            {
-                if (_animacer.GetComponentsInChildren<Renderer>()[i].material.name == "Outline")
-                {
-                    Debug.Log(i);
-                    for (int j = 0; j < _animacer.GetComponentsInChildren<Renderer>()[i].materials.Length; j++)
-                    {
-                        if(j == _animacer.GetComponentsInChildren<Renderer>()[i].materials.Length - 1)
-                        {
-                            _animacer.GetComponentsInChildren<Renderer>()[i].materials[j] = noOutline;
-                        }
-                    }
-                }
-            }
-        }*/
         #endregion
     }
 }

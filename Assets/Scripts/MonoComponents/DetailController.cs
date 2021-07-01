@@ -91,7 +91,7 @@ public class DetailController : MonoBehaviour
 
     private RobotDetails GetNext()
     {
-        if (_curentDetail > _detailCount - 1)
+        if (_curentDetail >= _detailCount - 1)
         {
             return null;
         }
@@ -99,6 +99,7 @@ public class DetailController : MonoBehaviour
         {
             _curentDetail++;
             RobotDetails detail = GetCurrentDetail();
+            
             if (_details[detail.Type].IndexOf(detail) == _details[detail.Type].Count - 1)
             {
                 Level level = levels.Find((l) => l.type == detail.Type);
@@ -120,7 +121,7 @@ public class DetailController : MonoBehaviour
             RobotDetails detail = GetCurrentDetail();
             _curentDetail--;
             return detail;
-        }    
+        }
     }
 
     private RobotDetails GetCurrentDetail()
@@ -132,15 +133,16 @@ public class DetailController : MonoBehaviour
             if (trueIndex <= _details[l.type].Count - 1 && trueIndex >= 0)
                 return _details[l.type][trueIndex];
             else
+            {
                 if (trueIndex >= 0)
-            {
-                trueIndex -= _details[l.type].Count;
+                {
+                    trueIndex -= _details[l.type].Count;
+                }
+                else
+                {
+                    Debug.Log("BigDetail");
+                }
             }
-            else
-            {
-                Debug.Log("BigDetail");
-            }
-                
         }
         return null;
 

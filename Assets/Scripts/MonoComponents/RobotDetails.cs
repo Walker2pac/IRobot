@@ -19,9 +19,10 @@ public class RobotDetails : MonoBehaviour
     private MeshFilter _mesh;
     private LineRenderer _dockingLine;
     private Sequence _attachSequence;
-
     public DetailType Type => _type;
     public DetailSide Side => _side;
+
+    bool damage;
 
     private void Start()
     {        
@@ -35,27 +36,33 @@ public class RobotDetails : MonoBehaviour
         _renderer.enabled = _type == DetailType.Base;
     }
 
+    private void Update()
+    {
+        Debug.Log(name + " - " + transform.localScale);
+    }
     public void AttachDetail(GameObject forceFieldPrefab, GameObject dockingLinePrefab, Transform preAttachPoint) 
     {
-        Debug.Log("AttachDetail");
-        _preAttachPoint = preAttachPoint;
+            Debug.Log("AttachDetail");
+            _preAttachPoint = preAttachPoint;
 
-        transform.SetParent(preAttachPoint);
-        transform.localScale = Vector3.one * 0.01f;
-        transform.position = preAttachPoint.position;
+            transform.SetParent(preAttachPoint);
+            transform.localScale = Vector3.one * 0.01f;
+            transform.position = preAttachPoint.position;
 
-        GameObject forceField = Instantiate(forceFieldPrefab);
-        forceField.transform.SetParent(transform);
-        forceField.transform.localPosition = Vector3.zero;
+            GameObject forceField = Instantiate(forceFieldPrefab);
+            forceField.transform.SetParent(transform);
+            forceField.transform.localPosition = Vector3.zero;
 
-        _dockingLine = Instantiate(dockingLinePrefab).GetComponent<LineRenderer>();
-        _dockingLine.transform.SetParent(transform);
-        _dockingLine.transform.localPosition = Vector3.zero;
-        _dockingLine.positionCount = 0;
+            _dockingLine = Instantiate(dockingLinePrefab).GetComponent<LineRenderer>();
+            _dockingLine.transform.SetParent(transform);
+            _dockingLine.transform.localPosition = Vector3.zero;
+            _dockingLine.positionCount = 0;
+        
     }  
 
     public void BreakDetail(GameObject breakedDetailPrefab, float force = 3f)
     {
+        damage = true;
         Debug.Log("BreakDetail");
         if (_attachSequence != null) EndAttach();
         _renderer.enabled = false;
@@ -78,7 +85,10 @@ public class RobotDetails : MonoBehaviour
 
     private IEnumerator DestroyBrokedDetail(GameObject d) 
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(0.8f);
+        damage = false;
+        yield return new WaitForSeconds(2f);
+        
         d.transform.DOScale(new Vector3(0.1f,0.1f,0.1f),1f)
             .SetEase(Ease.InBack).SetUpdate(UpdateType.Normal,true);
         StartCoroutine(DestoyDetails(d, 4f));
@@ -93,15 +103,16 @@ public class RobotDetails : MonoBehaviour
     public void StartAttach() 
     {
         _renderer.enabled = true;
-        Debug.Log("StartAttach");
 
-        Tween scaleTween = transform.DOScale(Vector3.one, 0.5f)
+        Vector3 scale = damage ? Vector3.one * 0.01f : Vector3.one;
+        Tween scaleTween = transform.DOScale(scale, 0.5f)
             .SetEase(Ease.OutBack).SetUpdate(UpdateType.Normal, true);
 
         Tween moveTween = DOTween.To(
             () => 0f,
             (v) => 
             {
+                
                 transform.position = Vector3.Lerp(transform.position, _defaultParent.TransformPoint(_defaultParentPosition), v);
                 transform.rotation = Quaternion.Lerp(transform.rotation, _defaultParent.rotation*_defaultParentRotation, v);
                 CalculateLine(v);

@@ -37,11 +37,12 @@ namespace TeamAlpha.Source
         }
         protected override void OnTriggerEnter(Collider other)
         {
+            base.OnTriggerEnter(other);
             if (other.gameObject.layer == DataGameMain.LayerPlayer || (other.gameObject.GetComponent<Bullet>()))
             {
                 RotateBarrier(true);
             }
-            base.OnTriggerEnter(other);
+            
         }
     }
 }
