@@ -12,6 +12,7 @@ namespace TeamAlpha.Source
              if (other.gameObject.layer == DataGameMain.LayerPlayer)
              {
                  PlayerController.Current.StartCoroutine("Ram");
+                Destroy(gameObject);
              }
          }
     }

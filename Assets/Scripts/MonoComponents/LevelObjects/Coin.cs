@@ -2,39 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
-using Dreamteck.Splines;
+using DG.Tweening;
 
 
 namespace TeamAlpha.Source
 {
     public class Coin : MonoBehaviour
     {
-        [SerializeField] bool randomRotate;
+        [SerializeField] bool randomTimeRotate;
         [SerializeField] CoinEffect coinEffect;
-        [ShowIf ("@randomRotate==false")]
-        [SerializeField, Range(20, 80)] private float rotationSpeed;
+        [ShowIf ("@randomTimeRotate==false")]
+        [SerializeField, Range(3f, 7f)] private float rotationTime;
         private PanelCoin panel;        
 
         private void Start()
         {
-            panel = FindObjectOfType<PanelCoin>();
-        }
-        private void Update()
-        {
-            if (randomRotate)
+            if (randomTimeRotate)
             {
-                float random = Random.Range(20, 60);
-                transform.Rotate(new Vector3(0, random * Time.deltaTime, 0));
+                rotationTime = Random.Range(4, 7);
             }
-            else
+            panel = FindObjectOfType<PanelCoin>();
+            RotateCoin(false);
+        }
+        void RotateCoin(bool stoped)
+        {
+            transform.DORotate(new Vector3(0, 360,0), rotationTime, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(int.MaxValue, LoopType.Incremental);
+            if (stoped)
             {
-                transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
-            }            
+                transform.DORotate(new Vector3(0, 360, 0), rotationTime, RotateMode.Fast).OnComplete(() => transform.DOKill());
+            }
         }
         private void OnTriggerEnter(Collider other)
         {
             if(other.gameObject.layer == DataGameMain.LayerPlayer)
             {
+                RotateCoin(true);
                 float screenPosition = transform.position.x / Screen.width * 50000; 
                 CoinEffect coin = Instantiate(coinEffect);
                 coin.SetPosition(screenPosition);

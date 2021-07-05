@@ -6214,7 +6214,10 @@ MonoBehaviour:
     type: 3}
   _animDance: {fileID: -203655887218126122, guid: 58f916f6a36874943ad2393a3e322bc1,
     type: 3}
+  _animTpose: {fileID: 403259622963229163, guid: 8620c568aa71b62438f1379713efbe29,
+    type: 3}
   speed: 15
+  finishRobotPosition: {fileID: 0}
   outline: {fileID: 1316831063}
 --- !u!114 &2342714083578925229
 MonoBehaviour:
@@ -6252,6 +6255,7 @@ MonoBehaviour:
     type: 3}
   leftPreAttachPoint: {fileID: 0}
   rightPreAttachPoint: {fileID: 0}
+  dettachPoint: {fileID: 0}
   levels:
   - type: 2
     upgradeObjects:
