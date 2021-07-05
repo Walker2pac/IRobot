@@ -34,22 +34,19 @@ namespace TeamAlpha.Source
         [Header("Animation")]
         [SerializeField] private NamedAnimancerComponent _animacer;
         [SerializeField] private List<AnimationClip> _animsIdle = new List<AnimationClip>();
-        //[SerializeField] private AnimationClip _animIdle;
         [SerializeField] private AnimationClip _animRun;
         [SerializeField] private AnimationClip _animJumpOnPlatform;
         [SerializeField] private List<AnimationClip> _animJump = new List<AnimationClip>();
         [SerializeField] private AnimationClip _animRunWithShield;
-        //[SerializeField] private AnimationClip _animRam;
         [SerializeField] private AnimationClip _animRamWithShield;
         [SerializeField] private AnimationClip _animTrip;
         [SerializeField] private AnimationClip _animTripDoor;
         [SerializeField] private AnimationClip _animDance;
+        [SerializeField] private AnimationClip _animTpose;
 
         [Space]
         [SerializeField] private float speed;
-        //[SerializeField] private Material outline;
-        //[SerializeField] private Material noOutline;
-        
+        [SerializeField] private Transform finishRobotPosition;
         private MovingObject _movingObject;
         private DetailController _detailController;
 
@@ -64,7 +61,6 @@ namespace TeamAlpha.Source
         #region Lifecycle
         public void Start()
         {
-            //outline = noOutline;
             int randomIdleAnim = UnityEngine.Random.Range(0, _animsIdle.Count);
             _animacer.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 180);
             _movingObject = GetComponent<MovingObject>();
@@ -193,22 +189,22 @@ namespace TeamAlpha.Source
         IEnumerator OutlineRoboto(int seria)
         {
             seriaPart += seria;
-            Tween tweenWidth = DOTween.To(x => outline.OutlineWidth = x, 0, 7.5f, 0.5f).SetUpdate(UpdateType.Normal, true);
+            Tween tweenWidth = DOTween.To(x => outline.OutlineWidth = x, 0, 7.5f, 0.5f);
 
             yield return new WaitForSeconds(0.3f * seriaPart);
-            Tween tweenColor = DOTween.ToAlpha(() => outline.OutlineColor, c => outline.OutlineColor = c, 0, 0.25f).SetUpdate(UpdateType.Normal, true);
+            Tween tweenColor = DOTween.ToAlpha(() => outline.OutlineColor, c => outline.OutlineColor = c, 0, 0.25f);
             seriaPart = 0;
         }
 
         public void GameOver(bool door)
         {           
-            Time.timeScale = 0.7f;
+            Time.timeScale = 0.5f;
             _movingObject.ChangeSpeed(0f, 0f);
             if (door)
             {
                 _animacer.Play(_animTripDoor, 0.2f);
                 for (int i = 0; i < 30; i++)
-                {
+                {                    
                     _detailController.LoseDetail(1);
                     if (!_detailController.LoseDetail(1))
                     {
@@ -232,8 +228,6 @@ namespace TeamAlpha.Source
 
         public void Finish()
         {
-            cameraSpline.gameObject.GetComponent<CameraAnimation>().FinishPosition();
-            _animacer.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 180);
             bool shield = Shield.Default.Spawned;
             bool saw = Saw.Default.Spawned;
             if (shield)
@@ -244,11 +238,21 @@ namespace TeamAlpha.Source
             {
                 Saw.Default.Delete();
             }
+            cameraSpline.gameObject.GetComponent<CameraAnimation>().FinishPosition();
             FindObjectOfType<GunUpgradeObject>().Finish();
             _movingObject.ChangeSpeed(0f, 0f);
-            LayerDefault.Default.PlayerWon = true;
-            UIManager.Default.CurState = UIManager.State.Win;
-            _animacer.Play(_animDance);
+            _animacer.gameObject.transform.DOMove(finishRobotPosition.position, 1f).OnComplete(() => SetFinishPosition());
+        }
+
+        void SetFinishPosition()
+        {
+            _animacer.Play(_animTpose, 0.25f);
+            _animacer.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 180);
+            Invoke(nameof(TransferDetail),0.2f);
+        }
+        void TransferDetail()
+        {
+            _detailController.DettachDetail();
         }
         #endregion
     }

@@ -25,7 +25,7 @@ public class RobotDetails : MonoBehaviour
     bool damage;
 
     private void Start()
-    {        
+    {
         _defaultParentPosition = transform.localPosition;
         _defaultParentScale = transform.localScale;
         _defaultParentRotation = transform.localRotation;
@@ -36,99 +36,120 @@ public class RobotDetails : MonoBehaviour
         _renderer.enabled = _type == DetailType.Base;
     }
 
-    private void Update()
+    
+
+    public void AttachDetail(GameObject forceFieldPrefab, GameObject dockingLinePrefab, Transform preAttachPoint)
     {
-        Debug.Log(name + " - " + transform.localScale);
+        _preAttachPoint = preAttachPoint;
+
+        transform.SetParent(preAttachPoint);
+        transform.localScale = Vector3.one * 0.01f;
+        transform.position = preAttachPoint.position;
+
+        GameObject forceField = Instantiate(forceFieldPrefab);
+        forceField.transform.SetParent(transform);
+        forceField.transform.localPosition = Vector3.zero;
+
+        _dockingLine = Instantiate(dockingLinePrefab).GetComponent<LineRenderer>();
+        _dockingLine.transform.SetParent(transform);
+        _dockingLine.transform.localPosition = Vector3.zero;
+        _dockingLine.positionCount = 0;
+
     }
-    public void AttachDetail(GameObject forceFieldPrefab, GameObject dockingLinePrefab, Transform preAttachPoint) 
+    public void DettachDetail(GameObject dockingLinePrefab, Transform preAttachPoint)
     {
-            Debug.Log("AttachDetail");
-            _preAttachPoint = preAttachPoint;
+        _preAttachPoint = preAttachPoint;
+        transform.SetParent(preAttachPoint);
+        transform.localScale = Vector3.one;
+        _dockingLine = Instantiate(dockingLinePrefab,transform).GetComponent<LineRenderer>();
+        _dockingLine.transform.localPosition = Vector3.zero;
+        _dockingLine.positionCount = 0;
+        Tween moveTween = DOTween.To(
+            () => 0f,
+            (v) =>
+            {
+                transform.position = Vector3.Lerp(transform.position, _preAttachPoint.position, 0.1f);
+                transform.DOScale(Vector3.zero, 0.5f);
+                transform.rotation = Quaternion.Lerp(transform.rotation, _defaultParent.rotation * _defaultParentRotation, 0.1f);
+                CalculateLine(0.9f);
+            },
+            1f, 0.5f)
+            .SetEase(Ease.InExpo).OnComplete(() => EndDettach());
 
-            transform.SetParent(preAttachPoint);
-            transform.localScale = Vector3.one * 0.01f;
-            transform.position = preAttachPoint.position;
+    }
 
-            GameObject forceField = Instantiate(forceFieldPrefab);
-            forceField.transform.SetParent(transform);
-            forceField.transform.localPosition = Vector3.zero;
-
-            _dockingLine = Instantiate(dockingLinePrefab).GetComponent<LineRenderer>();
-            _dockingLine.transform.SetParent(transform);
-            _dockingLine.transform.localPosition = Vector3.zero;
-            _dockingLine.positionCount = 0;
+    void EndDettach()
+    {
+        transform.DOScale(Vector3.zero, 0.5f);
+        if (_dockingLine)
+        {
+            Destroy(_dockingLine.gameObject);
+            _dockingLine = null;
+        }
         
-    }  
-
-    public void BreakDetail(GameObject breakedDetailPrefab, float force = 3f)
+    }
+    public void BreakDetail(GameObject breakedDetailPrefab, float force = 0.01f)
     {
         damage = true;
-        Debug.Log("BreakDetail");
+
         if (_attachSequence != null) EndAttach();
         _renderer.enabled = false;
         GameObject breakedDetail = Instantiate(breakedDetailPrefab);
         breakedDetail.GetComponent<MeshFilter>().sharedMesh = _mesh.sharedMesh;
+        breakedDetail.GetComponent<MeshRenderer>().material = _renderer.material;
         breakedDetail.transform.position = transform.position;
         breakedDetail.transform.rotation = transform.rotation;
-        breakedDetail.AddComponent<MeshCollider>().convex = true;
-        breakedDetail.GetComponent<MeshRenderer>().sharedMaterials = _renderer.sharedMaterials;
-
         Vector3 forceDirection = (breakedDetail.transform.position - PlayerController.Current.transform.position).normalized;
-
-        Rigidbody rb = breakedDetail.GetComponent<Rigidbody>();
-        rb.AddForce(force * forceDirection, ForceMode.Impulse);
-        rb.AddTorque(Vector3.up * force, ForceMode.Impulse);
-
         EndAttach();
         StartCoroutine(DestroyBrokedDetail(breakedDetail));
     }
 
-    private IEnumerator DestroyBrokedDetail(GameObject d) 
+    private IEnumerator DestroyBrokedDetail(GameObject d)
     {
         yield return new WaitForSeconds(0.8f);
         damage = false;
         yield return new WaitForSeconds(2f);
-        
-        d.transform.DOScale(new Vector3(0.1f,0.1f,0.1f),1f)
-            .SetEase(Ease.InBack).SetUpdate(UpdateType.Normal,true);
+
+        d.transform.DOScale(new Vector3(0.1f, 0.1f, 0.1f), 1f)
+            .SetEase(Ease.InBack).SetUpdate(UpdateType.Normal, true);
         StartCoroutine(DestoyDetails(d, 4f));
     }
 
     IEnumerator DestoyDetails(GameObject d, float t)
     {
-            yield return new WaitForSeconds(t);
-            Destroy(d);
+        yield return new WaitForSeconds(t);
+        Destroy(d);
     }
 
-    public void StartAttach() 
+    public void StartAttach()
     {
         _renderer.enabled = true;
 
         Vector3 scale = damage ? Vector3.one * 0.01f : Vector3.one;
         Tween scaleTween = transform.DOScale(scale, 0.5f)
-            .SetEase(Ease.OutBack).SetUpdate(UpdateType.Normal, true);
+            .SetEase(Ease.OutBack);
 
         Tween moveTween = DOTween.To(
             () => 0f,
-            (v) => 
+            (v) =>
             {
-                
+
                 transform.position = Vector3.Lerp(transform.position, _defaultParent.TransformPoint(_defaultParentPosition), v);
-                transform.rotation = Quaternion.Lerp(transform.rotation, _defaultParent.rotation*_defaultParentRotation, v);
-                CalculateLine(v);
+                transform.rotation = Quaternion.Lerp(transform.rotation, _defaultParent.rotation * _defaultParentRotation, v);
+                CalculateLine(0.9f);
             },
             1f, 0.5f)
-            .SetEase(Ease.InExpo).SetUpdate(UpdateType.Normal, true);
+            .SetEase(Ease.InExpo);
 
         _attachSequence = DOTween.Sequence()
             .Append(scaleTween)
             .Append(moveTween)
-            .OnComplete(EndAttach).SetUpdate(UpdateType.Normal, true);
+            .OnComplete(EndAttach);
     }
 
-    private void EndAttach() 
+    
+    private void EndAttach()
     {
-        Debug.Log("EndAttach");
         _attachSequence.Kill();
         _attachSequence = null;
         transform.SetParent(_defaultParent);
@@ -136,7 +157,7 @@ public class RobotDetails : MonoBehaviour
         transform.localScale = _defaultParentScale;
         transform.localRotation = _defaultParentRotation;
 
-        if (_dockingLine) 
+        if (_dockingLine)
         {
             Destroy(_dockingLine.gameObject);
             _dockingLine = null;
@@ -156,9 +177,8 @@ public class RobotDetails : MonoBehaviour
             {
                 float strenght = DataGameMain.Default.dockingLineNoiseStrenght;
                 float frequency = DataGameMain.Default.dockingLineNoiseFrequency;
-                float t =  1f / (DataGameMain.Default.dockingLineBetweenPoints + 2f) * (i + 1f);
+                float t = 1f / (DataGameMain.Default.dockingLineBetweenPoints + 2f) * (i + 1f);
                 Vector3 betweenPoint = Vector3.Lerp(endPoint, startPoint, t);
-                /*betweenPoint.x += (0.5f - Mathf.PerlinNoise(betweenPoint.x, Time.time * frequency)) * strenght * (1 - tweenValue);*/
                 Vector3 normal = (endPoint - startPoint).normalized;
                 normal.y *= -1;
                 betweenPoint.y += (0.5f - Mathf.PerlinNoise(Time.time * frequency, betweenPoint.y)) * strenght * (1 - tweenValue) * normal.y;

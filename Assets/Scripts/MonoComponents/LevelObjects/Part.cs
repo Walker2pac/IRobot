@@ -9,27 +9,31 @@ namespace TeamAlpha.Source
     public class Part : MonoBehaviour
     {
         public GameObject Effect;
-        //[SerializeField] GameObject plusOneEffect;
-        [SerializeField] bool randomRotate;
+        [SerializeField] bool randomTimeRotate;
         [SerializeField] PlusOne plusOneEffectUI;
-        [ShowIf("@randomRotate==false")]
-        [SerializeField, Range(20, 80)] private float rotationSpeed;
+        [ShowIf("@randomTimeRotate==false")]
+        [SerializeField, Range(3, 7)] private float rotationTime;
 
-        private void Update()
+        private void Start()
         {
-            if (randomRotate)
+            if (randomTimeRotate)
             {
-                float random = Random.Range(20, 60);
-                transform.Rotate(new Vector3(0, random * Time.deltaTime, 0));
+                rotationTime = Random.Range(4, 7);
             }
-            else
+            RotatePart(false);
+        }
+        void RotatePart(bool stoped)
+        {
+            transform.DORotate(new Vector3(0, 360, 0), rotationTime, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(int.MaxValue, LoopType.Incremental);
+            if (stoped)
             {
-                transform.Rotate(new Vector3(0, rotationSpeed * Time.deltaTime, 0));
+                transform.DORotate(new Vector3(0, 360, 0), rotationTime, RotateMode.Fast).OnComplete(() => transform.DOKill());
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
+            RotatePart(true);
             if (other.gameObject.layer == DataGameMain.LayerPlayer) 
             {
                 if (!Saw.Default.Spawned) 
@@ -38,11 +42,6 @@ namespace TeamAlpha.Source
                     float screenPositionX = transform.position.x / Screen.width * 50000;
                     PlusOne plusOne = Instantiate(plusOneEffectUI);
                     plusOne.SetPosition(screenPositionX);
-                    /*GameObject effect = Instantiate(plusOneEffect, new Vector3(transform.position.x,transform.position.y,other.transform.position.z), Quaternion.identity);
-                    effect.GetComponent<ParticleSystem>().Play();*/
-
-                    //ParticleSystem destroyParts = Instantiate(Effect, other.transform).GetComponent<ParticleSystem>();
-                    //PlayerController.Current.DetailController.Outline();
                     Destroy(gameObject);
                 }
                 
