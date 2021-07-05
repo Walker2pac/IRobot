@@ -103,6 +103,12 @@ public class Shield : MonoBehaviour, IUpgradeObject
         }
     }
 
-    public void Delete() {}
+    public void Delete() 
+    {
+        for (int i = 0; i < parts.Count; i++)
+        {
+            parts[i].part.enabled = false;
+        }
+    }
     #endregion
 }
