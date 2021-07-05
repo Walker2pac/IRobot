@@ -34,7 +34,7 @@ namespace TeamAlpha.Source
         {
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
             {
-                LevelController.Current.CompleteLevel(true);
+                
                 PlayerController player = PlayerController.Current;
                 player.Finish();
             }

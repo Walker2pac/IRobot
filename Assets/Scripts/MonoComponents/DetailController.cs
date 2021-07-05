@@ -120,6 +120,7 @@ namespace TeamAlpha.Source
                 }
             }
             FindObjectOfType<GirlController>().Dance();
+            LevelController.Current.CompleteLevel(true);
         }
 
 
