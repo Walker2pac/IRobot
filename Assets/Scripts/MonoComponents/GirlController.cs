@@ -12,7 +12,9 @@ namespace TeamAlpha.Source
 
         [Header("Animation")]
         [SerializeField] private NamedAnimancerComponent _animacer;
-        [SerializeField] private AnimationClip _girlTPose;
+        [SerializeField] private AnimationClip _girlIdle;
+        [SerializeField] private AnimationClip _girlHappy;
+        [SerializeField] private AnimationClip _girlDance;
         [Header("GirlDetail")]
         public List<GameObject> girlDetails = new List<GameObject>();        
         private int _currentDetail;
@@ -20,8 +22,8 @@ namespace TeamAlpha.Source
 
         private void Start()
         {
-            
-            _animacer.Play(_girlTPose,0.2f);
+
+            _animacer.Play(_girlIdle, 0.2f);
             for (int i = 0; i < girlDetails.Count; i++)
             {
                 girlDetails[i].SetActive(false);
@@ -29,6 +31,15 @@ namespace TeamAlpha.Source
             }
         }
 
+        public void Happy()
+        {
+            _animacer.Play(_girlHappy, 0.2f);
+        }
+
+        public void Dance()
+        {
+            _animacer.Play(_girlDance, 0.2f);
+        }
         public void AttachDetail()
         {
             for (int i = 0; i < girlDetails.Count; i++)

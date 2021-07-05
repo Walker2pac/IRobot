@@ -30,6 +30,7 @@ namespace TeamAlpha.Source
         }
 
         [SerializeField] private GameObject forceFieldPrefab;
+        [SerializeField] private GameObject dettachTrail;
         [SerializeField] private GameObject dockingLinePrefab;
         [SerializeField] private GameObject breakedDetailPrefab;
         [SerializeField] private GameObject outlineDetailPrefab;
@@ -108,17 +109,17 @@ namespace TeamAlpha.Source
                 RobotDetails detail = GetPrevious();
                 if (detail)
                 {
-                    detail.DettachDetail(dockingLinePrefab, dettachPoint);
+                    detail.DettachDetail(dettachTrail, dettachPoint);
                     b++;
-                    yield return new WaitForSeconds(0.2f);
+                    yield return new WaitForSeconds(0.15f);
                     if (b >= detailRatio)
                     {
                         FindObjectOfType<GirlController>().AttachDetail();
                         b = 0;
                     }
                 }
-
             }
+            FindObjectOfType<GirlController>().Dance();
         }
 
 
@@ -187,6 +188,13 @@ namespace TeamAlpha.Source
             {
                 _baseDetails[i].BreakDetail(breakedDetailPrefab, 0f);
             }
+            foreach (Level level in levels)
+                foreach (UpgradeObjectBridge upgrade in level.upgradeObjects)
+                    upgrade.Delete();
+        }
+
+        public void FinishLevel()
+        {
             foreach (Level level in levels)
                 foreach (UpgradeObjectBridge upgrade in level.upgradeObjects)
                     upgrade.Delete();

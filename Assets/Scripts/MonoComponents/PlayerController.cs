@@ -228,24 +228,16 @@ namespace TeamAlpha.Source
 
         public void Finish()
         {
-            bool shield = Shield.Default.Spawned;
-            bool saw = Saw.Default.Spawned;
-            if (shield)
-            {
-                Shield.Default.Break();
-            }
-            if (saw)
-            {
-                Saw.Default.Delete();
-            }
-            cameraSpline.gameObject.GetComponent<CameraAnimation>().FinishPosition();
-            FindObjectOfType<GunUpgradeObject>().Finish();
+            _detailController.FinishLevel();
+            cameraSpline.gameObject.GetComponent<CameraAnimation>().FinishPosition();            
             _movingObject.ChangeSpeed(0f, 0f);
-            _animacer.gameObject.transform.DOMove(finishRobotPosition.position, 1f).OnComplete(() => SetFinishPosition());
+            _animacer.gameObject.transform.DOMove(finishRobotPosition.position, 0.6f).OnComplete(() => SetFinishPosition());
         }
 
         void SetFinishPosition()
         {
+
+            FindObjectOfType<GirlController>().Happy();
             _animacer.Play(_animTpose, 0.25f);
             _animacer.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 180);
             Invoke(nameof(TransferDetail),0.2f);

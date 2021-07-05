@@ -58,6 +58,7 @@ public class GunUpgradeObject : MonoBehaviour, IUpgradeObject
         _finished = true;
         _spawned = false;
         _gun.StopAllCoroutines();
+        Delete();
     }
 
     #region IUpgradeObject

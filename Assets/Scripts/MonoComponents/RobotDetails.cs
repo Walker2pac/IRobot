@@ -61,17 +61,17 @@ public class RobotDetails : MonoBehaviour
         _preAttachPoint = preAttachPoint;
         transform.SetParent(preAttachPoint);
         transform.localScale = Vector3.one;
-        _dockingLine = Instantiate(dockingLinePrefab,transform).GetComponent<LineRenderer>();
-        _dockingLine.transform.localPosition = Vector3.zero;
-        _dockingLine.positionCount = 0;
+        Instantiate(dockingLinePrefab,transform);
+        /*_dockingLine.transform.localPosition = Vector3.zero;
+        _dockingLine.positionCount = 0;*/
         Tween moveTween = DOTween.To(
             () => 0f,
             (v) =>
             {
                 transform.position = Vector3.Lerp(transform.position, _preAttachPoint.position, 0.1f);
-                transform.DOScale(Vector3.zero, 0.5f);
+                //transform.DOScale(Vector3.zero, 0.5f);
                 transform.rotation = Quaternion.Lerp(transform.rotation, _defaultParent.rotation * _defaultParentRotation, 0.1f);
-                CalculateLine(0.9f);
+                //CalculateLine(0.9f);
             },
             1f, 0.5f)
             .SetEase(Ease.InExpo).OnComplete(() => EndDettach());
