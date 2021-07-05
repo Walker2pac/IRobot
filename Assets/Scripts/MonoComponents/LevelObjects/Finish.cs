@@ -10,11 +10,13 @@ namespace TeamAlpha.Source
         private Transform _player { get => PlayerController.Current.transform; }
         [SerializeField] float distanceToActive;
         [SerializeField] List<GameObject> lights = new List<GameObject>();
+        [SerializeField] private List<Transform> confettiSpawn = new List<Transform>();
+        [SerializeField] private GameObject confettiPrefab;
 
         private void Update()
         {
             float distance = Vector3.Distance(transform.position, _player.position);
-            if(distance< distanceToActive)
+            if (distance < distanceToActive)
             {
                 for (int i = 0; i < lights.Count; i++)
                 {
@@ -34,12 +36,23 @@ namespace TeamAlpha.Source
         {
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
             {
-                
+
                 PlayerController player = PlayerController.Current;
                 player.Finish();
+                StartCoroutine(Confetti());
             }
-                
 
+
+        }
+
+        IEnumerator Confetti()
+        {
+            for (int i = 0; i < confettiSpawn.Count; i++)
+            {
+                Instantiate(confettiPrefab, confettiSpawn[i]);
+            }
+            yield return new WaitForSeconds(2f);
+            StartCoroutine(Confetti());
         }
     }
 }
