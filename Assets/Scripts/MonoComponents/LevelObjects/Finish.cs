@@ -40,6 +40,7 @@ namespace TeamAlpha.Source
                 PlayerController player = PlayerController.Current;
                 player.Finish();
                 StartCoroutine(Confetti());
+                LayerDefault.Default.PlayerWon = true;
             }
 
 
@@ -47,12 +48,13 @@ namespace TeamAlpha.Source
 
         IEnumerator Confetti()
         {
+            yield return new WaitForSeconds(1f);
             for (int i = 0; i < confettiSpawn.Count; i++)
             {
                 Instantiate(confettiPrefab, confettiSpawn[i]);
             }
-            yield return new WaitForSeconds(2f);
-            StartCoroutine(Confetti());
+            /*yield return new WaitForSeconds(6f);
+            StartCoroutine(Confetti());*/
         }
     }
 }
