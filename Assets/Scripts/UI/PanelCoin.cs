@@ -13,6 +13,7 @@ namespace TeamAlpha.Source
         [SerializeField] private TMP_Text coinText;
         [SerializeField] private GameObject coinIcon;
         private static int allCoin;
+        public int AllCoin => allCoin;
         
        
 

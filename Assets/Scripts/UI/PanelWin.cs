@@ -7,6 +7,7 @@ using UnityEngine;
 using Sirenix.OdinInspector;
 using UnityEngine.UI;
 
+
 namespace TeamAlpha.Source
 {
     public class PanelWin : MonoBehaviour
@@ -15,10 +16,12 @@ namespace TeamAlpha.Source
         public Panel panel;
         [Required]
         public Button buttonCountinue;
+        [SerializeField] private UIWinMoney uIWinMoney;
 
         public void Start()
         {
             buttonCountinue.onClick.AddListener(HandleButtonCountinueClick);
+            uIWinMoney.enabled = true;
         }
         private void HandleButtonCountinueClick()
         {
