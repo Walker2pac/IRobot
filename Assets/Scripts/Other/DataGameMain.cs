@@ -58,6 +58,9 @@ namespace TeamAlpha.Source
         public GameObject brokeEffect;
         public GameObject upgradeEffect;
 
+        [Header("FPS Indicator")]
+        public bool ShowIndicator;
+
         #endregion
 
 
@@ -73,5 +76,7 @@ namespace TeamAlpha.Source
             LayerNonCollision = LayerMask.NameToLayer(LayerNonCollisionName);
 
         }
+
+        
     }
 }

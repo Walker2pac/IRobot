@@ -40,6 +40,7 @@ namespace TeamAlpha.Source
         {
             if (other.gameObject.GetComponent<Bullet>())
             {
+                
                 if (breakingObject)
                 {
                     health -= 1;
@@ -49,13 +50,10 @@ namespace TeamAlpha.Source
                         {
                             dynamicOject.SetActive(true);
                             staticObject.SetActive(false);
-                        }
-
-                        Collider collider = GetComponentInChildren<Collider>();
-                        collider.enabled = false;
-
+                        }                                               
                         Broken(3);
                     }
+                    ColliderDisable();
                 }
             }
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
@@ -71,12 +69,10 @@ namespace TeamAlpha.Source
                 }
                 else
                 {
-
                     PlayerController.Current.SendDamage(damageValue);
                     if (damageValue < 10)
                     {
-                        Collider collider = GetComponentInChildren<Collider>();
-                        collider.enabled = false;
+                        ColliderDisable();
                     }
                     if (breakingByPlayer)
                     {
@@ -96,6 +92,20 @@ namespace TeamAlpha.Source
 
             }
 
+        }
+
+        void ColliderDisable()
+        {
+            if (GetComponent<Collider>())
+            {
+                Collider collider = GetComponent<Collider>();
+                collider.enabled = false;
+            }
+            if (GetComponentInChildren<Collider>())
+            {
+                Collider colliderChild = GetComponentInChildren<Collider>();
+                colliderChild.enabled = false;
+            }
         }
 
         IEnumerator ScaleParts()
