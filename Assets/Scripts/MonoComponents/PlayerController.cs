@@ -237,7 +237,7 @@ namespace TeamAlpha.Source
         {
 
             FindObjectOfType<GirlController>().Happy();
-            _animacer.Play(_animTpose, 0.25f);
+            _animacer.Play(_animTpose);
             _animacer.gameObject.transform.rotation = Quaternion.Euler(-180, 0, 180);
             Invoke(nameof(TransferDetail),0.2f);
         }

@@ -144,6 +144,7 @@ namespace TeamAlpha.Source
         }
         public void Restart()
         {
+            FindObjectOfType<PanelCoin>().CoinLevel = 0;
             BrokenDetail[] brokenDetail = FindObjectsOfType<BrokenDetail>();
             for (int i = 0; i < brokenDetail.Length; i++)
             {

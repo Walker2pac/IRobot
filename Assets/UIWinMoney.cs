@@ -11,22 +11,24 @@ namespace TeamAlpha.Source {
         [SerializeField] private Image lightImage;
         [SerializeField] private Image coinImage;
         [SerializeField] private TMP_Text coinTExt;
-        private int numberCoin;
-        private int number;
+        private int numberCoin = 0;
+        private int number = 0;
 
 
         private void Start()
         {
-            numberCoin = FindObjectOfType<PanelCoin>().AllCoin;
+            number = 0;
+            numberCoin = FindObjectOfType<PanelCoin>().CoinLevel + 1;
             lightImage.transform.DOScale(Vector3.one, 1f);
             coinImage.transform.DOScale(Vector3.one, 1f).OnComplete(() => StartCoroutine(CoinTextFinal()));
-            RitateLight();
+            RotateLight();
             Zoom();
             CoinTextFinal();
+            Debug.Log("money " + numberCoin);
             
         }
 
-        void RitateLight()
+        void RotateLight()
         {
             lightImage.transform.DORotate(new Vector3(0, 0, 360), 5f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(int.MaxValue, LoopType.Incremental);
         }

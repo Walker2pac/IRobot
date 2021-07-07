@@ -51,7 +51,7 @@ namespace TeamAlpha.Source
                             dynamicOject.SetActive(true);
                             staticObject.SetActive(false);
                         }                                               
-                        Broken(3);
+                        Broken(5);
                     }
                     ColliderDisable();
                 }
@@ -65,7 +65,7 @@ namespace TeamAlpha.Source
                         dynamicOject.SetActive(true);
                         staticObject.SetActive(false);
                     }
-                    Broken(10);
+                    Broken(12);
                 }
                 else
                 {
@@ -84,7 +84,7 @@ namespace TeamAlpha.Source
                         }
                         else
                         {
-                            Broken(5);
+                            Broken(7);
                         }
                     }
 
