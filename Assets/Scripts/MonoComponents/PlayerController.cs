@@ -230,7 +230,7 @@ namespace TeamAlpha.Source
             _detailController.FinishLevel();
             cameraSpline.gameObject.GetComponent<CameraAnimation>().FinishPosition();            
             _movingObject.ChangeSpeed(0f, 0f);
-            _animacer.gameObject.transform.DOMove(finishRobotPosition.position, 0.6f).OnComplete(() => SetFinishPosition());
+            _animacer.gameObject.transform.DOMove(finishRobotPosition.position, 0.1f).OnComplete(() => SetFinishPosition());
         }
 
         void SetFinishPosition()
