@@ -136,6 +136,7 @@ namespace TeamAlpha.Source
                 transform.SetAsLastSibling();
                 curState = State.Opened;
                 OnPanelShow.Invoke();
+                
             }
             else if (fadeMode == FadeMode.Out)
             {
@@ -157,12 +158,17 @@ namespace TeamAlpha.Source
                 //    if (panel.fading)
                 //        panel.transform.SetAsLastSibling();
                 //}
-                curState = State.Closed;
+                curState = State.Closed;    
+                if(curState == State.Closed)
+                {
+                    gameObject.SetActive(false);
+                }
                 OnPanelHide.Invoke();
             }
 
             //MonoUI.Default.panelLoading.transform.SetAsLastSibling();
             animator.Play(fadeMode == FadeMode.In ? AnimKeyPanelFadeIn : AnimKeyPanelFadeOut);
+            
         }
     }
 }

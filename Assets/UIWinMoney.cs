@@ -11,13 +11,18 @@ namespace TeamAlpha.Source {
         [SerializeField] private Image lightImage;
         [SerializeField] private Image coinImage;
         [SerializeField] private TMP_Text coinTExt;
+
+        [SerializeField] private TMP_Text levelText;
         private int numberCoin = 0;
         private int number = 0;
 
 
         private void Start()
         {
-            number = 0;
+            // number = 0;
+            // coinTExt.text = null;
+            int indexLevel = LayerDefault.Default.curLevelIndex + 1;
+            levelText.text = "Level " + indexLevel + "Passed!";
             numberCoin = FindObjectOfType<PanelCoin>().CoinLevel + 1;
             lightImage.transform.DOScale(Vector3.one, 1f);
             coinImage.transform.DOScale(Vector3.one, 1f).OnComplete(() => StartCoroutine(CoinTextFinal()));
@@ -25,7 +30,6 @@ namespace TeamAlpha.Source {
             Zoom();
             CoinTextFinal();
             Debug.Log("money " + numberCoin);
-            
         }
 
         void RotateLight()

@@ -121,7 +121,7 @@ namespace TeamAlpha.Source
         private float animSpeedGlobal;
         private bool playerWon;
         private bool playing;
-        private int curLevelIndex;
+        public int curLevelIndex;
         private List<AnimancerComponent> animancers = new List<AnimancerComponent>();
         private bool firstStartPassed;
         private DataGameMain dataGameMain;
