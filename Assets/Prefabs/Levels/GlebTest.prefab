@@ -5152,7 +5152,7 @@ PrefabInstance:
     - target: {fileID: 1489939616675687482, guid: 5c59cef4e7980ed4bbc31b391df74819,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2243557191292839143, guid: 5c59cef4e7980ed4bbc31b391df74819,
         type: 3}
@@ -5172,7 +5172,7 @@ PrefabInstance:
     - target: {fileID: 4164710161421847133, guid: 5c59cef4e7980ed4bbc31b391df74819,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5576951208026679586, guid: 5c59cef4e7980ed4bbc31b391df74819,
         type: 3}
@@ -5182,7 +5182,7 @@ PrefabInstance:
     - target: {fileID: 5736805011434556570, guid: 5c59cef4e7980ed4bbc31b391df74819,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5768152799263778469, guid: 5c59cef4e7980ed4bbc31b391df74819,
         type: 3}
@@ -5322,7 +5322,7 @@ PrefabInstance:
     - target: {fileID: 7990733319497389915, guid: 5c59cef4e7980ed4bbc31b391df74819,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8625377631428906671, guid: 5c59cef4e7980ed4bbc31b391df74819,
         type: 3}
@@ -7121,11 +7121,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1980935215, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
       propertyPath: levels.Array.data[0].upgradeObjects.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1980935215, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
       propertyPath: levels.Array.data[1].upgradeObjects.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1980935215, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
       propertyPath: levels.Array.data[2].upgradeObjects.Array.size
@@ -7134,7 +7134,7 @@ PrefabInstance:
     - target: {fileID: 1980935215, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
       propertyPath: levels.Array.data[0].upgradeObjects.Array.data[0]
       value: 
-      objectReference: {fileID: 169045397039923508}
+      objectReference: {fileID: 0}
     - target: {fileID: 1980935215, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
       propertyPath: levels.Array.data[0].upgradeObjects.Array.data[1]
       value: 
@@ -7143,6 +7143,10 @@ PrefabInstance:
       propertyPath: levels.Array.data[1].upgradeObjects.Array.data[0]
       value: 
       objectReference: {fileID: 169045397039923508}
+    - target: {fileID: 1980935215, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
+      propertyPath: levels.Array.data[1].upgradeObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2077104999, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
       propertyPath: parts.Array.data[0].spawnPoint
       value: 

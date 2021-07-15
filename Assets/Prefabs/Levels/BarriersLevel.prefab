@@ -14074,11 +14074,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1980935215, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
       propertyPath: levels.Array.data[0].upgradeObjects.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1980935215, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
       propertyPath: levels.Array.data[1].upgradeObjects.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1980935215, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
       propertyPath: levels.Array.data[2].upgradeObjects.Array.size
@@ -14089,13 +14089,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1980935215, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
+      propertyPath: levels.Array.data[0].upgradeObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1980935215, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
       propertyPath: levels.Array.data[1].upgradeObjects.Array.data[0]
       value: 
       objectReference: {fileID: 169045397039923508}
     - target: {fileID: 1980935215, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
       propertyPath: levels.Array.data[1].upgradeObjects.Array.data[1]
       value: 
-      objectReference: {fileID: 169045397039923508}
+      objectReference: {fileID: 0}
     - target: {fileID: 1980935215, guid: 8236275d7821d534d85dc917da8c27fe, type: 3}
       propertyPath: levels.Array.data[2].upgradeObjects.Array.data[0]
       value: 
