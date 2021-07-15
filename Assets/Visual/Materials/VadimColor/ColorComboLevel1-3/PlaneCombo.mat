@@ -10,7 +10,7 @@ Material:
   m_Name: PlaneCombo
   m_Shader: {fileID: 4800000, guid: 7ffc1bc2bbb1ef64f84b552b2d2f0619, type: 3}
   m_ShaderKeywords: TCP2_MOBILE TCP2_REFLECTIONS_FRESNEL TCP2_RIM_LIGHTING_LIGHTMASK
-    TCP2_UV_NORMALS_FULL
+    TCP2_SHADOW_TEXTURE TCP2_UV_NORMALS_FULL
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -121,7 +121,7 @@ Material:
     - _RampScale: 1
     - _RampSmooth: 0.179
     - _RampSmoothing: 0.3
-    - _RampThreshold: 0.82
+    - _RampThreshold: 0.465
     - _RampType: 0
     - _ReceiveShadowsOff: 1
     - _ReflectionMapType: 0
@@ -153,19 +153,19 @@ Material:
     - _UseReflections: 0
     - _UseRim: 0
     - _UseRimLightMask: 1
-    - _UseShadowTexture: 0
+    - _UseShadowTexture: 1
     - _UseSpecular: 0
     - _ZWrite: 1
     - __dummy__: 0
     m_Colors:
-    - _BaseColor: {r: 0.42021182, g: 0.42021182, b: 0.6698113, a: 1}
+    - _BaseColor: {r: 0.764151, g: 0.764151, b: 0.764151, a: 1}
     - _Color: {r: 0.41616234, g: 0.41616234, b: 0.5283019, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HColor: {r: 0.62767, g: 0.8063698, b: 0.8584906, a: 1}
     - _MatCapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectionColor: {r: 1, g: 1, b: 1, a: 1}
     - _RimColor: {r: 0.046991818, g: 0.9056604, b: 0.728178, a: 0.5}
-    - _SColor: {r: 0.98039216, g: 0.38235292, b: 0.38235292, a: 1}
+    - _SColor: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
     - _SpecColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _SpecularColor: {r: 0.75, g: 0.75, b: 0.75, a: 1}
