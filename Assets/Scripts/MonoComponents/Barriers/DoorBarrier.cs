@@ -17,18 +17,7 @@ namespace TeamAlpha.Source
 
         protected override void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.layer == DataGameMain.LayerPlayer)
-            {
-                if (Saw.Default.Spawned)
-                {
-                    base.OnTriggerEnter(other);
-                }
-                else
-                {
-                    Time.timeScale = 0.7f;
-                    PlayerController.Current.GameOver(true);
-                }
-            }
+            base.OnTriggerEnter(other);
         }
     }
 }
