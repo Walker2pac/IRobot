@@ -57,7 +57,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 515b70a08659d9d4ea971eb2c5f97b81, type: 2}
+  - {fileID: 2100000, guid: 97f88d2987f3a47489424946e340c958, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -144,6 +144,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageValue: 1
   breakingObject: 0
+  health: 0
+  breakingByPlayer: 0
+  changToDynamics: 0
+  ramCollider: {fileID: 0}
+  staticObject: {fileID: 0}
+  dynamicOject: {fileID: 0}
   partsBarrier: []
 --- !u!1001 &1329486778772044060
 PrefabInstance:
