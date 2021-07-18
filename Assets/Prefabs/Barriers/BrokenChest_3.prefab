@@ -400,7 +400,6 @@ GameObject:
   - component: {fileID: 6012419171908616033}
   - component: {fileID: 1950014733402863640}
   - component: {fileID: 291052890113184824}
-  - component: {fileID: 2239538031638576442}
   m_Layer: 0
   m_Name: BrokenChest_3
   m_TagString: Untagged
@@ -567,19 +566,6 @@ MonoBehaviour:
   - {fileID: 1808717158137419437}
   - {fileID: 1482929667226779123}
   - {fileID: 67169271870350842}
---- !u!65 &2239538031638576442
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1950014733402863646}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.5820187, y: 3.2608345, z: 1.5747432}
-  m_Center: {x: 0.007275164, y: 1.603527, z: -0.010912836}
 --- !u!1 &6201058694373695526
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,6 +575,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6720855722391616156}
+  - component: {fileID: 6952842411067749620}
   m_Layer: 0
   m_Name: Vbox4
   m_TagString: Untagged
@@ -614,3 +601,16 @@ Transform:
   m_Father: {fileID: 1950014733402863642}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6952842411067749620
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6201058694373695526}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5820187, y: 3.2608345, z: 1.5747432}
+  m_Center: {x: 0.007275164, y: 1.603527, z: -0.010912836}
