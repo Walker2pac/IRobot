@@ -1,12 +1,11 @@
 ﻿using Animancer;
 using Cinemachine;
-//using LionStudios;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-//using HomaGames.HomaBelly;
 using UnityEngine;
+using Tabtale.TTPlugins;
 
 namespace TeamAlpha.Source
 {
@@ -131,6 +130,7 @@ namespace TeamAlpha.Source
 
         public void Awake()
         {
+            TTPCore.Setup();
             UIManager.Default.CurState = UIManager.State.MainMenu;
 
             curLevelIndex = PlayerPrefs.GetInt(SaveKeyLastLevelIndex, 0);
