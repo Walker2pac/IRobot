@@ -27,6 +27,8 @@ namespace TeamAlpha.Source
         private int numberCoin = 0;
         private int number = 0;
 
+        private float timeCounter;
+
         private void OnEnable()
         {
             Debug.Log("start win");
@@ -41,6 +43,7 @@ namespace TeamAlpha.Source
             RotateLight();
             Zoom();
             CoinTextFinal();
+            timeCounter = 0.1f;
         }
         void RotateLight()
         {
@@ -63,8 +66,13 @@ namespace TeamAlpha.Source
                 {
                     coinTExt.text = i.ToString();
                 }
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(timeCounter);
                 number++;
+                if (timeCounter != 0.05f)
+                {
+                    timeCounter -= 0.002f;
+                }
+                
             }
         }
     

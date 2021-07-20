@@ -101,23 +101,31 @@ namespace TeamAlpha.Source
         IEnumerator DettachOneDetail()
         {
             float detailRatio = (float)_detailCount / FindObjectOfType<GirlController>().girlDetails.Count;
-            float a = (float)allHavenDetail / detailRatio;
+
+            float a = allHavenDetail / detailRatio;
             int numberAttachDetail = Mathf.RoundToInt(a);
-            int b = 0;
             for (int i = 0; i < allHavenDetail; i++)
             {
-                RobotDetails detail = GetPrevious();
-                if (detail)
+
+
+                for (int j = 0; j < 2; j++)
                 {
-                    detail.DettachDetail(dettachTrail, dettachPoint);
-                    b++;
+                    RobotDetails detail = GetPrevious();
+                    if (detail) { detail.DettachDetail(dettachTrail, dettachPoint); }
+
+                }
+
+                {
                     yield return new WaitForSeconds(0.15f);
-                    if (b >= detailRatio)
+                    while (numberAttachDetail != 0)
                     {
                         FindObjectOfType<GirlController>().AttachDetail();
-                        b = 0;
+                        numberAttachDetail -= 1;
+                        break;
                     }
                 }
+
+
             }
             FindObjectOfType<GirlController>().Dance();
             LevelController.Current.CompleteLevel(true);
@@ -172,10 +180,6 @@ namespace TeamAlpha.Source
                     if (trueIndex >= 0)
                     {
                         trueIndex -= _details[l.type].Count;
-                    }
-                    else
-                    {
-                        Debug.Log("BigDetail");
                     }
                 }
             }
