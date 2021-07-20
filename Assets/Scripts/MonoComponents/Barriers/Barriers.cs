@@ -51,9 +51,10 @@ namespace TeamAlpha.Source
                             dynamicOject.SetActive(true);
                             staticObject.SetActive(false);
                         }
+                        
                         Broken(5);
                     }
-                    ColliderDisable();
+                    
                 }
             }
             if (other.gameObject.layer == DataGameMain.LayerPlayer)
@@ -115,6 +116,7 @@ namespace TeamAlpha.Source
         }
         protected virtual void Broken(float force)
         {
+            ColliderDisable();
             for (int i = 0; i < partsBarrier.Count; i++)
             {
                 Vector3 randomVector = Vector3.one * Random.Range(-1, 2);
