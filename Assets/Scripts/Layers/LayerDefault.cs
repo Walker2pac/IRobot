@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Tabtale.TTPlugins;
 
 namespace TeamAlpha.Source
 {
@@ -130,7 +129,6 @@ namespace TeamAlpha.Source
 
         public void Awake()
         {
-            TTPCore.Setup();
             UIManager.Default.CurState = UIManager.State.MainMenu;
 
             curLevelIndex = PlayerPrefs.GetInt(SaveKeyLastLevelIndex, 0);
