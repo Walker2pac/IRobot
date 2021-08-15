@@ -113,10 +113,10 @@ MonoBehaviour:
   breakingObject: 0
   health: 0
   breakingByPlayer: 0
-  wall: 0
+  changToDynamics: 0
   ramCollider: {fileID: 0}
-  staticWall: {fileID: 0}
-  dynamicWall: {fileID: 0}
+  staticObject: {fileID: 0}
+  dynamicOject: {fileID: 0}
   partsBarrier: []
 --- !u!1 &6009297704953496319
 GameObject:
@@ -338,9 +338,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 0
-      minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6320754, g: 0, b: 0, a: 0.4117647}
+      minMaxState: 2
+      minColor: {r: 0.47946098, g: 0.17699999, b: 1, a: 1}
+      maxColor: {r: 0.35495108, g: 0, b: 0.6313726, a: 0.4117647}
       maxGradient:
         serializedVersion: 2
         key0: {r: 0.6792453, g: 0.009611944, b: 0.009611944, a: 1}

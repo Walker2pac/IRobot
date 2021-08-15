@@ -180,12 +180,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageValue: 2
   breakingObject: 0
-  breakingByBullet: 0
-  wall: 0
-  ramCollider: {fileID: 0}
-  staticWall: {fileID: 0}
-  dynamicWall: {fileID: 0}
   health: 0
+  breakingByPlayer: 0
+  changToDynamics: 0
+  ramCollider: {fileID: 0}
+  staticObject: {fileID: 0}
+  dynamicOject: {fileID: 0}
   partsBarrier: []
   points:
   - {fileID: 1373168139682305148}
